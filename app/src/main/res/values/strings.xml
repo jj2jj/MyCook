@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MyCookAssistant</string>
+    <string name="main_page">首页</string>
+    <string name="works">作品</string>
+    <string name="collect">收藏</string>
+    <string name="classification">分类</string>
+    <string name="mine">我</string>
+
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_free_play">Free Play</string>
+    <string name="drawer_item_custom">Custom</string>
+    <string name="drawer_item_settings">Setting</string>
+    <string name="drawer_item_help">Help</string>
+    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_contact">Contact</string>
+
+    <string name="more">More</string>
+
+</resources>
