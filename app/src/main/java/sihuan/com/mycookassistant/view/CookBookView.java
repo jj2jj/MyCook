@@ -167,7 +167,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                 vpContent.setCurrentItem(3, false);
                 break;
             case R.id.mine:
-                vpContent.setCurrentItem(3, false);
+                vpContent.setCurrentItem(4, false);
                 break;
         }
     }
