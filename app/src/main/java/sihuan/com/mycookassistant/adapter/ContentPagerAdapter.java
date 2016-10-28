@@ -1,10 +1,10 @@
 package sihuan.com.mycookassistant.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+		import android.support.v4.app.Fragment;
+		import android.support.v4.app.FragmentManager;
+		import android.support.v4.app.FragmentPagerAdapter;
 
-import java.util.List;
+		import java.util.List;
 
 /**
  * Description: ContentPagerAdapter

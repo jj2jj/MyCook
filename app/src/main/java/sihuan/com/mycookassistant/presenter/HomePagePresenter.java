@@ -19,6 +19,7 @@ public class HomePagePresenter extends RxPresenter implements HomePageContract.P
 
     public HomePagePresenter(@NonNull HomePageContract.View view) {
         mView = view;
+        mView.setPresenter(this);
         getBannerData();
     }
 

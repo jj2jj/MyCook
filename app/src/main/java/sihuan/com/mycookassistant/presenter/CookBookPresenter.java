@@ -16,6 +16,7 @@ public class CookBookPresenter extends RxPresenter implements CookBookContract.P
 
     public CookBookPresenter(CookBookView view) {
         mView = view;
+        mView.setPresenter(this);
         mView.initNavigationDrawer();
 //        getTabData();
     }

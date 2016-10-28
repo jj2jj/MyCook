@@ -40,6 +40,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.6'
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
+    compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
     compile('com.mikepenz.materialdrawer:library:0.9.5@aar') {
         transitive = true
     }

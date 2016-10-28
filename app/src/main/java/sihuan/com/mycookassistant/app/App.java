@@ -3,6 +3,8 @@ package sihuan.com.mycookassistant.app;
 import android.app.Activity;
 import android.app.Application;
 
+import com.avos.avoscloud.AVOSCloud;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +25,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
+        AVOSCloud.setDebugLogEnabled(true);
 
     }
 

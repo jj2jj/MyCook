@@ -22,14 +22,10 @@ public class CookBookActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_book);
-        inint();
         mUnbinder = ButterKnife.bind(this);
         mPresenter = new CookBookPresenter(mView);
     }
 
-    protected void inint() {
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
