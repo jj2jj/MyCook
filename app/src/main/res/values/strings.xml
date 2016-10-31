@@ -28,6 +28,7 @@
     <string name="error_again_password">两次密码不匹配</string>
     <string name="error_incorrect_password">密码不正确</string>
     <string name="error_field_required">此处必填</string>
+    <string name="drawer_item_logout">注销账户</string>
     <string name="logining">登录中</string>
 
 </resources>

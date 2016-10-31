@@ -2,18 +2,18 @@ package sihuan.com.mycookassistant.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
 import com.google.common.base.Preconditions;
 import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
@@ -21,9 +21,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Badgeable;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +29,7 @@ import java.util.List;
 import butterknife.BindView;
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.activity.CookBookActivity;
+import sihuan.com.mycookassistant.activity.LoginActivity;
 import sihuan.com.mycookassistant.adapter.ContentPagerAdapter;
 import sihuan.com.mycookassistant.base.RootView;
 import sihuan.com.mycookassistant.fragment.Fragment2;
@@ -173,67 +172,64 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     }
 
 
+    @Override
     public void initNavigationDrawer() {
+        final PrimaryDrawerItem item1=new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1) ;
+        PrimaryDrawerItem item2=new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad);
+        PrimaryDrawerItem item3=new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withBadge("6").withIdentifier(2);
+        SecondaryDrawerItem item4=new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(3);
+        SecondaryDrawerItem item5=new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_question).withIdentifier(4);
+        SecondaryDrawerItem item6= new SecondaryDrawerItem().withName(R.string.drawer_item_logout).withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(9);
         drawerResult = new Drawer()
                 .withActivity(mActivity)
                 .withToolbar(mToolbar)
                 .withActionBarDrawerToggle(true)
                 .withHeader(R.layout.drawer_header)
                 .addDrawerItems(
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad),
-                        new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withBadge("6").withIdentifier(2),
-                        new SectionDrawerItem().withName(R.string.drawer_item_settings),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_question).setEnabled(false),
+                        item1,
                         new DividerDrawerItem(),
-                        new SecondaryDrawerItem().withName(R.string.drawer_item_contact).withIcon(FontAwesome.Icon.faw_github).withBadge("12+").withIdentifier(1)
-                )
-                .withOnDrawerListener(new Drawer.OnDrawerListener() {
+                        item2,
+                        item3,
+                        new SectionDrawerItem().withName(R.string.drawer_item_settings),
+                        item4,
+                        item5,
+                        new DividerDrawerItem(),
+                        item6
+                ).withOnDrawerListener(new Drawer.OnDrawerListener() {
                     @Override
                     public void onDrawerOpened(View drawerView) {
                         //打开 navigation Drawer隐藏键盘
-                        InputMethodManager inputMethodManager = (InputMethodManager) mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                        InputMethodManager inputMethodManager = (InputMethodManager)mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
                         inputMethodManager.hideSoftInputFromWindow(mActivity.getCurrentFocus().getWindowToken(), 0);
                     }
-
                     @Override
                     public void onDrawerClosed(View drawerView) {
+                        //
                     }
-                })
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                }).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     // 处理集合
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        if (drawerItem instanceof Nameable) {
-                            Toast.makeText(mContext, mContext.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
+                        switch (drawerItem.getIdentifier()){
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            case 9:
+                                //注销当前账户，返回登录界面
+                                AVUser.getCurrentUser().logOut();
+                                // startActivity(new Intent(CookBookActivity.this, LoginActivity.class));
+                                mActivity.startActivity(new Intent(mActivity,LoginActivity.class));
+                                mActivity.finish();
+                                break;
                         }
-                        if (drawerItem instanceof Badgeable) {
-                            Badgeable badgeable = (Badgeable) drawerItem;
-                            if (badgeable.getBadge() != null) {
-                                // 如果有 "+"，不要这样处理
-                                try {
-                                    int badge = Integer.valueOf(badgeable.getBadge());
-                                    if (badge > 0) {
-                                        drawerResult.updateBadge(String.valueOf(badge - 1), position);
-                                    }
-                                } catch (Exception e) {
-                                    Log.d("test", "Не нажимайте на бейдж, содержащий плюс! :)");
-                                }
-                            }
-                        }
-                    }
-                })
-                .withOnDrawerItemLongClickListener(new Drawer.OnDrawerItemLongClickListener() {
-                    @Override
-                    // 事件处理
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        if (drawerItem instanceof SecondaryDrawerItem) {
-                            Toast.makeText(mContext, mContext.getString(((SecondaryDrawerItem) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
-                        }
-                        return false;
                     }
                 })
                 .build();
+
     }
 }

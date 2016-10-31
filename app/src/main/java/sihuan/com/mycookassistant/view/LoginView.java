@@ -83,6 +83,7 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
     protected void initView() {
         mActivity = (LoginActivity) mContext;
         mActivity.setSupportActionBar(mToolbar);
+       // mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity.getSupportActionBar().setTitle(mContext.getString(R.string.login));
     }
 
@@ -201,4 +202,5 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
         }
         return false;
     }
+
 }
