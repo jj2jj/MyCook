@@ -39,9 +39,6 @@ public class RegisterView extends RootView<RegisterContract.Presenter> implement
     @BindView(R.id.register_password)
     EditText mPassword_Rgst;
 
-    @BindView(R.id.register_progress)
-    View mProgress_Rgst;
-
     @BindView(R.id.register_form)
     View mRegisterFormView;
 

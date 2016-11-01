@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
-
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.activity.CookBookActivity;
 import sihuan.com.mycookassistant.base.RxPresenter;
@@ -43,7 +42,7 @@ public class RegisterPresenter extends RxPresenter implements RegisterContract.P
             mRegisterView.requestFocus(RegisterContract.View.USERNAME);
             return;
         }
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mRegisterView.SetPasswordError(mRegisterView.getString(R.string.error_invalid_password));
             mRegisterView.requestFocus(LoginContract.View.PASSWORD);
             return;

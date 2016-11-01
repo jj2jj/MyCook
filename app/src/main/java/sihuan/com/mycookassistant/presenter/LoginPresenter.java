@@ -32,7 +32,7 @@ public class LoginPresenter extends RxPresenter implements LoginContract.Present
         mView.SetPasswordError(null);
         String username = mView.getUsername();
         String password = mView.getPassword();
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mView.SetPasswordError(mView.getString(R.string.error_invalid_password));
             mView.requestFocus(LoginContract.View.PASSWORD);
             return;

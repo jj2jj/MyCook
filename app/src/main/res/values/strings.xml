@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyCookAssistant</string>
+    <string name="app_name">基于Android的智能语音烹饪助手</string>
     <string name="main_page">首页</string>
     <string name="works">作品</string>
     <string name="collect">收藏</string>

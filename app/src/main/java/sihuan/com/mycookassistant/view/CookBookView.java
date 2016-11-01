@@ -1,6 +1,5 @@
 package sihuan.com.mycookassistant.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
@@ -8,20 +7,23 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.avos.avoscloud.AVUser;
 import com.google.common.base.Preconditions;
-import com.mikepenz.iconics.typeface.FontAwesome;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +79,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
     CookBookActivity mActivity;
 
-    Drawer.Result drawerResult = null;
 
     public CookBookView(Context context) {
         super(context);
@@ -171,20 +172,35 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         }
     }
 
+    Drawer result = null;
 
     @Override
     public void initNavigationDrawer() {
-        final PrimaryDrawerItem item1=new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1) ;
-        PrimaryDrawerItem item2=new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad);
-        PrimaryDrawerItem item3=new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withBadge("6").withIdentifier(2);
-        SecondaryDrawerItem item4=new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(3);
-        SecondaryDrawerItem item5=new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_question).withIdentifier(4);
-        SecondaryDrawerItem item6= new SecondaryDrawerItem().withName(R.string.drawer_item_logout).withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(9);
-        drawerResult = new Drawer()
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(mActivity)
+                .withHeaderBackground(R.drawable.header)
+                .addProfiles(
+                        new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.mipmap.ic_launcher))
+                )
+                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+                    @Override
+                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+                        return false;
+                    }
+                })
+                .build();
+
+        final PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1);
+        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withBadge("6").withIdentifier(2);
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(3);
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_question).withIdentifier(4);
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withName(R.string.drawer_item_logout).withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(9);
+
+        result = new DrawerBuilder()
                 .withActivity(mActivity)
                 .withToolbar(mToolbar)
-                .withActionBarDrawerToggle(true)
-                .withHeader(R.layout.drawer_header)
+                .withAccountHeader(headerResult)
                 .addDrawerItems(
                         item1,
                         new DividerDrawerItem(),
@@ -195,22 +211,13 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                         item5,
                         new DividerDrawerItem(),
                         item6
-                ).withOnDrawerListener(new Drawer.OnDrawerListener() {
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+
                     @Override
-                    public void onDrawerOpened(View drawerView) {
-                        //打开 navigation Drawer隐藏键盘
-                        InputMethodManager inputMethodManager = (InputMethodManager)mActivity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-                        inputMethodManager.hideSoftInputFromWindow(mActivity.getCurrentFocus().getWindowToken(), 0);
-                    }
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        //
-                    }
-                }).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    // 处理集合
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id, IDrawerItem drawerItem) {
-                        switch (drawerItem.getIdentifier()){
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        // do something with the clicked item :D
+                        switch ((int) drawerItem.getIdentifier()) {
                             case 1:
                                 break;
                             case 2:
@@ -223,13 +230,14 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                                 //注销当前账户，返回登录界面
                                 AVUser.getCurrentUser().logOut();
                                 // startActivity(new Intent(CookBookActivity.this, LoginActivity.class));
-                                mActivity.startActivity(new Intent(mActivity,LoginActivity.class));
+                                mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
                                 mActivity.finish();
                                 break;
                         }
+
+                        return false;
                     }
                 })
                 .build();
-
     }
 }
