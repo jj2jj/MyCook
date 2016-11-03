@@ -27,7 +27,6 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     @BindView(R.id.banner)
     Banner mBanner;
 
-
     public HomePageView(Context context) {
         super(context);
     }
@@ -64,7 +63,6 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     public void showError(String msg) {
 
     }
-
     @Override
     public void setBanner(List list) {
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
@@ -79,4 +77,5 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
         mBanner.setBannerTitles(titles);
         mBanner.start();
     }
+
 }

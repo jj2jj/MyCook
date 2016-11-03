@@ -1,5 +1,6 @@
 package sihuan.com.mycookassistant.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,12 +19,15 @@ public class CookBookActivity extends BaseActivity {
     CookBookView mView;
     CookBookPresenter mPresenter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_book);
         mUnbinder = ButterKnife.bind(this);
         mPresenter = new CookBookPresenter(mView);
+
+
     }
 
 
@@ -34,10 +38,16 @@ public class CookBookActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                Toast.makeText(this, "add", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(CookBookActivity.this, PublishActivity.class));
                 break;
             case R.id.More:
                 Toast.makeText(this, "more", Toast.LENGTH_SHORT).show();

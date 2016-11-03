@@ -27,12 +27,12 @@ public class RegisterActivity extends BaseActivity {
         setContentView(R.layout.activity_register);
         inint();
         mUnbinder = ButterKnife.bind(this);
-        mPresenter =new RegisterPresenter(mRegisterView);
+        mPresenter = new RegisterPresenter(mRegisterView);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId()==android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             mRegisterView.navigateToActivity(LoginActivity.class);
             //startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             RegisterActivity.this.finish();

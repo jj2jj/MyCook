@@ -23,7 +23,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_login);
+        setContentView(R.layout.activity_login);
         mUnbinder = ButterKnife.bind(this);
         mPresenter = new LoginPresenter(mLoginView);
     }

@@ -46,6 +46,7 @@ import sihuan.com.mycookassistant.widget.UnScrollViewPager;
 
 public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View, RadioGroup.OnCheckedChangeListener {
 
+
 //    @BindView(R.id.toolbar)
 //    Toolbar mToolbar;
 
@@ -106,7 +107,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         vpContent.setAdapter(mPagerAdapter);
         vpContent.setOffscreenPageLimit(fragments.size());
         mActivity.setSupportActionBar(mToolbar);
-//        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 

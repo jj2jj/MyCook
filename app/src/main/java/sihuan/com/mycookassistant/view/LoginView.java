@@ -45,7 +45,7 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
     EditText mPassword;
 
     @BindView(R.id.remember_password)
-    CheckBox mRbPassWord;
+    CheckBox mRemberPassWord;
 
     @BindView(R.id.auto_login)
     CheckBox mAutoLogin;
@@ -58,6 +58,7 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
 
     @BindView(R.id.login_form)
     LinearLayout mLoginFormView;
+
     LoginActivity mActivity;
     ProgressDialog mPgDialog;
 
@@ -83,7 +84,7 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
     protected void initView() {
         mActivity = (LoginActivity) mContext;
         mActivity.setSupportActionBar(mToolbar);
-       // mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity.getSupportActionBar().setTitle(mContext.getString(R.string.login));
     }
 
@@ -93,6 +94,7 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
             @Override
             public void onClick(View view) {
                 mPresenter.attemptLogin();
+
             }
         });
 

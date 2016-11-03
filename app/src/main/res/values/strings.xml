@@ -30,5 +30,6 @@
     <string name="error_field_required">此处必填</string>
     <string name="drawer_item_logout">注销账户</string>
     <string name="logining">登录中</string>
+    <string name="publish">上传</string>
 
 </resources>

@@ -20,7 +20,6 @@ import sihuan.com.mycookassistant.view.LoginView;
 public class LoginPresenter extends RxPresenter implements LoginContract.Presenter {
     LoginView mView;
 
-
     public LoginPresenter(LoginView view) {
         mView = view;
         mView.setPresenter(this);
@@ -57,6 +56,8 @@ public class LoginPresenter extends RxPresenter implements LoginContract.Present
             }
         });
     }
+
+
 
 
     private boolean isPasswordValid(String password) {

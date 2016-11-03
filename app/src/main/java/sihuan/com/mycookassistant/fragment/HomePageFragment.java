@@ -30,4 +30,11 @@ public class HomePageFragment<T extends BasePresenter> extends BaseFragment {
         super.initView(inflater);
         mPresenter = new HomePagePresenter(mView);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+
 }

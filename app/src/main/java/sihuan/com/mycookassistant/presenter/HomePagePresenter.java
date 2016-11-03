@@ -30,6 +30,7 @@ public class HomePagePresenter extends RxPresenter implements HomePageContract.P
     }
 
 
+
     /**
      * 模拟
      * 轮播广播模拟数据
