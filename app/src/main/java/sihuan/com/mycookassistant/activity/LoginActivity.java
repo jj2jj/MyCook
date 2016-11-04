@@ -26,5 +26,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         mUnbinder = ButterKnife.bind(this);
         mPresenter = new LoginPresenter(mLoginView);
+
+        mLoginView.autoLogin();
     }
 }

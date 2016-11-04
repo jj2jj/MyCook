@@ -32,10 +32,15 @@ public interface LoginContract {
 
         void showToast(String s);
 
+
+
+
+
     }
 
     interface Presenter extends BasePresenter {
         void attemptLogin();
+
     }
 
 }

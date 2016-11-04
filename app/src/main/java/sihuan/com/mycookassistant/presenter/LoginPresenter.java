@@ -1,5 +1,6 @@
 package sihuan.com.mycookassistant.presenter;
 
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.avos.avoscloud.AVException;
@@ -19,6 +20,9 @@ import sihuan.com.mycookassistant.view.LoginView;
 
 public class LoginPresenter extends RxPresenter implements LoginContract.Presenter {
     LoginView mView;
+
+    SharedPreferences mSP;
+    SharedPreferences.Editor editor;
 
     public LoginPresenter(LoginView view) {
         mView = view;
@@ -56,9 +60,6 @@ public class LoginPresenter extends RxPresenter implements LoginContract.Present
             }
         });
     }
-
-
-
 
     private boolean isPasswordValid(String password) {
         return password.length() > 4;

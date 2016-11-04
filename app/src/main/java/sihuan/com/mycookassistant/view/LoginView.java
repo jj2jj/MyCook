@@ -3,6 +3,7 @@ package sihuan.com.mycookassistant.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -17,10 +18,12 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
 import com.google.common.base.Preconditions;
 
 import butterknife.BindView;
 import sihuan.com.mycookassistant.R;
+import sihuan.com.mycookassistant.activity.CookBookActivity;
 import sihuan.com.mycookassistant.activity.LoginActivity;
 import sihuan.com.mycookassistant.activity.RegisterActivity;
 import sihuan.com.mycookassistant.base.RootView;
@@ -61,6 +64,9 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
 
     LoginActivity mActivity;
     ProgressDialog mPgDialog;
+    SharedPreferences mSP;
+    SharedPreferences.Editor editor;
+    Boolean haveData;//判断SharedPreferences有没有数据
 
 
     public LoginView(Context context) {
@@ -94,7 +100,6 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
             @Override
             public void onClick(View view) {
                 mPresenter.attemptLogin();
-
             }
         });
 
@@ -146,6 +151,8 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
             mPgDialog = null;
         }
     }
+
+
 
     @Override
     public void navigateToActivty(Class clz) {
@@ -205,4 +212,15 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
         return false;
     }
 
+    public void autoLogin(){
+        if (mAutoLogin.isChecked()){
+
+
+            if (AVUser.getCurrentUser() != null) {
+                navigateToActivty(CookBookActivity.class);
+                //startActivity(new Intent(LoginActivity.this, CookBookActivity.class));
+                mActivity.finish();
+            }
+        }
+    }
 }
