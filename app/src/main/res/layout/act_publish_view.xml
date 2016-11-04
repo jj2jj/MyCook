@@ -40,7 +40,6 @@
             android:layout_marginTop="16dp"
             android:id="@+id/image_publish"
             android:layout_weight="1"
-            android:scaleType="centerCrop"
             android:src="@android:drawable/screen_background_light_transparent">
             </ImageView>
 
