@@ -14,6 +14,10 @@ public interface LoginContract {
         public static final String PASSWORD = "0";
         public static final String USERNAME = "1";
 
+        void setAutoLogin();
+// // TODO: 2016/11/4 记住密码 
+//        void isRe()
+
         void showProgress(boolean b);
 
         void navigateToActivty(Class clz);

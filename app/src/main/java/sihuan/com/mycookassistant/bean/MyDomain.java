@@ -82,4 +82,19 @@ public class MyDomain {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    @Override
+    public String toString() {
+        return "MyDomain{" +
+                "id='" + id + '\'' +
+                ", date='" + date + '\'' +
+                ", title='" + title + '\'' +
+                ", topicFrom='" + topicFrom + '\'' +
+                ", topic='" + topic + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", targetUrl='" + targetUrl + '\'' +
+                ", width=" + width +
+                ", height=" + height +
+                '}';
+    }
 }
