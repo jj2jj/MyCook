@@ -8,9 +8,9 @@ import sihuan.com.mycookassistant.base.BaseFragment;
  * Created by sihuan on 2016/10/25.
  */
 
-public class Fragment2 extends BaseFragment {
+public class Fragment3 extends BaseFragment {
     @Override
     protected int getLayout() {
-        return R.layout.fragment2;
+        return R.layout.fragment3;
     }
 }

@@ -15,13 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="220dp">
     </com.youth.banner.Banner>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list_cook_book"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
-
 </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

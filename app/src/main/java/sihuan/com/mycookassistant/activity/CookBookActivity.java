@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,14 +39,8 @@ public class CookBookActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add:
+        if (item.getItemId() == R.id.action_add)
                 startActivity(new Intent(CookBookActivity.this, PublishActivity.class));
-                break;
-            case R.id.More:
-                Toast.makeText(this, "more", Toast.LENGTH_SHORT).show();
-                break;
-        }
         return super.onOptionsItemSelected(item);
     }
 
