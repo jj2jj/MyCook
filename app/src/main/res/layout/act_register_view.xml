@@ -63,16 +63,20 @@
                 android:textColor="@color/gray"/>
         </android.support.design.widget.TextInputLayout>
 
+
         <Button
-            android:layout_alignParentBottom="true"
             android:id="@+id/register_button"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
             android:layout_marginTop="16dp"
             android:background="@drawable/background_button_div2"
             android:text="@string/action_sign_in"
-            android:textStyle="bold" />
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
 </LinearLayout>

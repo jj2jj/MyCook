@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/photodialog"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#d9d9d7"
+              android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/lv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ListView>
+
+    <!--<TextView
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#fdfdfd"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="通过拍照上传"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/gallery"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="1dp"
+        android:background="#fdfdfd"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="从本地图库选择"
+        android:textSize="18dp"/>-->
+
+</LinearLayout>

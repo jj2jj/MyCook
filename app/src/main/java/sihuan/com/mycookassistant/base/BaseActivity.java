@@ -1,5 +1,6 @@
 package sihuan.com.mycookassistant.base;
 
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
@@ -24,6 +25,9 @@ public class BaseActivity<T extends BasePresenter> extends SupportActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //1，让你的所有Activity都继承一个BaseActivity,然后在BaseActivity的onCreate()方法中加上
+        //2，Manifest.xml文件中为所有Activity加上配置属性 android:screenOrientation="portrait"
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         inint();
     }
 

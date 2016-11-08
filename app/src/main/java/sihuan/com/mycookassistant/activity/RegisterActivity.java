@@ -19,7 +19,6 @@ public class RegisterActivity extends BaseActivity {
 
     @BindView(R.id.register_view)
     RegisterView mRegisterView;
-    //RegisterPresenter mRegisterPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +33,16 @@ public class RegisterActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             mRegisterView.navigateToActivity(LoginActivity.class);
-            //startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             RegisterActivity.this.finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mRegisterView.navigateToActivity(LoginActivity.class);
+        RegisterActivity.this.finish();
+
     }
 }

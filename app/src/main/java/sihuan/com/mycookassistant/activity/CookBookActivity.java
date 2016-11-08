@@ -19,17 +19,13 @@ public class CookBookActivity extends BaseActivity {
     CookBookView mView;
     CookBookPresenter mPresenter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_book);
         mUnbinder = ButterKnife.bind(this);
         mPresenter = new CookBookPresenter(mView);
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,7 +37,6 @@ public class CookBookActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

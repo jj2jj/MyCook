@@ -8,6 +8,8 @@ import com.avos.avoscloud.AVOSCloud;
 import java.util.HashSet;
 import java.util.Set;
 
+import im.fir.sdk.FIR;
+
 /**
  * sihuan.com.mycookassistant.App
  * Created by sihuan on 2016/10/25.
@@ -24,12 +26,11 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FIR.init(this);
         instance = this;
         AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
         AVOSCloud.setDebugLogEnabled(true);
-
     }
-
 
     public void registerActivity(Activity act) {
         if (allActivities == null) {

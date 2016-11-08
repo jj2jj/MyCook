@@ -19,14 +19,11 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.login_view)
     LoginView mLoginView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mUnbinder = ButterKnife.bind(this);
         mPresenter = new LoginPresenter(mLoginView);
-
-        mLoginView.autoLogin();
     }
 }

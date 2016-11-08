@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import sihuan.com.mycookassistant.activity.LoginActivity;
 import sihuan.com.mycookassistant.activity.RegisterActivity;
 import sihuan.com.mycookassistant.base.RootView;
 import sihuan.com.mycookassistant.presenter.contract.LoginContract;
+import sihuan.com.mycookassistant.utils.PreUtils;
 
 import static android.app.AlertDialog.THEME_DEVICE_DEFAULT_LIGHT;
 
@@ -35,8 +37,10 @@ import static android.app.AlertDialog.THEME_DEVICE_DEFAULT_LIGHT;
  * sihuan.com.mycookassistant.view
  * Created by sihuan on 2016/10/27.
  */
-
+//// TODO: 2016/11/4  禁止横屏  over
 public class LoginView extends RootView<LoginContract.Presenter> implements LoginContract.View, OnEditorActionListener {
+    private static final String AUTO_LOGIN = "auto_login";
+    private static final String Remb_PassWd = "remb_passwd";
 
     @BindView(R.id.toolbar_login)
     Toolbar mToolbar;
@@ -90,8 +94,11 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
     protected void initView() {
         mActivity = (LoginActivity) mContext;
         mActivity.setSupportActionBar(mToolbar);
-        // mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivity.getSupportActionBar().setTitle(mContext.getString(R.string.login));
+
+
+
     }
 
     @Override
@@ -111,6 +118,21 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
         });
         mPassword.setOnEditorActionListener(this);
 
+        mAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton button, boolean b) {
+                mRemberPassWord.setChecked(true);
+            }
+        });
+        mRemberPassWord.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton button, boolean b) {
+           //     PreUtils.putBoolean()
+            }
+        });
+        boolean auto = PreUtils.getBoolean(mActivity, AUTO_LOGIN, false);
+        mAutoLogin.setChecked(auto);
+
     }
 
     @Override
@@ -120,6 +142,18 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
 
     @Override
     public void showError(String msg) {
+
+    }
+
+    @Override
+    public void setAutoLogin() {
+        PreUtils.putBoolean(mActivity, AUTO_LOGIN, mAutoLogin.isChecked());
+
+    }
+
+    @Override
+    public void isRemember() {
+
 
     }
 
