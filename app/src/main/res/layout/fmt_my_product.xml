@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              style="@style/both_match_style">
+
+    <sihuan.com.mycookassistant.view.MyProductView
+        android:id="@+id/my_product_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </sihuan.com.mycookassistant.view.MyProductView>
+
+
+</LinearLayout>

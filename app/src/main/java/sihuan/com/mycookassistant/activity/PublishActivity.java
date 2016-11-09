@@ -54,7 +54,7 @@ import sihuan.com.mycookassistant.base.BaseActivity;
 public class PublishActivity extends BaseActivity {
     private static final int CHOOSE_PICTURE = 3;
     public static final int TAKE_PHOTO = 1;
-    public static final int CROP_PHOTO = 2;
+   // public static final int CROP_PHOTO = 2;
 
     private ImageView mImage;
     private Uri imageUri;
@@ -66,7 +66,7 @@ public class PublishActivity extends BaseActivity {
     EditText mDescribeEdit;
     Button mSubmitBtn;
     PopupWindow popupWindow;
-    File cameraFile;
+   // File cameraFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
