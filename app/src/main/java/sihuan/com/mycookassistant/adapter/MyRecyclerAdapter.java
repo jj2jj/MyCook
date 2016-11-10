@@ -41,7 +41,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     @Override
     public void onBindViewHolder(MyRecyclerHolder holder, int position) {
         holder.mTitle.setText((CharSequence) mList.get(position).get("title"));
-        holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
+       // holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
         Glide.with(mContext).load(mList.get(position).getAVFile("image") == null ? "www" : mList.get(position).getAVFile("image").getUrl()).into(holder.mPicture);
         holder.mItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,13 +59,13 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     }
 
    public class MyRecyclerHolder extends RecyclerView.ViewHolder {
-        private TextView mName;
+      // private TextView mName;
         private TextView mTitle;
         private CardView mItem;
         private ImageView mPicture;
         public MyRecyclerHolder(View itemView) {
             super(itemView);
-            mName = (TextView) itemView.findViewById(R.id.name_item_recycler);
+            //mName = (TextView) itemView.findViewById(R.id.name_item_recycler);
             mTitle = (TextView) itemView.findViewById(R.id.title_item_recycler);
             mPicture = (ImageView) itemView.findViewById(R.id.picture_item_main);
             mItem = (CardView) itemView.findViewById(R.id.item_recycler);

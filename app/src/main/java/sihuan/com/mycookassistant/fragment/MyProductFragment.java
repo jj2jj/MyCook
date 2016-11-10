@@ -25,6 +25,8 @@ import sihuan.com.mycookassistant.adapter.MyRecyclerAdapter;
  * sihuan.com.mycookassistant.fragment
  * Created by sihuan on 2016/10/25.
  */
+// TODO: 2016-11-09 本周：上拉加载，下拉刷新
+
 
 public class MyProductFragment extends Fragment {
     private RecyclerView mRecyclerView;

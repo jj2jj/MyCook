@@ -35,7 +35,6 @@ import static android.app.AlertDialog.THEME_DEVICE_DEFAULT_LIGHT;
  * sihuan.com.mycookassistant.view
  * Created by sihuan on 2016/10/27.
  */
-//// TODO: 2016/11/4  禁止横屏  over
 public class LoginView extends RootView<LoginContract.Presenter> implements LoginContract.View, OnEditorActionListener {
     private static final String AUTO_LOGIN = "auto_login";
     private static final String Remb_PassWd = "remb_passwd";
