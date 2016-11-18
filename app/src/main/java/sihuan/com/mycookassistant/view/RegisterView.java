@@ -22,10 +22,9 @@ import sihuan.com.mycookassistant.activity.RegisterActivity;
 import sihuan.com.mycookassistant.base.RootView;
 import sihuan.com.mycookassistant.presenter.contract.RegisterContract;
 
-import static android.app.AlertDialog.THEME_DEVICE_DEFAULT_LIGHT;
-
 /**
  * Created by Jessica0906zjj on 2016-10-27.
+ * RegisterView
  */
 
 public class RegisterView extends RootView<RegisterContract.Presenter> implements RegisterContract.View, TextView.OnEditorActionListener {
@@ -110,7 +109,7 @@ public class RegisterView extends RootView<RegisterContract.Presenter> implement
 
     private void showDialog() {
         if (mPgDialog == null) {
-            mPgDialog = new ProgressDialog(mRegisterActivity, THEME_DEVICE_DEFAULT_LIGHT);
+            mPgDialog = new ProgressDialog(mRegisterActivity);
             mPgDialog.setMessage(getString(R.string.logining));
             mPgDialog.setCancelable(false);
             mPgDialog.setCanceledOnTouchOutside(false);

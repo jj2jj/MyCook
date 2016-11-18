@@ -30,7 +30,6 @@ import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.orhanobut.logger.Logger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -61,20 +60,6 @@ public class PublishActivity extends BaseActivity {
     EditText mStepEdit;
     EditText mDescribeEdit;
     Button mSubmitBtn;
-
-
-
-    /*
-            mRegisterActivity = (RegisterActivity) mContext;
-        mRegisterActivity.setSupportActionBar(mToolbar_Rgst);
-        mRegisterActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mRegisterActivity.getSupportActionBar().setTitle(mContext.getString(R.string.register));
-
-
-    @BindView(R.id.toolbar_login)
-    Toolbar mToolbar_Rgst;
-
-     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,14 +111,17 @@ public class PublishActivity extends BaseActivity {
             return;
         }
         mProgerss.setVisibility(View.VISIBLE);
+
+
 // TODO: 2016-11-09 实将下面代码抽成实体类  类似mydomain
         AVObject works = new AVObject("Works");
         works.put("title", mTitleEdit.getText().toString());
         works.put("step", mStepEdit.getText().toString());
         works.put("description", mDescribeEdit.getText().toString());
         works.put("owner", AVUser.getCurrentUser());
-        Logger.d("mImageBytes: " + mImageBytes);
+       // Logger.d("mImageBytes: " + mImageBytes);
         works.put("image", new AVFile("workPic", mImageBytes));
+
         works.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
@@ -150,7 +138,6 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void showDialog() {
-//        final AlertDialog dialog = new AlertDialog.Builder(this).create();//创建一个AlertDialog对象
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择");
         String[] choices = getResources().getStringArray(R.array.photo_choice);
@@ -173,45 +160,7 @@ public class PublishActivity extends BaseActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-//        View view = getLayoutInflater().inflate(R.layout.picture_dialog, null);//自定义布局
-//        dialog.setView(view, 0, 0, 0, 0);//把自定义的布局设置到dialog中，注意，布局设置一定要在show之前。从第二个参数分别填充内容与边框之间左、上、右、下、的像素
-//        dialog.show();//一定要先show出来再设置dialog的参数，不然就不会改变dialog的大小了
-//        int width = getWindowManager().getDefaultDisplay().getWidth();//得到当前显示设备的宽度，单位是像素
-//        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();//得到这个dialog界面的参数对象
-//        params.width = width - (width / 6);//设置dialog的界面宽度
-//        params.height = WindowManager.LayoutParams.WRAP_CONTENT;//设置dialog高度为包裹内容
-//        params.gravity = Gravity.CENTER;//设置dialog的重心
-//        //dialog.getWindow().setLayout(width-(width/6),  LayoutParams.WRAP_CONTENT);//用这个方法设置dialog大小也可以，但是这个方法不能设置重心之类的参数，推荐用Attributes设置
-//        dialog.getWindow().setAttributes(params);//最后把这个参数对象设置进去，即与dialog绑定
-//        dialogEvents(dialog, view);
     }
-
-//    private void dialogEvents(final AlertDialog dialog, View view) {
-//        Button takephotoBtn;
-//        Button choosephotoBtn;
-//        takephotoBtn = (Button) view.findViewById(R.id.takephotoBtn);
-//        takephotoBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                takePhoto();
-//                dialog.dismiss();
-//            }
-//
-//        });
-//
-//        choosephotoBtn = (Button) view.findViewById(R.id.choosephotoBtn);
-//        choosephotoBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //该常量让用户选择特定类型的数据，并返回该数据的URI.我们利用该常量，
-//                // 然后设置类型为“image/*”，就可获得Android手机内的所有image。
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.setType("image/*");
-//                startActivityForResult(intent, CHOOSE_PICTURE);
-//                dialog.dismiss();
-//            }
-//        });
-//    }
 
     private void takePhoto() {
         // 创建File对象，用于存储拍照后的图片,

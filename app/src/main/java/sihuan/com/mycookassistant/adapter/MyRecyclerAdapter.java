@@ -30,9 +30,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         this.mContext = context;
         this.mList = list;
     }
-
-
-
     @Override
     public MyRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
        return new MyRecyclerHolder(LayoutInflater.from(mContext).inflate(R.layout.item_recycler_list, parent, false));

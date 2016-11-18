@@ -52,7 +52,7 @@ public class LoginPresenter extends RxPresenter implements LoginContract.Present
             @Override
             public void done(AVUser avUser, AVException e) {
                 if (e == null) {
-                    mView.setAutoLogin();
+                    mView.setLoginInfo();
 //                    TODO: 2016/11/4 记住密码
 //                if (mView.isRemember()){
 //             }

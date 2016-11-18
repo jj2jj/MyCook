@@ -39,8 +39,8 @@ public class RegisterActivity extends BaseActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void onBackPressedSupport() {
+        super.onBackPressedSupport();
         mRegisterView.navigateToActivity(LoginActivity.class);
         RegisterActivity.this.finish();
 

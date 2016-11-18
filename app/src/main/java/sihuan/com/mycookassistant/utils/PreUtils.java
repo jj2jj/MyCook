@@ -91,4 +91,10 @@ public class PreUtils {
         return editor.commit();
     }
 
+    public static void removeAll(Context context) {
+        SharedPreferences.Editor editor = PreUtils.getSharedPreferences(context).edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }

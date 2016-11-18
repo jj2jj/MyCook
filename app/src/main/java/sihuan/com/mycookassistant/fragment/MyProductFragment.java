@@ -59,23 +59,24 @@ public class MyProductFragment extends Fragment {
     }
 
     private void initData() {
-        mList.clear();
-        AVQuery<AVObject> avQuery = new AVQuery<>("Works");
-        avQuery.orderByDescending("createdAt");
-        String user = AVUser.getCurrentUser().getObjectId();
-        avQuery.whereEqualTo("owner",AVObject.createWithoutData("_User",user));
-        Log.i("user",user);
-        //avQuery.include("owner");//include是指AVObject中的内容
-        avQuery.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-                if (e == null) {
-                    mList.addAll(list);
-                    mRecyclerAdapter.notifyDataSetChanged();
-                } else {
-                    e.printStackTrace();
+                    mList.clear();
+                    AVQuery<AVObject> avQuery = new AVQuery<>("Works");
+                    avQuery.orderByDescending("createdAt");
+                    String user = AVUser.getCurrentUser().getObjectId();
+                    avQuery.whereEqualTo("owner",AVObject.createWithoutData("_User",user));
+                    Log.i("user",user);
+                    //avQuery.include("owner");//include是指AVObject中的内容
+                    avQuery.findInBackground(new FindCallback<AVObject>() {
+                        @Override
+                        public void done(List<AVObject> list, AVException e) {
+                            if (e == null) {
+                                mList.addAll(list);
+                                mRecyclerAdapter.notifyDataSetChanged();
+                            } else {
+                                e.printStackTrace();
                 }
             }
         });
     }
+
 }

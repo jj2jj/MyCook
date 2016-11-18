@@ -38,6 +38,7 @@ import sihuan.com.mycookassistant.fragment.Fragment3;
 import sihuan.com.mycookassistant.fragment.HomePageFragment;
 import sihuan.com.mycookassistant.fragment.MyProductFragment;
 import sihuan.com.mycookassistant.presenter.contract.CookBookContract;
+import sihuan.com.mycookassistant.utils.PreUtils;
 import sihuan.com.mycookassistant.widget.UnScrollViewPager;
 
 /**
@@ -48,11 +49,7 @@ import sihuan.com.mycookassistant.widget.UnScrollViewPager;
 public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View, RadioGroup.OnCheckedChangeListener {
 
 
-//    @BindView(R.id.toolbar)
-//    Toolbar mToolbar;
 
-    //   @BindView(R.id.main_content)
-//    FrameLayout mainContent;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
@@ -103,7 +100,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     protected void initView() {
         mActivity = (CookBookActivity) mContext;
         List<Fragment> fragments = initFragments();
-        vpContent.setScrollable(false);
+        vpContent.setScrollable(true);
         mPagerAdapter = new ContentPagerAdapter(mActivity.getSupportFragmentManager(), fragments);
         vpContent.setAdapter(mPagerAdapter);
         vpContent.setOffscreenPageLimit(fragments.size());
@@ -125,7 +122,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     @Override
     protected void initEvent() {
         mRadioGroup.setOnCheckedChangeListener(this);
-        vpContent.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -181,7 +178,8 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                 .withActivity(mActivity)
                 .withHeaderBackground(R.drawable.header)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("Mike Penz").withEmail("mikepenz@gmail.com").withIcon(getResources().getDrawable(R.mipmap.ic_launcher))
+                        new ProfileDrawerItem().withName(AVUser.getCurrentUser().getUsername()).withEmail("jjzjj@163.com")
+                                .withIcon(getResources().getDrawable(R.drawable.taylor))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -191,9 +189,10 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                 })
                 .build();
 
-        final PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withBadge("99").withIdentifier(1);
+
+        final PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1);
         PrimaryDrawerItem item2 = new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withBadge("6").withIdentifier(2);
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(2);
         SecondaryDrawerItem item4 = new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(3);
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_question).withIdentifier(4);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withName(R.string.drawer_item_logout).withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(9);
@@ -220,6 +219,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                         // do something with the clicked item :D
                         switch ((int) drawerItem.getIdentifier()) {
                             case 1:
+                                vpContent.setCurrentItem(0, false);
                                 break;
                             case 2:
                                 break;
@@ -230,9 +230,11 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                             case 9:
                                 //注销当前账户，返回登录界面
                                 AVUser.getCurrentUser().logOut();
+                                PreUtils.removeAll(mActivity);
                                 // startActivity(new Intent(CookBookActivity.this, LoginActivity.class));
                                 mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
                                 mActivity.finish();
+
                                 break;
                         }
 
