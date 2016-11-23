@@ -1,10 +1,9 @@
 package sihuan.com.mycookassistant.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,67 +13,110 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.adapter.MyRecyclerAdapter;
+import sihuan.com.mycookassistant.bean.Works;
 
 /**
  * sihuan.com.mycookassistant.fragment
  * Created by sihuan on 2016/10/25.
  */
-// TODO: 2016-11-09 本周：上拉加载，下拉刷新
-
-
 public class MyProductFragment extends Fragment {
-    private RecyclerView mRecyclerView;
-
-    private MyRecyclerAdapter mRecyclerAdapter;
-    private List<AVObject> mList = new ArrayList<>();
-
+    private int refreshTime = 0;
+    private int times = 0;
+    private int limit = 5;
+    private int skip = 0;
+    private XRecyclerView mRecyclerView;
+    private MyRecyclerAdapter myRecyclerAdapter;
+    private List<Works> mlist = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fmt_my_product_view, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_list);
+        View view = inflater.inflate(R.layout.fmt_my_product_view, container, false);
+        mRecyclerView = (XRecyclerView) view.findViewById(R.id.recycler_list);
         mRecyclerView.setHasFixedSize(true);
         //setHasFixedSize()方法用来使RecyclerView保持固定的大小
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerAdapter = new MyRecyclerAdapter(mList, getActivity());
-        mRecyclerView.setAdapter(mRecyclerAdapter);
+
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
+        mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+       // mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
+
+        LoadEvent();
+
+        myRecyclerAdapter = new MyRecyclerAdapter(mlist,getActivity());
+        mRecyclerView.setAdapter(myRecyclerAdapter);
+        mRecyclerView.setRefreshing(true);
+      //  mRecyclerView.setPullRefreshEnabled(true);
         return view;
     }
 
+    private void LoadEvent() {
+        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mlist.clear();
+                        getData(0);
+                        mRecyclerView.refreshComplete();//下拉刷新完成
+                    }
+                },1500);
+                skip = 0;
+            }
+            @Override
+            public void onLoadMore() {
+                // load more data here
+
+                     skip++;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getData(skip);
+                            mRecyclerView.loadMoreComplete();//加载更多完成
+                        }
+                    },1500);
+            }
+        });
+
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        initData();
     }
 
-    private void initData() {
-                    mList.clear();
-                    AVQuery<AVObject> avQuery = new AVQuery<>("Works");
-                    avQuery.orderByDescending("createdAt");
-                    String user = AVUser.getCurrentUser().getObjectId();
-                    avQuery.whereEqualTo("owner",AVObject.createWithoutData("_User",user));
-                    Log.i("user",user);
-                    //avQuery.include("owner");//include是指AVObject中的内容
-                    avQuery.findInBackground(new FindCallback<AVObject>() {
-                        @Override
-                        public void done(List<AVObject> list, AVException e) {
-                            if (e == null) {
-                                mList.addAll(list);
-                                mRecyclerAdapter.notifyDataSetChanged();
-                            } else {
-                                e.printStackTrace();
+    private void getData(int skip) {
+        AVQuery<Works> query = AVObject.getQuery(Works.class);
+        query.orderByDescending("createdAt");
+        String user = AVUser.getCurrentUser().getObjectId();
+        query.whereEqualTo("owner", AVObject.createWithoutData("_User", user));
+        query.limit(limit);
+        query.skip(limit*skip);
+
+        query.findInBackground(new FindCallback<Works>() {
+            @Override
+            public void done(List<Works> list, AVException e) {
+
+                if (e == null) {
+                    mlist.addAll(list);
+                    myRecyclerAdapter.notifyDataSetChanged();
+                } else {
+                    e.printStackTrace();
                 }
+
+
             }
         });
     }

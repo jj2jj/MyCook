@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import im.fir.sdk.FIR;
+import sihuan.com.mycookassistant.bean.Works;
 
 /**
  * sihuan.com.mycookassistant.App
@@ -28,8 +30,12 @@ public class App extends Application {
         super.onCreate();
         FIR.init(this);
         instance = this;
+        AVObject.registerSubclass(Works.class);
         AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
         AVOSCloud.setDebugLogEnabled(true);
+
+
+
     }
 
     public void registerActivity(Activity act) {

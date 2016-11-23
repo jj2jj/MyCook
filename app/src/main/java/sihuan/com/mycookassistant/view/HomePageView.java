@@ -17,6 +17,7 @@ import sihuan.com.mycookassistant.bean.MyDomain;
 import sihuan.com.mycookassistant.net.GlideImageLoader;
 import sihuan.com.mycookassistant.presenter.contract.HomePageContract;
 
+
 /**
  * sihuan.com.mycookassistant.view
  * Created by sihuan on 2016/10/25.
@@ -41,8 +42,12 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
 
     @Override
     protected void getLayout() {
-        inflate(mContext, R.layout.fmt_home_page_view, this);
+      inflate(mContext,R.layout.fmt_home_page_view, this);
+
+
     }
+
+
 
     @Override
     protected void initView() {
@@ -76,6 +81,8 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
         mBanner.setImages(images);
         mBanner.setBannerTitles(titles);
         mBanner.start();
+
     }
+
 
 }

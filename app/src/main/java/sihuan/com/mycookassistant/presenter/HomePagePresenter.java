@@ -21,6 +21,7 @@ public class HomePagePresenter extends RxPresenter implements HomePageContract.P
         mView = view;
         mView.setPresenter(this);
         getBannerData();
+
     }
 
     @Override
@@ -85,4 +86,5 @@ public class HomePagePresenter extends RxPresenter implements HomePageContract.P
         adList.add(myDomain5);
         return adList;
     }
+
 }

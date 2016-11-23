@@ -37,4 +37,6 @@ public class HomePageFragment<T extends BasePresenter> extends BaseFragment {
     }
 
 
+
+
 }

@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
@@ -38,6 +37,7 @@ import java.io.IOException;
 
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.base.BaseActivity;
+import sihuan.com.mycookassistant.bean.Works;
 
 // TODO: 2016-11-09  到27号之前完成此界面优化
 
@@ -92,12 +92,16 @@ public class PublishActivity extends BaseActivity {
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadInfo();
+                try {
+                    uploadInfo();
+                } catch (AVException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
-    private void uploadInfo() {
+    private void uploadInfo() throws AVException {
         if (TextUtils.isEmpty(mTitleEdit.getText().toString())) {
             Toast.makeText(PublishActivity.this, "请输入菜名", Toast.LENGTH_SHORT).show();
             return;
@@ -114,22 +118,24 @@ public class PublishActivity extends BaseActivity {
 
 
 // TODO: 2016-11-09 实将下面代码抽成实体类  类似mydomain
-        AVObject works = new AVObject("Works");
-        works.put("title", mTitleEdit.getText().toString());
-        works.put("step", mStepEdit.getText().toString());
-        works.put("description", mDescribeEdit.getText().toString());
-        works.put("owner", AVUser.getCurrentUser());
-       // Logger.d("mImageBytes: " + mImageBytes);
-        works.put("image", new AVFile("workPic", mImageBytes));
+        uploadData();
+    }
 
-        works.saveInBackground(new SaveCallback() {
+    private void uploadData() {
+        Works myWorks  = new Works("Works");
+        myWorks.setTitle(mTitleEdit.getText().toString());
+        myWorks.setStep(mStepEdit.getText().toString());
+        myWorks.setDescription(mDescribeEdit.getText().toString());
+        myWorks.setUser(AVUser.getCurrentUser());
+        myWorks.setImage( new AVFile("workPic", mImageBytes));
+        myWorks.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
-                if (e == null) {
+                if (e == null){
                     mProgerss.setVisibility(View.GONE);
                     Toast.makeText(PublishActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
                     PublishActivity.this.finish();
-                } else {
+                }else {
                     mProgerss.setVisibility(View.GONE);
                     Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -209,15 +215,13 @@ public class PublishActivity extends BaseActivity {
             mImage.setImageBitmap(bitmap);
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
+            onBackPressedSupport();
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);

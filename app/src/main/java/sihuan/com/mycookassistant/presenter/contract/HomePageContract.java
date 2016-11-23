@@ -13,10 +13,12 @@ import sihuan.com.mycookassistant.base.BaseView;
 public interface HomePageContract {
     interface View extends BaseView<Presenter> {
         void setBanner(List list);
+
     }
 
     interface Presenter extends BasePresenter {
         void getBannerData();
+
 
     }
 }
