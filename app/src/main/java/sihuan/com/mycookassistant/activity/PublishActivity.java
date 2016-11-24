@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
@@ -60,6 +61,7 @@ public class PublishActivity extends BaseActivity {
     EditText mStepEdit;
     EditText mDescribeEdit;
     Button mSubmitBtn;
+    TextView mAddMaterial;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,7 @@ public class PublishActivity extends BaseActivity {
         mStepEdit = (EditText) findViewById(R.id.step_publish);
         mDescribeEdit = (EditText) findViewById(R.id.description_publish);
         mSubmitBtn = (Button) findViewById(R.id.submit_publish);
+        mAddMaterial= (TextView) findViewById(R.id.add_material);
     }
     private void initEvent() {
         mImage.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +100,14 @@ public class PublishActivity extends BaseActivity {
                 } catch (AVException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+        mAddMaterial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 2016-11-23 添加用料部分 ，跳到另外一个Activity
+                Intent intent = new Intent(PublishActivity.this,AddMatrialActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -224,7 +235,7 @@ public class PublishActivity extends BaseActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
+        getMenuInflater().inflate(R.menu.menu_pub, menu);
         return true;
     }
 }

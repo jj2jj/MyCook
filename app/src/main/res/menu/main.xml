@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.jessica0906zjj.recycleractivity.MainActivity">
+    <item android:id="@+id/action_add"
+        android:orderInCategory="100"
+        android:title="ADD"
+        android:icon="@drawable/ic_menu_add"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_delete"
+        android:orderInCategory="100"
+        android:title="DELETE"
+        android:icon="@drawable/ic_menu_delete"
+        app:showAsAction="ifRoom"/>
+</menu>
