@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sihuan.com.mycookassistant.R;
-import sihuan.com.mycookassistant.adapter.MyRecyclerAdapter;
+import sihuan.com.mycookassistant.adapter.MyProductAdapter;
 import sihuan.com.mycookassistant.bean.Works;
 
 /**
@@ -33,7 +33,7 @@ public class MyProductFragment extends Fragment {
     private int limit = 5;
     private int skip = 0;
     private XRecyclerView mRecyclerView;
-    private MyRecyclerAdapter myRecyclerAdapter;
+    private MyProductAdapter myProductAdapter;
     private List<Works> mlist = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,8 +53,8 @@ public class MyProductFragment extends Fragment {
 
         LoadEvent();
 
-        myRecyclerAdapter = new MyRecyclerAdapter(mlist,getActivity());
-        mRecyclerView.setAdapter(myRecyclerAdapter);
+        myProductAdapter = new MyProductAdapter(mlist,getActivity());
+        mRecyclerView.setAdapter(myProductAdapter);
         mRecyclerView.setRefreshing(true);
       //  mRecyclerView.setPullRefreshEnabled(true);
         return view;
@@ -111,7 +111,7 @@ public class MyProductFragment extends Fragment {
 
                 if (e == null) {
                     mlist.addAll(list);
-                    myRecyclerAdapter.notifyDataSetChanged();
+                    myProductAdapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
                 }

@@ -21,13 +21,13 @@ import sihuan.com.mycookassistant.bean.Works;
  * Created by Jessica0906zjj on 2016-11-09.
  */
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyRecyclerHolder> {
+public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRecyclerHolder> {
     private Context mContext;
     private List<Works> mList = null;
 
 
 
-    public MyRecyclerAdapter(List<Works> list, Context context) {
+    public MyProductAdapter(List<Works> list, Context context) {
         this.mContext = context;
         this.mList = list;
     }

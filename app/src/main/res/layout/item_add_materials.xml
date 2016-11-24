@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
 <LinearLayout
+
     android:id="@+id/add_material_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="horizontal">
         <EditText
             android:background="#FFF0F5"
-            android:id="@+id/mTitle"
+            android:id="@+id/ami_materials"
             android:hint="例：猪肉"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -16,7 +19,7 @@
             android:maxLines="1"/>
         <EditText
             android:background="#FFF0F5"
-            android:id="@+id/mTitle2"
+            android:id="@+id/ami_dosages"
             android:hint="500g"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -24,3 +27,4 @@
             android:gravity="center"
             android:maxLines="1"/>
     </LinearLayout>
+    </FrameLayout>

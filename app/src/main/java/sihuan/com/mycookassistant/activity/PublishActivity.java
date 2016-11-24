@@ -106,7 +106,7 @@ public class PublishActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 // TODO: 2016-11-23 添加用料部分 ，跳到另外一个Activity
-                Intent intent = new Intent(PublishActivity.this,AddMatrialActivity.class);
+                Intent intent = new Intent(PublishActivity.this,AddMaterialsActivity.class);
                 startActivity(intent);
             }
         });
