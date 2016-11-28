@@ -53,10 +53,8 @@ public class LoginPresenter extends RxPresenter implements LoginContract.Present
             public void done(AVUser avUser, AVException e) {
                 if (e == null) {
                     mView.setLoginInfo();
-//                    TODO: 2016/11/4 记住密码
-//                if (mView.isRemember()){
-//             }
                     mView.navigateToActivty(CookBookActivity.class);
+                    mView.showProgress(false);
                 } else {
                     mView.showProgress(false);
                     mView.showToast(e.getMessage());

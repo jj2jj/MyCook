@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
@@ -171,7 +172,7 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void uploadData() {
-        Works myWorks  = new Works("Works");
+        final Works myWorks  = new Works("Works");
         myWorks.setTitle(mTitleEdit.getText().toString());
         myWorks.setSteps(mSteps);
         myWorks.setMaterials(mDatas);

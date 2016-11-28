@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
+import sihuan.com.mycookassistant.app.App;
 
 
 /**
@@ -117,7 +119,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Logger.d(getName() + "------>onDestroy");
+        Logger.d(getName() + "------>ontroy");
+        RefWatcher refWatcher = App.refWatcher;
+        refWatcher.watch(this);
         if (unbinder != null)
             unbinder.unbind();
     }
