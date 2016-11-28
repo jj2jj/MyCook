@@ -28,9 +28,6 @@ import sihuan.com.mycookassistant.bean.Works;
  * Created by sihuan on 2016/10/25.
  */
 public class MyProductFragment extends Fragment {
-    private int refreshTime = 0;
-    private int times = 0;
-    private int limit = 5;
     private int skip = 0;
     private XRecyclerView mRecyclerView;
     private MyProductAdapter myProductAdapter;
@@ -102,8 +99,9 @@ public class MyProductFragment extends Fragment {
         query.orderByDescending("createdAt");
         String user = AVUser.getCurrentUser().getObjectId();
         query.whereEqualTo("owner", AVObject.createWithoutData("_User", user));
+        int limit = 5;
         query.limit(limit);
-        query.skip(limit*skip);
+        query.skip(limit *skip);
 
         query.findInBackground(new FindCallback<Works>() {
             @Override

@@ -11,26 +11,26 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import sihuan.com.mycookassistant.R;
-import sihuan.com.mycookassistant.bean.Materials;
+import sihuan.com.mycookassistant.bean.Steps;
 
 /**
  * Created by Jessica0906zjj on 2016-09-18.
  */
-public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapter.MyViewHolder> {
+public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Materials> mDatas;
+    private List<Steps> mSteps;
 
 
-    public AddMaterialsAdapter(List<Materials> datas, Context context) {
+    public AddStepsAdapter(List<Steps> steps, Context context) {
         this.mContext = context;
-        this.mDatas = datas;
+        this.mSteps = steps;
     }
 
     ////创建新View，被LayoutManager所调用
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_add_materials, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_add_steps, parent, false);
         MyViewHolder viewHolder = new MyViewHolder(view);
         return viewHolder;
     }
@@ -38,41 +38,30 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
     //将数据与界面进行绑定的操作
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.ami_Materials.setText(mDatas.get(position).getMaterial());
-        holder.ami_Dosages.setText(mDatas.get(position).getDosages());
-//        holder.c_name_et.addTextChangedListener(new TextSwitcher(holder));
-//        //通过设置tag，防止position紊乱
-//        holder.c_name_et.setTag(position);
-
-        holder.ami_Materials.requestFocus();
+        holder.asi_steps.setText(mSteps.get(position).getSteps());
+        holder.asi_steps.requestFocus();
     }
-
-    public void addData(int position, Materials m){
-        mDatas.add(position, m);
+    public void addData(int position, Steps s){
+        mSteps.add(position, s);
         notifyItemInserted(position);
-
     }
-
     public void deleteData(int position){
-        mDatas.remove(position);
+        mSteps.remove(position);
         notifyItemRemoved(position);
     }
-
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mSteps.size();
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        EditText ami_Materials;
-        EditText ami_Dosages;
+        EditText asi_steps;
         LinearLayout mItem;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            ami_Materials = (EditText) itemView.findViewById(R.id.ami_materials);
-            ami_Dosages = (EditText) itemView.findViewById(R.id.ami_dosages);
+            asi_steps = (EditText) itemView.findViewById(R.id.asi_steps);
             mItem = (LinearLayout) itemView.findViewById(R.id.add_material_item);
         }
     }

@@ -1,6 +1,7 @@
 package sihuan.com.mycookassistant.activity;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,16 +12,17 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
@@ -36,9 +38,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import sihuan.com.mycookassistant.R;
+import sihuan.com.mycookassistant.adapter.AddMaterialsAdapter;
+import sihuan.com.mycookassistant.adapter.AddStepsAdapter;
 import sihuan.com.mycookassistant.base.BaseActivity;
+import sihuan.com.mycookassistant.bean.Materials;
+import sihuan.com.mycookassistant.bean.Steps;
 import sihuan.com.mycookassistant.bean.Works;
 
 // TODO: 2016-11-09  到27号之前完成此界面优化
@@ -51,18 +59,27 @@ import sihuan.com.mycookassistant.bean.Works;
 public class PublishActivity extends BaseActivity {
     Toolbar mToolbar_publish;
     ActionBar actionBar;
+    ProgressDialog progress;
+
 
     private static final int CHOOSE_PICTURE = 3;
     public static final int TAKE_PHOTO = 1;
     private ImageView mImage;
     private Uri imageUri;
     private byte[] mImageBytes = null;
-    private ProgressBar mProgerss;
     EditText mTitleEdit;
-    EditText mStepEdit;
     EditText mDescribeEdit;
-    Button mSubmitBtn;
-    TextView mAddMaterial;
+
+    LinearLayoutManager layoutManager_addmaterial,layoutManager_addSteps;
+    EditText ami_Materials,ami_Dosages,asi_Steps;
+    private RecyclerView mRv_addmaterial,mRv_addSteps;
+    private List<Materials> mDatas;
+    private AddMaterialsAdapter mAdapter_m;
+    private List<Steps> mSteps;
+    private AddStepsAdapter mAdapter_s;
+    int position_m= 0,position_s = 0;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,44 +88,59 @@ public class PublishActivity extends BaseActivity {
         mToolbar_publish = (Toolbar) findViewById(R.id.toolbar_pub);
         setSupportActionBar(mToolbar_publish);
         actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("上传");
 
+        initDatas();
         findViews();
         initEvent();
+
+        mAdapter_m = new AddMaterialsAdapter(mDatas,this);
+        mRv_addmaterial.setAdapter(mAdapter_m);
+
+        mAdapter_s = new AddStepsAdapter(mSteps,this);
+        mRv_addSteps.setAdapter(mAdapter_s);
+        //recyclerview的布局管理
+        layoutManager_addmaterial = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        mRv_addmaterial.setLayoutManager(layoutManager_addmaterial);
+
+        layoutManager_addSteps = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        mRv_addSteps.setLayoutManager(layoutManager_addSteps);
+        //设置增删动画
+        mRv_addmaterial.setItemAnimator(new DefaultItemAnimator());
+        mRv_addSteps.setItemAnimator(new DefaultItemAnimator());
     }
+
+    private void initDatas() {
+
+        //chushihua data
+        mDatas = new ArrayList<>();
+        mDatas.add(new Materials("用料：","用量："));
+
+        mSteps = new ArrayList<>();
+        mSteps.add(new Steps("步骤："));
+    }
+
     private void findViews() {
         mImage = (ImageView) findViewById(R.id.image_publish);
-        mProgerss = (ProgressBar) findViewById(R.id.mProgess);
         mTitleEdit = (EditText) findViewById(R.id.title_publish);
-        mStepEdit = (EditText) findViewById(R.id.step_publish);
         mDescribeEdit = (EditText) findViewById(R.id.description_publish);
-        mSubmitBtn = (Button) findViewById(R.id.submit_publish);
-        mAddMaterial= (TextView) findViewById(R.id.add_material);
+
+        mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
+        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials,null);
+        ami_Materials = (EditText) view1.findViewById(R.id.ami_materials);
+        ami_Dosages = (EditText) view1.findViewById(R.id.ami_dosages);
+
+        mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addstep);
+        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps,null);
+        asi_Steps = (EditText) view2.findViewById(R.id.asi_steps);
     }
     private void initEvent() {
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog();
-            }
-        });
-        mSubmitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    uploadInfo();
-                } catch (AVException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        mAddMaterial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: 2016-11-23 添加用料部分 ，跳到另外一个Activity
-                Intent intent = new Intent(PublishActivity.this,AddMaterialsActivity.class);
-                startActivity(intent);
             }
         });
     }
@@ -122,21 +154,28 @@ public class PublishActivity extends BaseActivity {
             Toast.makeText(PublishActivity.this, "请描述此菜", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(mStepEdit.getText().toString())) {
-            Toast.makeText(PublishActivity.this, "请输入步骤", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        mProgerss.setVisibility(View.VISIBLE);
+        showProgressDialog();
 
-
-// TODO: 2016-11-09 实将下面代码抽成实体类  类似mydomain
         uploadData();
+    }
+
+    private void showProgressDialog() {
+        progress = new ProgressDialog(this);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setMessage("上传中，请等待~");
+        //设置ProgressDialog 的进度条是否不明确
+        progress.setIndeterminate(false);
+//设置ProgressDialog 是否可以按退回按键取消
+        progress.setCancelable(true);
+//显示
+        progress.show();
     }
 
     private void uploadData() {
         final Works myWorks  = new Works("Works");
         myWorks.setTitle(mTitleEdit.getText().toString());
-        myWorks.setStep(mStepEdit.getText().toString());
+        myWorks.setSteps(mSteps);
+        myWorks.setMaterials(mDatas);
         myWorks.setDescription(mDescribeEdit.getText().toString());
         myWorks.setUser(AVUser.getCurrentUser());
         myWorks.setImage( new AVFile("workPic", mImageBytes));
@@ -144,17 +183,17 @@ public class PublishActivity extends BaseActivity {
             @Override
             public void done(AVException e) {
                 if (e == null){
-                    mProgerss.setVisibility(View.GONE);
-                    Toast.makeText(PublishActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                   progress.dismiss();
+                    Toast.makeText(PublishActivity.this, "上传成功^_^", Toast.LENGTH_SHORT).show();
                     PublishActivity.this.finish();
                 }else {
-                    mProgerss.setVisibility(View.GONE);
-                    Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                    //Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PublishActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择");
@@ -229,11 +268,50 @@ public class PublishActivity extends BaseActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressedSupport();
+        int id = item.getItemId();
+        switch (id) {
+            case android.R.id.home:
+                onBackPressedSupport();
+                break;
+            case R.id.action_add:
+                addItems();
+                break;
+            case R.id.action_delete:
+                deleteItems();
+                break;
+            case R.id.action_submit:
+                try {
+                    uploadInfo();
+                } catch (AVException e) {
+                    e.printStackTrace();
+                }
+
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void deleteItems() {
+        if (layoutManager_addSteps.hasFocus() && position_s >0){
+            mAdapter_s.deleteData(position_s);
+        position_s--;}else if (layoutManager_addmaterial.hasFocus() && position_m >0) {
+            mAdapter_m.deleteData(position_m);
+            position_m--;
+        }
+    }
+
+    private void addItems() {
+        if (layoutManager_addmaterial.hasFocus()){
+            position_m++;
+           mAdapter_m.addData(position_m, new Materials(ami_Materials.getText()
+                   .toString(),ami_Dosages.getText().toString()));
+        }else if (layoutManager_addSteps.hasFocus()){
+            position_s++;
+        mAdapter_s.addData(position_s,new Steps(asi_Steps.getText().toString()));
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_pub, menu);
