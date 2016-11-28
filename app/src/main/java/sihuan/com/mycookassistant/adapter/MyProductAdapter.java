@@ -1,6 +1,7 @@
 package sihuan.com.mycookassistant.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import sihuan.com.mycookassistant.R;
+import sihuan.com.mycookassistant.activity.DetailPageActivity;
 import sihuan.com.mycookassistant.bean.Works;
 
 /**
@@ -49,6 +51,8 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
             @Override
             public void onClick(View view) {
                 // TODO: 2016-11-09 跳转至item详情页
+                Intent intent = new Intent(mContext, DetailPageActivity.class);
+                intent
 
             }
         });
