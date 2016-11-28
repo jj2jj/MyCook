@@ -5,6 +5,8 @@ import android.app.Application;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +22,7 @@ import sihuan.com.mycookassistant.bean.Works;
 public class App extends Application {
     private static App instance;
     private Set<Activity> allActivities;
-
+    public static RefWatcher refWatcher;
     public static synchronized App getInstance() {
         return instance;
     }
@@ -30,6 +32,7 @@ public class App extends Application {
         super.onCreate();
         FIR.init(this);
         instance = this;
+        refWatcher=  LeakCanary.install(this);
         AVObject.registerSubclass(Works.class);
         AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
         AVOSCloud.setDebugLogEnabled(true);

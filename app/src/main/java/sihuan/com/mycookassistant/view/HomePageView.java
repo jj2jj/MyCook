@@ -51,7 +51,6 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
 
     @Override
     protected void initView() {
-        mBanner.setImageLoader(new GlideImageLoader());
     }
 
     @Override
@@ -78,9 +77,7 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
             images.add(domain.getImgUrl());
             titles.add(domain.getDate() + " , " + domain.getTitle());
         }
-        mBanner.setImages(images);
-        mBanner.setBannerTitles(titles);
-        mBanner.start();
+        mBanner.setImages(images).setImageLoader(new GlideImageLoader()).start();
 
     }
 
