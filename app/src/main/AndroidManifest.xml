@@ -45,8 +45,6 @@
         </activity>
         <activity android:name=".activity.PublishActivity"
                   android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".activity.AddMaterialsActivity"
-                  android:windowSoftInputMode="adjustPan"/>
 
     </application>
 

@@ -49,7 +49,6 @@ public class HomePageRvAdapter extends RecyclerView.Adapter<HomePageRvAdapter.My
             @Override
             public void onClick(View view) {
                 // TODO: 2016-11-09 跳转至item详情页
-
             }
         });
     }
