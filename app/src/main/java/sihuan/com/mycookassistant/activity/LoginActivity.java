@@ -26,4 +26,10 @@ public class LoginActivity extends BaseActivity {
         mUnbinder = ButterKnife.bind(this);
         mPresenter = new LoginPresenter(mLoginView);
     }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

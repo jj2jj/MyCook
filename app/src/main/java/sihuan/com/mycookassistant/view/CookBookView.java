@@ -241,6 +241,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                         return false;
                     }
                 })
-                .build();
+                  .build();
     }
 }

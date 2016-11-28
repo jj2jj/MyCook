@@ -195,7 +195,6 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
     private void hideDialog() {
         if (mPgDialog != null) {
             mPgDialog.dismiss();
-            mPgDialog = null;
         }
     }
 
