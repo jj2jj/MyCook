@@ -8,18 +8,17 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.AVUtils;
 
+import java.util.List;
+
 /**
  * MyCook
  * Created by Jessica0906zjj on 2016-11-17.
  */
 @AVClassName("Works")
+
 public class Works extends AVObject{
+
     private String title;
-    private String step;
-    private String description;
-    private AVUser user;
-    private AVFile image;
-    private String className;
 
     public String getTitle() {
         return getString("title");
@@ -29,13 +28,37 @@ public class Works extends AVObject{
         put("title", title);
     }
 
-    public String getStep() {
-        return getString("step");
+    private List<Materials> materials;
+
+    public List<Materials> getMaterials() {
+        return getList("materials");
     }
 
-    public void setStep(String step) {
-       put("step",step);
+    public void setMaterials(List<Materials> materials) {
+        put("materials",materials);
     }
+
+    private List<Steps> steps;
+
+    public List<Steps> getSteps() {
+        return getList("steps");
+    }
+    public void setSteps(List<Steps> steps) {
+        put("steps",steps);
+    }
+
+    private AVUser user;
+    public AVUser getUser() {
+        return getAVUser("owner");
+    }
+
+    public void setUser(AVUser user) {
+        put("owner",user);
+    }
+
+    private String className;
+
+    private String description;
 
     public String getDescription() {
         return getString("description");
@@ -45,13 +68,7 @@ public class Works extends AVObject{
         put("description",description);
     }
 
-    public AVUser getUser() {
-        return getAVUser("owner");
-    }
-
-    public void setUser(AVUser user) {
-        put("owner",user);
-    }
+    private AVFile image;
 
     public AVFile getImage() {
         return getAVFile("image");

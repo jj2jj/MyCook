@@ -20,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -67,9 +66,7 @@ public class PublishActivity extends BaseActivity {
     private byte[] mImageBytes = null;
     private ProgressBar mProgerss;
     EditText mTitleEdit;
-    //EditText mStepEdit;
     EditText mDescribeEdit;
-    Button mSubmitBtn;
 
     LinearLayoutManager layoutManager_addmaterial,layoutManager_addSteps;
     EditText ami_Materials,ami_Dosages,asi_Steps;
@@ -79,6 +76,7 @@ public class PublishActivity extends BaseActivity {
     private List<Steps> mSteps;
     private AddStepsAdapter mAdapter_s;
     int position_m= 0,position_s = 0;
+
 
 
     @Override
@@ -119,7 +117,7 @@ public class PublishActivity extends BaseActivity {
         mDatas.add(new Materials("用料：","用量："));
 
         mSteps = new ArrayList<>();
-        mSteps.add(new Steps("Step 1:"));
+        mSteps.add(new Steps("步骤："));
     }
 
     private void findViews() {
@@ -127,9 +125,7 @@ public class PublishActivity extends BaseActivity {
         mProgerss = (ProgressBar) findViewById(R.id.mProgess);
         mTitleEdit = (EditText) findViewById(R.id.title_publish);
         mDescribeEdit = (EditText) findViewById(R.id.description_publish);
-       // mStepEdit = (EditText) findViewById(R.id.step_publish);
-        mSubmitBtn = (Button) findViewById(R.id.submit_publish);
-
+        
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
         View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials,null);
         ami_Materials = (EditText) view1.findViewById(R.id.ami_materials);
@@ -146,16 +142,6 @@ public class PublishActivity extends BaseActivity {
                 showDialog();
             }
         });
-        mSubmitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    uploadInfo();
-                } catch (AVException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     private void uploadInfo() throws AVException {
@@ -167,10 +153,6 @@ public class PublishActivity extends BaseActivity {
             Toast.makeText(PublishActivity.this, "请描述此菜", Toast.LENGTH_SHORT).show();
             return;
         }
-//        if (TextUtils.isEmpty(mStepEdit.getText().toString())) {
-//            Toast.makeText(PublishActivity.this, "请输入步骤", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
         mProgerss.setVisibility(View.VISIBLE);
         uploadData();
     }
@@ -178,8 +160,8 @@ public class PublishActivity extends BaseActivity {
     private void uploadData() {
         Works myWorks  = new Works("Works");
         myWorks.setTitle(mTitleEdit.getText().toString());
-
-       // myWorks.setStep(mStepEdit.getText().toString());
+        myWorks.setSteps(mSteps);
+        myWorks.setMaterials(mDatas);
         myWorks.setDescription(mDescribeEdit.getText().toString());
         myWorks.setUser(AVUser.getCurrentUser());
         myWorks.setImage( new AVFile("workPic", mImageBytes));
@@ -282,6 +264,13 @@ public class PublishActivity extends BaseActivity {
             case R.id.action_delete:
                 deleteItems();
                 break;
+            case R.id.action_submit:
+                try {
+                    uploadInfo();
+                } catch (AVException e) {
+                    e.printStackTrace();
+                }
+
             default:
                 break;
         }
