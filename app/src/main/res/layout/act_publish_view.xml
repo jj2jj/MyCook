@@ -55,10 +55,4 @@
             </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
     </ScrollView>
-    <ProgressBar
-        android:id="@+id/mProgess"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
 </LinearLayout>

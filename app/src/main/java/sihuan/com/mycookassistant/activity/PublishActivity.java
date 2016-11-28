@@ -1,6 +1,7 @@
 package sihuan.com.mycookassistant.activity;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,7 +23,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
@@ -58,13 +58,14 @@ import sihuan.com.mycookassistant.bean.Works;
 public class PublishActivity extends BaseActivity {
     Toolbar mToolbar_publish;
     ActionBar actionBar;
+    ProgressDialog progress;
+
 
     private static final int CHOOSE_PICTURE = 3;
     public static final int TAKE_PHOTO = 1;
     private ImageView mImage;
     private Uri imageUri;
     private byte[] mImageBytes = null;
-    private ProgressBar mProgerss;
     EditText mTitleEdit;
     EditText mDescribeEdit;
 
@@ -122,10 +123,9 @@ public class PublishActivity extends BaseActivity {
 
     private void findViews() {
         mImage = (ImageView) findViewById(R.id.image_publish);
-        mProgerss = (ProgressBar) findViewById(R.id.mProgess);
         mTitleEdit = (EditText) findViewById(R.id.title_publish);
         mDescribeEdit = (EditText) findViewById(R.id.description_publish);
-        
+
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
         View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials,null);
         ami_Materials = (EditText) view1.findViewById(R.id.ami_materials);
@@ -153,8 +153,21 @@ public class PublishActivity extends BaseActivity {
             Toast.makeText(PublishActivity.this, "请描述此菜", Toast.LENGTH_SHORT).show();
             return;
         }
-        mProgerss.setVisibility(View.VISIBLE);
+        showProgressDialog();
+
         uploadData();
+    }
+
+    private void showProgressDialog() {
+        progress = new ProgressDialog(this);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setMessage("上传中，请等待~");
+        //设置ProgressDialog 的进度条是否不明确
+        progress.setIndeterminate(false);
+//设置ProgressDialog 是否可以按退回按键取消
+        progress.setCancelable(true);
+//显示
+        progress.show();
     }
 
     private void uploadData() {
@@ -169,12 +182,13 @@ public class PublishActivity extends BaseActivity {
             @Override
             public void done(AVException e) {
                 if (e == null){
-                    mProgerss.setVisibility(View.GONE);
-                    Toast.makeText(PublishActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                   progress.dismiss();
+                    Toast.makeText(PublishActivity.this, "上传成功^_^", Toast.LENGTH_SHORT).show();
                     PublishActivity.this.finish();
                 }else {
-                    mProgerss.setVisibility(View.GONE);
-                    Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    progress.dismiss();
+                    //Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PublishActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
                 }
             }
         });
