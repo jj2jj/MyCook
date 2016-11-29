@@ -20,6 +20,7 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.google.common.base.Preconditions;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 import sihuan.com.mycookassistant.R;
@@ -110,6 +111,8 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
         mUsername.setText(username);
         String password = PreUtils.getString(mActivity, Config.PASSWORD, null);
         mPassword.setText(password);
+        Logger.e("username" + username);
+        Logger.e("password" + password);
     }
 
     @Override
@@ -170,8 +173,8 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
         PreUtils.putBoolean(mActivity, AUTO_LOGIN, mAutoLogin.isChecked());
         PreUtils.putBoolean(mActivity, Remb_PassWd, mRemberPassWord.isChecked());
         if (mRemberPassWord.isChecked()) {
-            PreUtils.putString(mActivity, USERNAME, getUsername());
-            PreUtils.putString(mActivity, PASSWORD, getPassword());
+            PreUtils.putString(mActivity, Config.USERNAME, getUsername());
+            PreUtils.putString(mActivity, Config.PASSWORD, getPassword());
         }
     }
 
