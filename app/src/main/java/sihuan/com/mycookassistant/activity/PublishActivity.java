@@ -27,7 +27,6 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
@@ -70,15 +69,14 @@ public class PublishActivity extends BaseActivity {
     EditText mTitleEdit;
     EditText mDescribeEdit;
 
-    LinearLayoutManager layoutManager_addmaterial,layoutManager_addSteps;
-    EditText ami_Materials,ami_Dosages,asi_Steps;
-    private RecyclerView mRv_addmaterial,mRv_addSteps;
+    LinearLayoutManager layoutManager_addmaterial, layoutManager_addSteps;
+    EditText ami_Materials, ami_Dosages, asi_Steps;
+    private RecyclerView mRv_addmaterial, mRv_addSteps;
     private List<Materials> mDatas;
     private AddMaterialsAdapter mAdapter_m;
     private List<Steps> mSteps;
     private AddStepsAdapter mAdapter_s;
-    int position_m= 0,position_s = 0;
-
+    int position_m = 0, position_s = 0;
 
 
     @Override
@@ -96,16 +94,16 @@ public class PublishActivity extends BaseActivity {
         findViews();
         initEvent();
 
-        mAdapter_m = new AddMaterialsAdapter(mDatas,this);
+        mAdapter_m = new AddMaterialsAdapter(mDatas, this);
         mRv_addmaterial.setAdapter(mAdapter_m);
 
-        mAdapter_s = new AddStepsAdapter(mSteps,this);
+        mAdapter_s = new AddStepsAdapter(mSteps, this);
         mRv_addSteps.setAdapter(mAdapter_s);
         //recyclerview的布局管理
-        layoutManager_addmaterial = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
+        layoutManager_addmaterial = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRv_addmaterial.setLayoutManager(layoutManager_addmaterial);
 
-        layoutManager_addSteps = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
+        layoutManager_addSteps = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRv_addSteps.setLayoutManager(layoutManager_addSteps);
         //设置增删动画
         mRv_addmaterial.setItemAnimator(new DefaultItemAnimator());
@@ -116,7 +114,7 @@ public class PublishActivity extends BaseActivity {
 
         //chushihua data
         mDatas = new ArrayList<>();
-        mDatas.add(new Materials("用料：","用量："));
+        mDatas.add(new Materials("用料：", "用量："));
 
         mSteps = new ArrayList<>();
         mSteps.add(new Steps("步骤："));
@@ -128,14 +126,15 @@ public class PublishActivity extends BaseActivity {
         mDescribeEdit = (EditText) findViewById(R.id.description_publish);
 
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
-        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials,null);
+        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
         ami_Materials = (EditText) view1.findViewById(R.id.ami_materials);
         ami_Dosages = (EditText) view1.findViewById(R.id.ami_dosages);
 
         mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addstep);
-        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps,null);
+        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps, null);
         asi_Steps = (EditText) view2.findViewById(R.id.asi_steps);
     }
+
     private void initEvent() {
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,21 +171,21 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void uploadData() {
-        final Works myWorks  = new Works("Works");
+        final Works myWorks = new Works("Works");
         myWorks.setTitle(mTitleEdit.getText().toString());
         myWorks.setSteps(mSteps);
         myWorks.setMaterials(mDatas);
         myWorks.setDescription(mDescribeEdit.getText().toString());
         myWorks.setUser(AVUser.getCurrentUser());
-        myWorks.setImage( new AVFile("workPic", mImageBytes));
+        myWorks.setImage(new AVFile("workPic", mImageBytes));
         myWorks.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
-                if (e == null){
-                   progress.dismiss();
+                if (e == null) {
+                    progress.dismiss();
                     Toast.makeText(PublishActivity.this, "上传成功^_^", Toast.LENGTH_SHORT).show();
                     PublishActivity.this.finish();
-                }else {
+                } else {
                     progress.dismiss();
                     //Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     Toast.makeText(PublishActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
@@ -194,6 +193,7 @@ public class PublishActivity extends BaseActivity {
             }
         });
     }
+
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择");
@@ -266,6 +266,7 @@ public class PublishActivity extends BaseActivity {
             mImage.setImageBitmap(bitmap);
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -293,22 +294,23 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void deleteItems() {
-        if (layoutManager_addSteps.hasFocus() && position_s >0){
+        if (layoutManager_addSteps.hasFocus() && position_s > 0) {
             mAdapter_s.deleteData(position_s);
-        position_s--;}else if (layoutManager_addmaterial.hasFocus() && position_m >0) {
+            position_s--;
+        } else if (layoutManager_addmaterial.hasFocus() && position_m > 0) {
             mAdapter_m.deleteData(position_m);
             position_m--;
         }
     }
 
     private void addItems() {
-        if (layoutManager_addmaterial.hasFocus()){
+        if (layoutManager_addmaterial.hasFocus()) {
             position_m++;
-           mAdapter_m.addData(position_m, new Materials(ami_Materials.getText()
-                   .toString(),ami_Dosages.getText().toString()));
-        }else if (layoutManager_addSteps.hasFocus()){
+            mAdapter_m.addData(position_m, new Materials(ami_Materials.getText()
+                    .toString(), ami_Dosages.getText().toString()));
+        } else if (layoutManager_addSteps.hasFocus()) {
             position_s++;
-        mAdapter_s.addData(position_s,new Steps(asi_Steps.getText().toString()));
+            mAdapter_s.addData(position_s, new Steps(asi_Steps.getText().toString()));
         }
     }
 

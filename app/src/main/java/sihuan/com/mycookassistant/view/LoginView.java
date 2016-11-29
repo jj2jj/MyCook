@@ -3,6 +3,7 @@ package sihuan.com.mycookassistant.view;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -62,6 +63,11 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
 
     @BindView(R.id.login_form)
     LinearLayout mLoginFormView;
+
+    @BindView(R.id.username_layout)
+    TextInputLayout username_layout;
+    @BindView(R.id.password_layout)
+    TextInputLayout password_layout;
 
     LoginActivity mActivity;
     ProgressDialog mPgDialog;
@@ -208,12 +214,12 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
 
     @Override
     public void SetUsernameError(String error) {
-        mUsername.setError(error);
+        username_layout.setError(error);
     }
 
     @Override
     public void SetPasswordError(String error) {
-        mPassword.setError(error);
+        password_layout.setError(error);
     }
 
     @Override

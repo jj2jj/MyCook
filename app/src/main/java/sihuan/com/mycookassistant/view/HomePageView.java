@@ -77,7 +77,11 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
             images.add(domain.getImgUrl());
             titles.add(domain.getDate() + " , " + domain.getTitle());
         }
-        mBanner.setImages(images).setImageLoader(new GlideImageLoader()).start();
+
+        mBanner.setImages(images)
+                .setBannerTitles(titles)
+                .setImageLoader(new GlideImageLoader())
+                .start();
 
     }
 

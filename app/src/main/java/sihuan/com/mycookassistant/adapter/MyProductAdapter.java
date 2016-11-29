@@ -42,7 +42,7 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
     }
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(MyRecyclerHolder holder, int position) {
+    public void onBindViewHolder(MyRecyclerHolder holder, final int position) {
 
         holder.mTitle.setText(mList.get(position).getTitle());
        // holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
@@ -52,8 +52,8 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
             public void onClick(View view) {
                 // TODO: 2016-11-09 跳转至item详情页
                 Intent intent = new Intent(mContext, DetailPageActivity.class);
-                intent
-
+                intent.putExtra("ObjectId",mList.get(position).getObjectId());
+                mContext.startActivity(intent);
             }
         });
     }

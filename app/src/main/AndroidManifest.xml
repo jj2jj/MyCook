@@ -27,7 +27,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:value="f2a042e083b28d9a94086de50cca2c52" android:name="BUG_HD_SDK_GENERAL_KEY" />
+        <meta-data
+            android:name="BUG_HD_SDK_GENERAL_KEY"
+            android:value="f2a042e083b28d9a94086de50cca2c52"/>
 
         <activity
             android:name=".activity.CookBookActivity">
@@ -40,11 +42,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.RegisterActivity">
         </activity>
-        <activity android:name=".activity.PublishActivity"
-                  android:windowSoftInputMode="adjustPan"/>
+
+        <activity
+            android:name=".activity.PublishActivity"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
 
     </application>
 

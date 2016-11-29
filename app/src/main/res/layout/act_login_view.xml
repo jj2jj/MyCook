@@ -6,10 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEDF1"
     android:orientation="vertical">
-
     <include layout="@layout/toolbar_login"/>
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +16,7 @@
         android:paddingTop="16dp">
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tl1"
+            android:id="@+id/username_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -35,10 +32,10 @@
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/tl2"
+            android:id="@+id/password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tl1">
+            android:layout_below="@id/username_layout">
 
             <EditText
                 android:id="@+id/login_password"
@@ -51,10 +48,9 @@
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"/>
-
         </android.support.design.widget.TextInputLayout>
         <LinearLayout
-            android:layout_below="@id/tl2"
+            android:layout_below="@id/password_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -78,9 +74,6 @@
                 android:textColor="@color/gray"
                 />
         </LinearLayout>
-
-
-
         <Button
             android:id="@+id/login"
             style="?android:textAppearanceSmall"
