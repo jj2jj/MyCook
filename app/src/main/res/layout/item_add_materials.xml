@@ -16,7 +16,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:maxLines="1"/>
+            android:singleLine="true"/>
         <EditText
             android:background="#FFF0F5"
             android:id="@+id/ami_dosages"
@@ -25,6 +25,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:maxLines="1"/>
+            android:singleLine="true"/>
     </LinearLayout>
     </FrameLayout>

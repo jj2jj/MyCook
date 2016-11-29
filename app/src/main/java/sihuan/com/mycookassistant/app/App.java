@@ -34,6 +34,7 @@ public class App extends Application {
         instance = this;
         refWatcher=  LeakCanary.install(this);
         AVObject.registerSubclass(Works.class);
+
         AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
         AVOSCloud.setDebugLogEnabled(true);
 

@@ -37,9 +37,10 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         holder.ami_Materials.setText(mDatas.get(position).getMaterial());
         holder.ami_Dosages.setText(mDatas.get(position).getDosages());
+       
 //        holder.c_name_et.addTextChangedListener(new TextSwitcher(holder));
 //        //通过设置tag，防止position紊乱
 //        holder.c_name_et.setTag(position);

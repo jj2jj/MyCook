@@ -79,6 +79,8 @@ public class PublishActivity extends BaseActivity {
     int position_m = 0, position_s = 0;
 
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,8 +115,9 @@ public class PublishActivity extends BaseActivity {
     private void initDatas() {
 
         //chushihua data
+
         mDatas = new ArrayList<>();
-        mDatas.add(new Materials("用料：", "用量："));
+        mDatas.add(new Materials("用料：","用量："));
 
         mSteps = new ArrayList<>();
         mSteps.add(new Steps("步骤："));
@@ -154,7 +157,6 @@ public class PublishActivity extends BaseActivity {
             return;
         }
         showProgressDialog();
-
         uploadData();
     }
 
@@ -187,8 +189,8 @@ public class PublishActivity extends BaseActivity {
                     PublishActivity.this.finish();
                 } else {
                     progress.dismiss();
-                    //Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Toast.makeText(PublishActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(PublishActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -306,12 +308,12 @@ public class PublishActivity extends BaseActivity {
     private void addItems() {
         if (layoutManager_addmaterial.hasFocus()) {
             position_m++;
-            mAdapter_m.addData(position_m, new Materials(ami_Materials.getText()
-                    .toString(), ami_Dosages.getText().toString()));
+            mAdapter_m.addData(position_m,new Materials(ami_Materials.getText().toString(),ami_Dosages.getText().toString()));
         } else if (layoutManager_addSteps.hasFocus()) {
             position_s++;
             mAdapter_s.addData(position_s, new Steps(asi_Steps.getText().toString()));
         }
+
     }
 
     @Override

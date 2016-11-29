@@ -62,7 +62,7 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
         public MyViewHolder(View itemView) {
             super(itemView);
             asi_steps = (EditText) itemView.findViewById(R.id.asi_steps);
-            mItem = (LinearLayout) itemView.findViewById(R.id.add_material_item);
+            mItem = (LinearLayout) itemView.findViewById(R.id.add_steps_item);
         }
     }
 }

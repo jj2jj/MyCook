@@ -13,6 +13,8 @@ public class Materials {
         this.dosages = dosages;
     }
 
+
+
     public String getMaterial() {
         return material;
     }

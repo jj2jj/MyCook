@@ -52,7 +52,7 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
             public void onClick(View view) {
                 // TODO: 2016-11-09 跳转至item详情页
                 Intent intent = new Intent(mContext, DetailPageActivity.class);
-                intent.putExtra("ObjectId",mList.get(position).getObjectId());
+                intent.putExtra("itemObjectId",mList.get(position).getObjectId());
                 mContext.startActivity(intent);
             }
         });
