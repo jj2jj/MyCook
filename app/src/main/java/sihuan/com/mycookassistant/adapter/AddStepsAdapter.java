@@ -2,6 +2,8 @@ package sihuan.com.mycookassistant.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.bean.Steps;
 
 /**
+ * AddStepsAdapter
  * Created by Jessica0906zjj on 2016-09-18.
  */
 public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyViewHolder> {
@@ -37,8 +40,25 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         holder.asi_steps.setText(mSteps.get(position).getSteps());
+        holder.asi_steps.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mSteps.get(position).setSteps(holder.asi_steps.getText().toString());
+
+            }
+        });
         holder.asi_steps.requestFocus();
     }
     public void addData(int position, Steps s){

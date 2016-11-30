@@ -2,6 +2,8 @@ package sihuan.com.mycookassistant.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.bean.Materials;
 
 /**
+ * AddMaterialsAdapter
  * Created by Jessica0906zjj on 2016-09-18.
  */
 public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapter.MyViewHolder> {
@@ -38,13 +41,44 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
     //将数据与界面进行绑定的操作
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        holder.ami_Materials.setText(mDatas.get(position).getMaterial());
+//        holder.ami_Materials.setTag(position);
+//        holder.ami_Dosages.setTag(position);
         holder.ami_Dosages.setText(mDatas.get(position).getDosages());
-       
-//        holder.c_name_et.addTextChangedListener(new TextSwitcher(holder));
-//        //通过设置tag，防止position紊乱
-//        holder.c_name_et.setTag(position);
 
+        holder.ami_Dosages.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mDatas.get(position).setDosages(holder.ami_Dosages.getText().toString());
+            }
+        });
+
+        holder.ami_Materials.setText(mDatas.get(position).getMaterial());
+        holder.ami_Materials.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mDatas.get(position).setMaterial(holder.ami_Materials.getText().toString());
+            }
+        });
         holder.ami_Materials.requestFocus();
     }
 
@@ -61,15 +95,15 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        return mDatas== null ? 0 : mDatas.size();
     }
+
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public class MyViewHolder extends RecyclerView.ViewHolder {
         EditText ami_Materials;
         EditText ami_Dosages;
         LinearLayout mItem;
-
         public MyViewHolder(View itemView) {
             super(itemView);
             ami_Materials = (EditText) itemView.findViewById(R.id.ami_materials);

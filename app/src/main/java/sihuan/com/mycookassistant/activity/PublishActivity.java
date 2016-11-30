@@ -96,7 +96,8 @@ public class PublishActivity extends BaseActivity {
         findViews();
         initEvent();
 
-        mAdapter_m = new AddMaterialsAdapter(mDatas, this);
+        mAdapter_m = new AddMaterialsAdapter(mDatas,this);
+
         mRv_addmaterial.setAdapter(mAdapter_m);
 
         mAdapter_s = new AddStepsAdapter(mSteps, this);
@@ -321,4 +322,5 @@ public class PublishActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_pub, menu);
         return true;
     }
+
 }
