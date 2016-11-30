@@ -6,38 +6,40 @@ package sihuan.com.mycookassistant.bean;
  */
 
 public class Materials {
-    private String material;//用料
-
-    public Materials(String material, String dosages) {
-        this.material = material;
-        this.dosages = dosages;
-    }
-
-
-
-    public String getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
-    private String dosages;//用量
-
-    public String getDosages() {
-        return dosages;
-    }
-
-    public void setDosages(String dosages) {
-        this.dosages = dosages;
-    }
-
     @Override
     public String toString() {
         return "Materials{" +
-                "dosages='" + dosages + '\'' +
-                ", material='" + material + '\'' +
+                "food='" + food + '\'' +
+                ", portion='" + portion + '\'' +
                 '}';
     }
+
+    private String food;//用料
+
+    public Materials(String food, String portion) {
+        this.food = food;
+        this.portion = portion;
+    }
+
+
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
+    }
+
+    private String portion;//用量
+
+    public String getPortion() {
+        return portion;
+    }
+
+    public void setPortion(String portion) {
+        this.portion = portion;
+    }
+
+
 }

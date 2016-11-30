@@ -32,4 +32,11 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="CustomCheckboxTheme_play" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/bt_play_selector</item>
+    </style>
+    <style name="CustomCheckboxTheme_star" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/bt_star_selector</item>
+    </style>
+
 </resources>

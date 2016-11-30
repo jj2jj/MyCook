@@ -6,12 +6,12 @@
 
     <include layout="@layout/toolbar_login"/>
 <ScrollView
+    android:layout_weight="1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="0dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <ImageView
@@ -28,6 +28,7 @@
             android:background="@null"
             android:gravity="center"
             android:hint="菜谱名"
+            android:textStyle="bold"
             android:padding="8dp"
             android:textSize="20sp"/>
 
@@ -36,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:textSize="16sp"
             android:background="@null"
             android:hint="描述："/>
 
@@ -46,12 +48,15 @@
             android:background="#e6e6e6"/>
 
         <TextView
+            android:textStyle="bold"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:textSize="19sp"
             android:background="@null"
-            android:text="Made By :"/>
+            android:text="Made By :"
+            android:id="@+id/textView"/>
 
         <TextView
             android:textAlignment="textEnd"
@@ -60,15 +65,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:textSize="17sp"
             android:background="@null"
             android:hint="作者："/>
 
         <TextView
+            android:textStyle="bold"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textSize="17sp"
+            android:textSize="19sp"
             android:background="@null"
             android:text="材料："/>
 
@@ -78,6 +85,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:background="@null"
+            android:textSize="17sp"
             android:hint="材料："/>
         <!--用料list-->
         <View
@@ -87,11 +95,12 @@
             android:background="#e6e6e6"/>
 
         <TextView
+            android:textStyle="bold"
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:textSize="17sp"
+            android:textSize="19sp"
             android:background="@null"
             android:text="做法："/>
         <!--step list-->
@@ -100,6 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:textSize="17sp"
             android:background="@null"
             android:hint="步骤："/>
         <View
@@ -114,7 +124,6 @@
             android:padding="8dp"
             android:background="@null"
             android:text="谢谢欣赏，如果喜欢可以收藏~"/>
-
     </LinearLayout>
 </ScrollView>
 
@@ -125,29 +134,37 @@
         android:background="#ffffff"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp">
-
-        <RadioButton
-            android:id="@+id/collect"
+        android:paddingTop="5dp"
+        android:gravity="center">
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/bt_star_selector"
-            android:gravity="center"
-            android:text="@string/star"
-            android:textColor="@color/tab_selector"/>
-
-        <RadioButton
-            android:id="@+id/classification"
+            android:gravity="center">
+            <ToggleButton
+                android:checked="false"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/star_nor"
+                android:id="@+id/star_detail"
+                android:textOff=""
+                android:textOn=""
+                />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/bt_play_selector"
-            android:gravity="center"
-            android:text="@string/play"
-            android:textColor="@color/tab_selector"/>
+            android:gravity="center">
+        <ToggleButton
+           android:src="@drawable/bt_play_selector"
+            android:background="@drawable/play_nor"
+            android:id="@+id/play_detail"
+           android:layout_width="25dp"
+           android:layout_height="25dp"
+           android:textOff=""
+           android:textOn=""/>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

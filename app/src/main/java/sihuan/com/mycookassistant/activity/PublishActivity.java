@@ -70,7 +70,7 @@ public class PublishActivity extends BaseActivity {
     EditText mDescribeEdit;
 
     LinearLayoutManager layoutManager_addmaterial, layoutManager_addSteps;
-    EditText ami_Materials, ami_Dosages, asi_Steps;
+    EditText ami_Food, ami_Portion, asi_Steps;
     private RecyclerView mRv_addmaterial, mRv_addSteps;
     private List<Materials> mDatas;
     private AddMaterialsAdapter mAdapter_m;
@@ -97,7 +97,6 @@ public class PublishActivity extends BaseActivity {
         initEvent();
 
         mAdapter_m = new AddMaterialsAdapter(mDatas,this);
-
         mRv_addmaterial.setAdapter(mAdapter_m);
 
         mAdapter_s = new AddStepsAdapter(mSteps, this);
@@ -131,8 +130,8 @@ public class PublishActivity extends BaseActivity {
 
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
         View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
-        ami_Materials = (EditText) view1.findViewById(R.id.ami_materials);
-        ami_Dosages = (EditText) view1.findViewById(R.id.ami_dosages);
+        ami_Food = (EditText) view1.findViewById(R.id.ami_materials);
+        ami_Portion = (EditText) view1.findViewById(R.id.ami_dosages);
 
         mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addstep);
         View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps, null);
@@ -309,7 +308,7 @@ public class PublishActivity extends BaseActivity {
     private void addItems() {
         if (layoutManager_addmaterial.hasFocus()) {
             position_m++;
-            mAdapter_m.addData(position_m,new Materials(ami_Materials.getText().toString(),ami_Dosages.getText().toString()));
+            mAdapter_m.addData(position_m,new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
         } else if (layoutManager_addSteps.hasFocus()) {
             position_s++;
             mAdapter_s.addData(position_s, new Steps(asi_Steps.getText().toString()));
