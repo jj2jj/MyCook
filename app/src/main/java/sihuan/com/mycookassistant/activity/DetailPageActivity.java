@@ -7,11 +7,13 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.GetCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
 
 import sihuan.com.mycookassistant.R;
@@ -34,6 +36,7 @@ public class DetailPageActivity  extends BaseActivity{
     private TextView steps;
     private ToggleButton star_btn;
     private ToggleButton play_btn;
+    String mObjectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +49,7 @@ public class DetailPageActivity  extends BaseActivity{
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("详情");
-
+        mObjectId = getIntent().getStringExtra("itemObjectId");
         findViews();
         getItemData();
         onClickEvents();
@@ -57,7 +60,6 @@ public class DetailPageActivity  extends BaseActivity{
      * 获取对应的item的data，将其放入TextView material & TextView steps中显示
      */
     private void getItemData() {
-        String mObjectId = getIntent().getStringExtra("itemObjectId");
         AVObject avObject = AVObject.createWithoutData("Works",mObjectId);
         avObject.fetchInBackground("owner", new GetCallback<AVObject>() {
             @Override
@@ -126,9 +128,22 @@ public class DetailPageActivity  extends BaseActivity{
     private void cookBookStared(boolean isStared) {
         if (isStared){
             star_btn.setBackgroundResource(R.drawable.star_sel);
+            createCollection(isStared);
         }else {
             star_btn.setBackgroundResource(R.drawable.star_nor);
         }
+    }
+
+    private void createCollection(boolean isStared) {
+        AVObject myCollections = new AVObject("Collections");
+        myCollections.put("isStared",isStared);
+        myCollections.put("worksObjectId",AVObject.createWithoutData("Works",mObjectId));
+        myCollections.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                Toast.makeText(DetailPageActivity.this, "收藏成功^_^", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
