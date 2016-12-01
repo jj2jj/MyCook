@@ -126,7 +126,7 @@ public class PublishActivity extends BaseActivity {
     private void findViews() {
         mImage = (ImageView) findViewById(R.id.image_publish);
         mTitleEdit = (EditText) findViewById(R.id.title_publish);
-        mDescribeEdit = (EditText) findViewById(R.id.description_publish);
+        mDescribeEdit = (EditText) findViewById(R.id.describe_publish);
 
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
         View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
@@ -177,7 +177,7 @@ public class PublishActivity extends BaseActivity {
         myWorks.setTitle(mTitleEdit.getText().toString());
         myWorks.setSteps(mSteps);
         myWorks.setMaterials(mDatas);
-        myWorks.setDescription(mDescribeEdit.getText().toString());
+        myWorks.setDescribe(mDescribeEdit.getText().toString());
         myWorks.setUser(AVUser.getCurrentUser());
         myWorks.setImage(new AVFile("workPic", mImageBytes));
         myWorks.saveInBackground(new SaveCallback() {

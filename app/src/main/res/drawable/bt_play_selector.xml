@@ -5,7 +5,4 @@
 
     <item android:state_selected="false" android:drawable="@drawable/play_nor"/>
 
-
-
-
 </selector>

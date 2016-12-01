@@ -16,7 +16,7 @@
         android:hint="菜谱名"/>
 
     <EditText
-        android:id="@+id/description_publish"
+        android:id="@+id/describe_publish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

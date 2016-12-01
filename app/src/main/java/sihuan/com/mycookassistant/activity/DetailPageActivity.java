@@ -11,7 +11,6 @@ import android.widget.ToggleButton;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.GetCallback;
 import com.bumptech.glide.Glide;
 
@@ -29,7 +28,7 @@ public class DetailPageActivity  extends BaseActivity{
 
     private ImageView image;
     private TextView title;
-    private TextView description;
+    private TextView describe;
     private TextView author;
     private TextView material;
     private TextView steps;
@@ -49,16 +48,6 @@ public class DetailPageActivity  extends BaseActivity{
         actionBar.setTitle("详情");
 
         findViews();
-
-        /*
-         AVQuery<AVObject> avQuery = new AVQuery<>("Todo");
-        avQuery.getInBackground("558e20cbe4b060308e3eb36c", new GetCallback<AVObject>() {
-            @Override
-            public void done(AVObject avObject, AVException e) {
-                // object 就是 id 为 558e20cbe4b060308e3eb36c 的 Todo 对象实例
-            }
-        });
-         */
         getItemData();
         onClickEvents();
     }
@@ -69,16 +58,22 @@ public class DetailPageActivity  extends BaseActivity{
      */
     private void getItemData() {
         String mObjectId = getIntent().getStringExtra("itemObjectId");
-        AVQuery<AVObject> avQuery = new AVQuery<>("Works");
-        avQuery.getInBackground(mObjectId, new GetCallback<AVObject>() {
+        AVObject avObject = AVObject.createWithoutData("Works",mObjectId);
+        avObject.fetchInBackground("owner", new GetCallback<AVObject>() {
             @Override
             public void done(AVObject avObject, AVException e) {
-                Glide.with(DetailPageActivity.this).load(avObject.getAVFile("image") == null
-                        ? "www" : avObject.getAVFile("image").getUrl()).into(image);
+                Glide.with(DetailPageActivity.this)
+                        .load(avObject.getAVFile("image") == null ? "www" : avObject
+                                .getAVFile("image")
+                                .getUrl())
+                                .into(image);
 
-                title.setText(avObject.getString("title"));
-                description.setText(avObject.getString("description"));
-                author.setText(avObject.getAVUser("owner") == null ? "" : avObject.getAVUser("owner").getUsername());
+                title.setText(avObject.getString("title"));//菜名
+                describe.setText(avObject.getString("describe"));//菜品描述
+                author.setText(avObject
+                        .getAVUser("owner") == null ? "" : avObject
+                        .getAVUser("owner")
+                        .getUsername());//作者名
 
                 String m = avObject.getList("materials").toString();
                 m = m.replace("[","");
@@ -90,6 +85,7 @@ public class DetailPageActivity  extends BaseActivity{
                 m=m.replace("}","");
                 m=m.replace(",","\t\t\t\t\t\t\t\t\t\t");
                 material.setText(m);
+
                 String s = avObject.getList("steps").toString();
                 s=s.replace("steps=","");
                 s=s.replace("[","");
@@ -151,7 +147,7 @@ public class DetailPageActivity  extends BaseActivity{
     private void findViews() {
         image = (ImageView) findViewById(R.id.image_detail);
         title = (TextView) findViewById(R.id.title_detail);
-        description = (TextView) findViewById(R.id.description_detail);
+        describe = (TextView) findViewById(R.id.description_detail);
         author = (TextView) findViewById(R.id.author_detail);
         material = (TextView) findViewById(R.id.material_detail);
         steps = (TextView) findViewById(R.id.steps_detail);

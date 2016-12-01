@@ -58,14 +58,14 @@ public class Works extends AVObject{
 
     private String className;
 
-    private String description;
+    private String describe     ;
 
-    public String getDescription() {
-        return getString("description");
+    public String getDescribe() {
+        return getString("describe");
     }
 
-    public void setDescription(String description) {
-        put("description",description);
+    public void setDescribe(String describe) {
+        put("describe", describe);
     }
 
     private AVFile image;
