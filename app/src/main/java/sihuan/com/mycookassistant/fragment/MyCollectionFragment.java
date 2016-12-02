@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -20,17 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sihuan.com.mycookassistant.R;
-import sihuan.com.mycookassistant.adapter.MyProductAdapter;
+import sihuan.com.mycookassistant.adapter.MyCollectionAdapter;
 import sihuan.com.mycookassistant.bean.Works;
 
 /**
- * sihuan.com.mycookassistant.fragment
- * Created by sihuan on 2016/10/25.
+ * MyCollectionFragment
  */
-public class MyProductFragment extends Fragment {
+public class MyCollectionFragment extends Fragment {
     private int skip = 0;
     private XRecyclerView mRecyclerView;
-    private MyProductAdapter myProductAdapter;
+    private MyCollectionAdapter myCollectionAdapter;
     private List<Works> mlist = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,8 +36,8 @@ public class MyProductFragment extends Fragment {
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fmt_my_product_view, container, false);
-        mRecyclerView = (XRecyclerView) view.findViewById(R.id.recycler_list);
+        View view = inflater.inflate(R.layout.fmt_my_collection_view, container, false);
+        mRecyclerView = (XRecyclerView) view.findViewById(R.id.recycler_collect);
         mRecyclerView.setHasFixedSize(true);
         //setHasFixedSize()方法用来使RecyclerView保持固定的大小
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -50,8 +48,8 @@ public class MyProductFragment extends Fragment {
 
         LoadEvent();
 
-        myProductAdapter = new MyProductAdapter(mlist,getActivity());
-        mRecyclerView.setAdapter(myProductAdapter);
+        myCollectionAdapter = new MyCollectionAdapter(mlist,getActivity());
+        mRecyclerView.setAdapter(myCollectionAdapter);
         mRecyclerView.setRefreshing(true);
       //  mRecyclerView.setPullRefreshEnabled(true);
         return view;
@@ -75,7 +73,6 @@ public class MyProductFragment extends Fragment {
             @Override
             public void onLoadMore() {
                 // load more data here
-
                      skip++;
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -93,27 +90,22 @@ public class MyProductFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
-
+    
     private void getData(int skip) {
-        AVQuery<Works> query = AVObject.getQuery(Works.class);
-        query.orderByDescending("createdAt");
-        String user = AVUser.getCurrentUser().getObjectId();
-        query.whereEqualTo("owner", AVObject.createWithoutData("_User", user));
-        int limit = 5;
-        query.limit(limit);
-        query.skip(limit *skip);
-
-        query.findInBackground(new FindCallback<Works>() {
+        //关联属性查询
+        AVQuery<AVObject> collectionQuery = new AVQuery<>("Collections");
+        final int limit = 5;
+        collectionQuery.limit(limit);
+        collectionQuery.skip(limit*skip);
+        collectionQuery.include("worksObjectId");
+        collectionQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
-            public void done(List<Works> list, AVException e) {
-                if (e == null) {
-                    mlist.addAll(list);
-                    myProductAdapter.notifyDataSetChanged();
-                } else {
-                    e.printStackTrace();
+            public void done(List<AVObject> list, AVException e) {
+                for (AVObject collections : list) {
+                    // 并不需要网络访问
+                    AVObject works = collections.getAVObject("worksObjectId");
+                   mlist.add((Works) works);
                 }
-
-
             }
         });
     }

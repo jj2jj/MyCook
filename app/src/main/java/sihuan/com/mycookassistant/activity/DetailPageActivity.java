@@ -185,7 +185,6 @@ public class DetailPageActivity  extends BaseActivity{
             play_btn.setBackgroundResource(R.drawable.play_nor);
         }
     }
-
     private void findViews() {
         image = (ImageView) findViewById(R.id.image_detail);
         title = (TextView) findViewById(R.id.title_detail);
@@ -195,8 +194,6 @@ public class DetailPageActivity  extends BaseActivity{
         steps = (TextView) findViewById(R.id.steps_detail);
         star_btn = (ImageView) findViewById(R.id.star_detail);
         play_btn = (ImageView) findViewById(R.id.play_detail);
-
-
     }
 
     @Override
