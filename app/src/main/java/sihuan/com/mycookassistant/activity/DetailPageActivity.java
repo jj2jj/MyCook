@@ -4,17 +4,22 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.CompoundButton;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.bumptech.glide.Glide;
+
+import java.util.Arrays;
+import java.util.List;
 
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.base.BaseActivity;
@@ -34,9 +39,10 @@ public class DetailPageActivity  extends BaseActivity{
     private TextView author;
     private TextView material;
     private TextView steps;
-    private ToggleButton star_btn;
-    private ToggleButton play_btn;
+    private ImageView star_btn;
+    private ImageView play_btn;
     String mObjectId;
+    int flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +55,45 @@ public class DetailPageActivity  extends BaseActivity{
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("详情");
+
         mObjectId = getIntent().getStringExtra("itemObjectId");
         findViews();
-        getItemData();
         onClickEvents();
+
+        initItemData();
+
     }
 
     /**
-     * getItemData()
-     * 获取对应的item的data，将其放入TextView material & TextView steps中显示
+     * onClickEvents()
+     * ToggleButton 点击事件监听
      */
-    private void getItemData() {
+    private void onClickEvents() {
+        flag = 0;
+
+        star_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (flag == 0){
+                    //添加收藏
+                    createCollection(true);
+                    star_btn.setBackgroundResource(R.drawable.star_sel);
+
+                }else if (flag == 1){
+                    //取消收藏
+                    deleteCollection();
+                    star_btn.setBackgroundResource(R.drawable.star_nor);
+                }
+                flag=(flag+1)%2;//其余得到循环执行上面3个不同的功能
+            }
+        });
+    }
+
+    /**
+     * 获取对应的item的data，将其放入TextView material & TextView steps中显示
+     * initItemData()
+     */
+    private void initItemData() {
         AVObject avObject = AVObject.createWithoutData("Works",mObjectId);
         avObject.fetchInBackground("owner", new GetCallback<AVObject>() {
             @Override
@@ -68,7 +102,7 @@ public class DetailPageActivity  extends BaseActivity{
                         .load(avObject.getAVFile("image") == null ? "www" : avObject
                                 .getAVFile("image")
                                 .getUrl())
-                                .into(image);
+                        .into(image);
 
                 title.setText(avObject.getString("title"));//菜名
                 describe.setText(avObject.getString("describe"));//菜品描述
@@ -101,43 +135,36 @@ public class DetailPageActivity  extends BaseActivity{
     }
 
     /**
-     * onClickEvents()
-     * ToggleButton 点击事件监听
+     * 取消收藏,删除collection数据表中的内容
      */
-    private void onClickEvents() {
-        star_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                cookBookStared(b);
-            }
-        });
+    private void deleteCollection() {
+        AVQuery<AVObject> worksIdQuery = new AVQuery<>("Collections");
+        worksIdQuery.whereEqualTo("worksObjectId",AVObject.createWithoutData("Works",mObjectId));
+        AVQuery<AVObject> collectorQuery = new AVQuery<>("Collections");
+        collectorQuery.whereEqualTo("collector",AVUser.getCurrentUser());
 
-        play_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        AVQuery<AVObject> collectionQuery = AVQuery.and(Arrays.asList(worksIdQuery,collectorQuery));
+        collectionQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                cookBookPlayed(b);
+            public void done(List<AVObject> list, AVException e) {
+                if (null != list && list.size()>0){
+                    for (int i=0;i< list.size();i++){
+                            list.get(i).deleteInBackground();
+                    }
+                }
             }
         });
     }
 
     /**
-     * cookBookStared(boolean isStared)
+     * 添加收藏
      * @param isStared
-     * 判断是都点击收藏按钮
      */
-    private void cookBookStared(boolean isStared) {
-        if (isStared){
-            star_btn.setBackgroundResource(R.drawable.star_sel);
-            createCollection(isStared);
-        }else {
-            star_btn.setBackgroundResource(R.drawable.star_nor);
-        }
-    }
-
     private void createCollection(boolean isStared) {
         AVObject myCollections = new AVObject("Collections");
         myCollections.put("isStared",isStared);
         myCollections.put("worksObjectId",AVObject.createWithoutData("Works",mObjectId));
+        myCollections.put("collector", AVUser.getCurrentUser());
         myCollections.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
@@ -166,8 +193,10 @@ public class DetailPageActivity  extends BaseActivity{
         author = (TextView) findViewById(R.id.author_detail);
         material = (TextView) findViewById(R.id.material_detail);
         steps = (TextView) findViewById(R.id.steps_detail);
-        star_btn = (ToggleButton) findViewById(R.id.star_detail);
-        play_btn = (ToggleButton) findViewById(R.id.play_detail);
+        star_btn = (ImageView) findViewById(R.id.star_detail);
+        play_btn = (ImageView) findViewById(R.id.play_detail);
+
+
     }
 
     @Override

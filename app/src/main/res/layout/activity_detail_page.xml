@@ -142,7 +142,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-            <ToggleButton
+            <ImageView
                 android:checked="false"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -157,9 +157,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-        <ToggleButton
-           android:src="@drawable/bt_play_selector"
-            android:background="@drawable/play_nor"
+        <ImageView
+           android:background="@drawable/play_nor"
             android:id="@+id/play_detail"
            android:layout_width="25dp"
            android:layout_height="25dp"
