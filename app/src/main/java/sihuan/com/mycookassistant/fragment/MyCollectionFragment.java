@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -90,10 +91,11 @@ public class MyCollectionFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
-    
+
     private void getData(int skip) {
         //关联属性查询
         AVQuery<AVObject> collectionQuery = new AVQuery<>("Collections");
+        collectionQuery.whereEqualTo("collector", AVObject.createWithoutData("_User", AVUser.getCurrentUser().getObjectId()));
         final int limit = 5;
         collectionQuery.limit(limit);
         collectionQuery.skip(limit*skip);
