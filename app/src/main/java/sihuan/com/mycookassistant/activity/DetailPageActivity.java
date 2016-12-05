@@ -39,6 +39,7 @@ public class DetailPageActivity  extends BaseActivity{
     private TextView author;
     private TextView material;
     private TextView steps;
+    private TextView dish_type;
     private ImageView star_btn;
     private ImageView play_btn;
     String mObjectId;
@@ -58,6 +59,8 @@ public class DetailPageActivity  extends BaseActivity{
 
         mObjectId = getIntent().getStringExtra("itemObjectId");
         findViews();
+
+
         onClickEvents();
 
         initItemData();
@@ -70,7 +73,6 @@ public class DetailPageActivity  extends BaseActivity{
      */
     private void onClickEvents() {
         flag = 0;
-
         star_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +96,7 @@ public class DetailPageActivity  extends BaseActivity{
      * initItemData()
      */
     private void initItemData() {
-        AVObject avObject = AVObject.createWithoutData("Works",mObjectId);
+        AVObject avObject = AVObject.createWithoutData("Works", mObjectId);
         avObject.fetchInBackground("owner", new GetCallback<AVObject>() {
             @Override
             public void done(AVObject avObject, AVException e) {
@@ -106,29 +108,30 @@ public class DetailPageActivity  extends BaseActivity{
 
                 title.setText(avObject.getString("title"));//菜名
                 describe.setText(avObject.getString("describe"));//菜品描述
+                dish_type.setText(avObject.getString("dishestype"));
                 author.setText(avObject
                         .getAVUser("owner") == null ? "" : avObject
                         .getAVUser("owner")
                         .getUsername());//作者名
 
                 String m = avObject.getList("materials").toString();
-                m = m.replace("[","");
-                m = m.replace("]","");
-                m=m.replace("food=","");
-                m=m.replace("portion=","");
-                m=m.replace("{","\t\t\t\t\t\t");
-                m=m.replace("},","\n");
-                m=m.replace("}","");
-                m=m.replace(",","\t\t\t\t\t\t\t\t\t\t");
+                m = m.replace("[", "");
+                m = m.replace("]", "");
+                m = m.replace("food=", "");
+                m = m.replace("portion=", "");
+                m = m.replace("{", "\t\t\t\t\t\t");
+                m = m.replace("},", "\n");
+                m = m.replace("}", "");
+                m = m.replace(",", "\t\t\t\t\t\t\t\t\t\t");
                 material.setText(m);
 
                 String s = avObject.getList("steps").toString();
-                s=s.replace("steps=","");
-                s=s.replace("[","");
-                s=s.replace("]","");
-                s=s.replace("{","");
-                s=s.replace("}","");
-                s=s.replace(",","\n");
+                s = s.replace("steps=", "");
+                s = s.replace("[", "");
+                s = s.replace("]", "");
+                s = s.replace("{", "");
+                s = s.replace("}", "");
+                s = s.replace(",", "\n");
                 steps.setText(s);
             }
         });
@@ -140,6 +143,7 @@ public class DetailPageActivity  extends BaseActivity{
     private void deleteCollection() {
         AVQuery<AVObject> worksIdQuery = new AVQuery<>("Collections");
         worksIdQuery.whereEqualTo("worksObjectId",AVObject.createWithoutData("Works",mObjectId));
+
         AVQuery<AVObject> collectorQuery = new AVQuery<>("Collections");
         collectorQuery.whereEqualTo("collector",AVUser.getCurrentUser());
 
@@ -160,7 +164,7 @@ public class DetailPageActivity  extends BaseActivity{
      * 添加收藏
      * @param isStared
      */
-    private void createCollection(boolean isStared) {
+    private void createCollection(final boolean isStared) {
         AVObject myCollections = new AVObject("Collections");
         myCollections.put("isStared",isStared);
         myCollections.put("worksObjectId",AVObject.createWithoutData("Works",mObjectId));
@@ -186,6 +190,7 @@ public class DetailPageActivity  extends BaseActivity{
         }
     }
     private void findViews() {
+        dish_type= (TextView) findViewById(R.id.dish_type);
         image = (ImageView) findViewById(R.id.image_detail);
         title = (TextView) findViewById(R.id.title_detail);
         describe = (TextView) findViewById(R.id.description_detail);

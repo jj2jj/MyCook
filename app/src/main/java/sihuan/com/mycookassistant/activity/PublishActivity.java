@@ -68,6 +68,7 @@ public class PublishActivity extends BaseActivity {
     private byte[] mImageBytes = null;
     EditText mTitleEdit;
     EditText mDescribeEdit;
+    EditText mDishesType;
 
     LinearLayoutManager layoutManager_addmaterial, layoutManager_addSteps;
     EditText ami_Food, ami_Portion, asi_Steps;
@@ -77,6 +78,9 @@ public class PublishActivity extends BaseActivity {
     private List<Steps> mSteps;
     private AddStepsAdapter mAdapter_s;
     int position_m = 0, position_s = 0;
+
+
+    String  str;
 
 
 
@@ -113,9 +117,6 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void initDatas() {
-
-        //chushihua data
-
         mDatas = new ArrayList<>();
         mDatas.add(new Materials("用料：","用量："));
 
@@ -124,6 +125,7 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void findViews() {
+        mDishesType = (EditText) findViewById(R.id.dishestype);
         mImage = (ImageView) findViewById(R.id.image_publish);
         mTitleEdit = (EditText) findViewById(R.id.title_publish);
         mDescribeEdit = (EditText) findViewById(R.id.describe_publish);
@@ -145,6 +147,31 @@ public class PublishActivity extends BaseActivity {
                 showDialog();
             }
         });
+        mDishesType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDishType();
+            }
+        });
+
+    }
+
+    private void showDishType() {
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        builder2.setTitle("请选择");
+        final String[] choices = getResources().getStringArray(R.array.dishestype);
+        builder2.setItems(choices, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //拿到被选择项的值
+
+                 str = choices[i].toString();
+                //把该值传给 TextView
+                mDishesType.setText(str);
+            }
+        });
+        AlertDialog dialog2 = builder2.create();
+        dialog2.show();
     }
 
     private void uploadInfo() throws AVException {
@@ -174,6 +201,7 @@ public class PublishActivity extends BaseActivity {
 
     private void uploadData() {
         final Works myWorks = new Works("Works");
+        myWorks.setDishestype(mDishesType.getText().toString());
         myWorks.setTitle(mTitleEdit.getText().toString());
         myWorks.setSteps(mSteps);
         myWorks.setMaterials(mDatas);

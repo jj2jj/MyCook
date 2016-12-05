@@ -36,8 +36,30 @@
     <string name="publish">上传</string>
 
     <string-array name="photo_choice">
-        <item>拍照上传</item>
-        <item>从本地图库选择</item>
+    <item>拍照上传</item>
+    <item>从本地图库选择</item>
+</string-array>
+    <string-array name="dishestype">
+        <item>请选择</item>
+        <item>家常菜</item>
+        <item>开胃菜</item>
+        <item>私房菜</item>
+        <item>下饭菜</item>
+        <item>农家菜</item>
+        <item>下酒菜</item>
+        <item>懒人食谱</item>
+        <item>素 菜</item>
+        <item>荤 菜</item>
+        <item>凉 菜</item>
+        <item>卤 菜</item>
+        <item>海 鲜</item>
+        <item>煲 汤</item>
+        <item>面 食</item>
+        <item>小 吃</item>
+        <item>甜 点</item>
+        <item>饮 品</item>
+        <item>冰 品</item>
+        <item>自制酱料</item>
     </string-array>
 
 </resources>

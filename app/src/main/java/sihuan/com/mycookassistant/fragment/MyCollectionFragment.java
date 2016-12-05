@@ -104,7 +104,6 @@ public class MyCollectionFragment extends Fragment {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 for (AVObject collections : list) {
-                    // 并不需要网络访问
                     AVObject works = collections.getAVObject("worksObjectId");
                    mlist.add((Works) works);
                 }

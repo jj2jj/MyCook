@@ -27,7 +27,6 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     private Context mContext;
     private List<Works> mList = null;
 
-
     public MyCollectionAdapter(List<Works> list, Context context) {
         this.mContext = context;
         this.mList = list;
@@ -45,8 +44,11 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     public void onBindViewHolder(MyRecyclerHolder holder, final int position) {
 
         holder.mTitle.setText(mList.get(position).getTitle());
-        holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
+        // TODO: 2016-12-05 mName 没有显示出来 
+        holder.mName.setText(mList.get(position).getUser() == null ? "" : mList.get(position).getUser().getUsername());
+
         Glide.with(mContext).load(mList.get(position).getImage() == null ? "www" : mList.get(position).getImage().getUrl()).into(holder.mPicture);
+
         holder.mItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +66,8 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
 
         return mList.size();
     }
+
+
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public class MyRecyclerHolder extends RecyclerView.ViewHolder {

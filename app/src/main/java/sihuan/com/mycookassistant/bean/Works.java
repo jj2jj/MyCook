@@ -17,6 +17,15 @@ import java.util.List;
 @AVClassName("Works")
 
 public class Works extends AVObject{
+    private String dishestype;
+
+    public String getDishestype() {
+        return getString("dishestype");
+    }
+
+    public void setDishestype(String dishestype) {
+        put("dishestype", dishestype);
+    }
 
     private String title;
 
