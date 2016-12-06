@@ -16,12 +16,12 @@
             android:id="@+id/banner"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            app:image_scale_type="fit_xy"></com.youth.banner.Banner>
+            app:image_scale_type="fit_xy"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_homepageview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

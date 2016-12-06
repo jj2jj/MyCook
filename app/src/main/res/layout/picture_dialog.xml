@@ -38,4 +38,4 @@
             android:text="从本地图库选择"
             android:textColor="#2a2a2a"
             android:textSize="15sp" />
-    </LinearLayout>
+</LinearLayout>
