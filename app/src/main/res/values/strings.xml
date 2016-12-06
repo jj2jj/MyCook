@@ -35,31 +35,34 @@
     <string name="logining">登录中</string>
     <string name="publish">上传</string>
 
+    <string name="xiafancai">下饭菜</string>
+    <string name="biandang">便当</string>
+    <string name="sushi">素食</string>
+    <string name="jiachangcai">家常菜</string>
+    <string name="tianpin">甜品饮品</string>
+    <string name="shala">沙拉凉菜</string>
+    <string name="lanrenshipu">懒人食谱</string>
+    <string name="mianshi">面食小吃</string>
+    <string name="tangpin">汤品</string>
+
     <string-array name="photo_choice">
     <item>拍照上传</item>
     <item>从本地图库选择</item>
 </string-array>
     <string-array name="dishestype">
-        <item>请选择</item>
-        <item>家常菜</item>
-        <item>开胃菜</item>
-        <item>私房菜</item>
         <item>下饭菜</item>
-        <item>农家菜</item>
-        <item>下酒菜</item>
+        <item>便 当</item>
+        <item>素 食</item>
+
+        <item>家常菜</item>
+        <item>甜品饮品</item>
+        <item>沙拉凉菜</item>
+
         <item>懒人食谱</item>
-        <item>素 菜</item>
-        <item>荤 菜</item>
-        <item>凉 菜</item>
-        <item>卤 菜</item>
-        <item>海 鲜</item>
-        <item>煲 汤</item>
-        <item>面 食</item>
-        <item>小 吃</item>
-        <item>甜 点</item>
-        <item>饮 品</item>
-        <item>冰 品</item>
-        <item>自制酱料</item>
+        <item>面食小吃</item>
+        <item>汤 品</item>
+
+
     </string-array>
 
 </resources>

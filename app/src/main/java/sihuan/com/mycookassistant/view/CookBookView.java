@@ -34,6 +34,7 @@ import sihuan.com.mycookassistant.activity.CookBookActivity;
 import sihuan.com.mycookassistant.activity.LoginActivity;
 import sihuan.com.mycookassistant.adapter.ContentPagerAdapter;
 import sihuan.com.mycookassistant.base.RootView;
+import sihuan.com.mycookassistant.fragment.ClassificationFragment;
 import sihuan.com.mycookassistant.fragment.Fragment3;
 import sihuan.com.mycookassistant.fragment.HomePageFragment;
 import sihuan.com.mycookassistant.fragment.MyCollectionFragment;
@@ -114,7 +115,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         fragments.add(new HomePageFragment());
         fragments.add(new MyProductFragment());
         fragments.add(new MyCollectionFragment());
-        fragments.add(new Fragment3());
+        fragments.add(new ClassificationFragment());
         fragments.add(new Fragment3());
         return fragments;
     }

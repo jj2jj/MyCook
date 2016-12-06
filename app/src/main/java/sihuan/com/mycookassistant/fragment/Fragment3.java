@@ -11,6 +11,6 @@ import sihuan.com.mycookassistant.base.BaseFragment;
 public class Fragment3 extends BaseFragment {
     @Override
     protected int getLayout() {
-        return R.layout.fragment3;
+        return R.layout.fmt_classification_view;
     }
 }
