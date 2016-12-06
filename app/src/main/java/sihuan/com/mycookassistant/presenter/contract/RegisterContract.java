@@ -5,14 +5,15 @@ import sihuan.com.mycookassistant.base.BasePresenter;
 import sihuan.com.mycookassistant.base.BaseView;
 
 /**
+ *
  * Created by Jessica0906zjj on 2016-10-27.
  */
 
 public interface RegisterContract {
     interface View extends BaseView<Presenter> {
+        String PASSWORD_VIEW = "password_view";
+        String USERNAME_VIEW = "username_view";
 
-        public static final String PASSWORD = "0";
-        public static final String USERNAME = "1";
 
         void showProgress(boolean b);
 
@@ -28,7 +29,7 @@ public interface RegisterContract {
 
         String getString(int res);
 
-        void requestFocus(String s);
+        void requestViewFocus(String view);
 
         void showToast(String s);
 

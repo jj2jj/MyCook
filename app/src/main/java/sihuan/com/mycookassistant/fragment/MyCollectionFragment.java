@@ -29,7 +29,6 @@ import sihuan.com.mycookassistant.bean.Works;
 public class MyCollectionFragment extends Fragment {
     private int skip = 0;
     private XRecyclerView mRecyclerView;
-    private MyCollectionAdapter myCollectionAdapter;
     private List<Works> mlist = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,8 +48,7 @@ public class MyCollectionFragment extends Fragment {
 
         LoadEvent();
 
-        myCollectionAdapter = new MyCollectionAdapter(mlist,getActivity());
-        mRecyclerView.setAdapter(myCollectionAdapter);
+        mRecyclerView.setAdapter(new MyCollectionAdapter(mlist, getActivity()));
         mRecyclerView.setRefreshing(true);
       //  mRecyclerView.setPullRefreshEnabled(true);
         return view;

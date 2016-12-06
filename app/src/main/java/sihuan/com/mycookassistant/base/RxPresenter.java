@@ -9,9 +9,9 @@ import rx.subscriptions.CompositeSubscription;
 public class RxPresenter<T> implements BasePresenter<T> {
 
     protected T mView;
-    protected CompositeSubscription mCompositeSubscription;
+    private CompositeSubscription mCompositeSubscription;
 
-    protected void unSubscribe() {
+    private void unSubscribe() {
         if (mCompositeSubscription != null) {
             mCompositeSubscription.unsubscribe();
         }

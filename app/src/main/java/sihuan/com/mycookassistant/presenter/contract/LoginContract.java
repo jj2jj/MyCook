@@ -11,11 +11,11 @@ import sihuan.com.mycookassistant.base.BaseView;
 public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
-        public static final String PASSWORD = "0";
-        public static final String USERNAME = "1";
+        String PASSWORD_VIEW = "password_view";
+        String USERNAME_VIEW = "username_view";
 
         void setLoginInfo();
-//TODO: 2016/11/4 记住密码
+
         void showProgress(boolean b);
 
         void navigateToActivty(Class clz);
@@ -30,7 +30,7 @@ public interface LoginContract {
 
         String getString(int res);
 
-        void requestFocus(String s);
+        void requestViewFocus(String view);
 
         void showToast(String s);
 
