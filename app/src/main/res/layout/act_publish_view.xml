@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include layout="@layout/toolbar_publish"/>
+    <include layout="@layout/toolbar_publish"
+        android:id="@+id/toolbar"/>
 
     <EditText
+        android:layout_below="@+id/toolbar"
         android:id="@+id/title_publish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,6 +18,7 @@
         android:hint="菜谱名"/>
 
         <EditText
+            android:layout_below="@+id/title_publish"
             android:id="@+id/dishestype"
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
@@ -26,6 +29,7 @@
             android:hint="菜式选择："/>
 
     <EditText
+        android:layout_below="@+id/dishestype"
         android:id="@+id/describe_publish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,6 +39,7 @@
         android:hint="描述"/>
 
     <ImageView
+        android:layout_below="@id/describe_publish"
         android:id="@+id/image_publish"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -42,9 +47,9 @@
         android:scaleType="centerCrop"
         android:src="@drawable/text"/>
     <ScrollView
+        android:layout_below="@+id/image_publish"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -71,4 +76,5 @@
         </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+
+</RelativeLayout>
