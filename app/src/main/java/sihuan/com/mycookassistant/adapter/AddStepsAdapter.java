@@ -39,7 +39,7 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.asi_steps.setText(mSteps.get(position).getSteps());
         holder.asi_steps.addTextChangedListener(new TextWatcher() {
             @Override
@@ -54,7 +54,7 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mSteps.get(position).setSteps(holder.asi_steps.getText().toString());
+                mSteps.get(holder.getAdapterPosition()).setSteps(holder.asi_steps.getText().toString());
 
             }
         });
