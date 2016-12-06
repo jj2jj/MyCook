@@ -28,7 +28,6 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
     private List<Works> mList = null;
 
 
-
     public MyProductAdapter(List<Works> list, Context context) {
         this.mContext = context;
         this.mList = list;
@@ -40,36 +39,40 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_recycler_list, parent, false);
         return new MyRecyclerHolder(view);
     }
+
     //将数据与界面进行绑定的操作
     @Override
     public void onBindViewHolder(MyRecyclerHolder holder, final int position) {
 
         holder.mTitle.setText(mList.get(position).getTitle());
-       // holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
+        // holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
         Glide.with(mContext).load(mList.get(position).getImage() == null ? "www" : mList.get(position).getImage().getUrl()).into(holder.mPicture);
         holder.mItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: 2016-11-09 跳转至item详情页
                 Intent intent = new Intent(mContext, DetailPageActivity.class);
-                intent.putExtra("itemObjectId",mList.get(position).getObjectId());
+                intent.putExtra("itemObjectId", mList.get(position).getObjectId());
                 mContext.startActivity(intent);
             }
         });
     }
+
     //获取数据的数量
     @Override
     public int getItemCount() {
 
-            return mList.size();
+        return mList.size();
     }
+
     //自定义的ViewHolder，持有每个Item的的所有界面元素
-   public class MyRecyclerHolder extends RecyclerView.ViewHolder {
-      // private TextView mName;
+    static class MyRecyclerHolder extends RecyclerView.ViewHolder {
+        // private TextView mName;
         private TextView mTitle;
         private CardView mItem;
         private ImageView mPicture;
-        public MyRecyclerHolder(View itemView) {
+
+        MyRecyclerHolder(View itemView) {
             super(itemView);
             //mName = (TextView) itemView.findViewById(R.id.name_item_recycler);
             mTitle = (TextView) itemView.findViewById(R.id.title_item_recycler);

@@ -6,28 +6,28 @@ import android.text.TextUtils;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
+
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.activity.CookBookActivity;
 import sihuan.com.mycookassistant.base.RxPresenter;
-import sihuan.com.mycookassistant.presenter.contract.LoginContract;
 import sihuan.com.mycookassistant.presenter.contract.RegisterContract;
 import sihuan.com.mycookassistant.view.RegisterView;
 
 /**
- *
+ * RegisterPresenter
  * Created by Jessica0906zjj on 2016-10-27.
  */
 
-public class RegisterPresenter extends RxPresenter implements RegisterContract.Presenter{
-    RegisterView mRegisterView;
+public class RegisterPresenter extends RxPresenter implements RegisterContract.Presenter {
+    private RegisterView mRegisterView;
 
-  public RegisterPresenter(RegisterView view){
-      mRegisterView = view;
-      mRegisterView.setPresenter(this);
+    public RegisterPresenter(RegisterView view) {
+        mRegisterView = view;
+        mRegisterView.setPresenter(this);
 
-      //mRegisterView.attemptRegister();
+        //mRegisterView.attemptRegister();
 
-  }
+    }
 
     @Override
     public void attemptRegister() {
@@ -39,12 +39,12 @@ public class RegisterPresenter extends RxPresenter implements RegisterContract.P
         if (TextUtils.isEmpty(username)) {
             //这个是必填项
             mRegisterView.SetUserNameError(mRegisterView.getString(R.string.error_field_required));
-            mRegisterView.requestFocus(RegisterContract.View.USERNAME);
+            mRegisterView.requestViewFocus(RegisterContract.View.USERNAME_VIEW);
             return;
         }
         if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mRegisterView.SetPasswordError(mRegisterView.getString(R.string.error_invalid_password));
-            mRegisterView.requestFocus(LoginContract.View.PASSWORD);
+            mRegisterView.requestViewFocus(RegisterContract.View.PASSWORD_VIEW);
             return;
         }
 
@@ -64,7 +64,7 @@ public class RegisterPresenter extends RxPresenter implements RegisterContract.P
                 } else {
                     // 失败的原因可能有多种，常见的是用户名已经存在。
                     mRegisterView.showProgress(false);
-                   //Toast.makeText(mRegisterView, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mRegisterView, e.getMessage(), Toast.LENGTH_SHORT).show();
                     mRegisterView.showToast(e.getMessage());
                 }
             }

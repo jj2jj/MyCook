@@ -34,8 +34,7 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_add_materials, parent, false);
-        MyViewHolder viewHolder = new MyViewHolder(view);
-        return viewHolder;
+        return new MyViewHolder(view);
     }
 
     //将数据与界面进行绑定的操作
@@ -82,29 +81,30 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
         holder.ami_Food.requestFocus();
     }
 
-    public void addData(int position, Materials m){
+    public void addData(int position, Materials m) {
         mDatas.add(position, m);
         notifyItemInserted(position);
 
     }
 
-    public void deleteData(int position){
+    public void deleteData(int position) {
         mDatas.remove(position);
         notifyItemRemoved(position);
     }
 
     @Override
     public int getItemCount() {
-        return mDatas== null ? 0 : mDatas.size();
+        return mDatas == null ? 0 : mDatas.size();
     }
 
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
         EditText ami_Food;
         EditText ami_Portion;
         LinearLayout mItem;
-        public MyViewHolder(View itemView) {
+
+        MyViewHolder(View itemView) {
             super(itemView);
             ami_Food = (EditText) itemView.findViewById(R.id.ami_materials);
             ami_Portion = (EditText) itemView.findViewById(R.id.ami_dosages);

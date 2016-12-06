@@ -23,6 +23,7 @@ public class App extends Application {
     private static App instance;
     private Set<Activity> allActivities;
     public static RefWatcher refWatcher;
+
     public static synchronized App getInstance() {
         return instance;
     }
@@ -32,19 +33,18 @@ public class App extends Application {
         super.onCreate();
         FIR.init(this);
         instance = this;
-        refWatcher=  LeakCanary.install(this);
+        refWatcher = LeakCanary.install(this);
         AVObject.registerSubclass(Works.class);
 
         AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
         AVOSCloud.setDebugLogEnabled(true);
 
 
-
     }
 
     public void registerActivity(Activity act) {
         if (allActivities == null) {
-            allActivities = new HashSet<Activity>();
+            allActivities = new HashSet<>();
         }
         allActivities.add(act);
     }

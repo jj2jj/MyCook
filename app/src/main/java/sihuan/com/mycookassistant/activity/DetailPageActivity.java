@@ -162,7 +162,7 @@ public class DetailPageActivity  extends BaseActivity{
 
     /**
      * 添加收藏
-     * @param isStared
+     * @param isStared 是否被添加收藏
      */
     private void createCollection(final boolean isStared) {
         AVObject myCollections = new AVObject("Collections");
@@ -189,6 +189,8 @@ public class DetailPageActivity  extends BaseActivity{
             play_btn.setBackgroundResource(R.drawable.play_nor);
         }
     }
+
+
     private void findViews() {
         dish_type= (TextView) findViewById(R.id.dish_type);
         image = (ImageView) findViewById(R.id.image_detail);

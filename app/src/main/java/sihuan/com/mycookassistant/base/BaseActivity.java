@@ -80,7 +80,7 @@ public class BaseActivity<T extends BasePresenter> extends SupportActivity {
     /**
      * 设置沉浸式
      *
-     * @param on
+     * @param on 是否开启沉浸式
      */
     protected void setTranslucentStatus(boolean on) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

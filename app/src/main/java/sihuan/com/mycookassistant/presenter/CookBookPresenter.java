@@ -11,7 +11,7 @@ import sihuan.com.mycookassistant.view.CookBookView;
 
 public class CookBookPresenter extends RxPresenter implements CookBookContract.Presenter {
 
-    CookBookView mView;
+    private CookBookView mView;
 
 
     public CookBookPresenter(CookBookView view) {
