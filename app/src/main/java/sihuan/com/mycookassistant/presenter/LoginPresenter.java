@@ -1,6 +1,5 @@
 package sihuan.com.mycookassistant.presenter;
 
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.avos.avoscloud.AVException;
@@ -19,10 +18,10 @@ import sihuan.com.mycookassistant.view.LoginView;
  */
 
 public class LoginPresenter extends RxPresenter implements LoginContract.Presenter {
-    LoginView mView;
+    private LoginView mView;
 
-    SharedPreferences mSP;
-    SharedPreferences.Editor editor;
+//    SharedPreferences mSP;
+//    SharedPreferences.Editor editor;
 
     public LoginPresenter(LoginView view) {
         mView = view;
@@ -37,13 +36,13 @@ public class LoginPresenter extends RxPresenter implements LoginContract.Present
         String password = mView.getPassword();
         if (TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mView.SetPasswordError(mView.getString(R.string.error_invalid_password));
-            mView.requestFocus(LoginContract.View.PASSWORD);
+            mView.requestViewFocus(LoginContract.View.PASSWORD_VIEW);
             return;
         }
         if (TextUtils.isEmpty(username)) {
             //这个是必填项
             mView.SetUsernameError(mView.getString(R.string.error_field_required));
-            mView.requestFocus(LoginContract.View.USERNAME);
+            mView.requestViewFocus(LoginContract.View.USERNAME_VIEW);
             return;
         }
         mView.showProgress(true);

@@ -80,9 +80,7 @@ public class PublishActivity extends BaseActivity {
     int position_m = 0, position_s = 0;
 
 
-    String  str;
-
-
+    String str;
 
 
     @Override
@@ -100,7 +98,7 @@ public class PublishActivity extends BaseActivity {
         findViews();
         initEvent();
 
-        mAdapter_m = new AddMaterialsAdapter(mDatas,this);
+        mAdapter_m = new AddMaterialsAdapter(mDatas, this);
         mRv_addmaterial.setAdapter(mAdapter_m);
 
         mAdapter_s = new AddStepsAdapter(mSteps, this);
@@ -118,7 +116,7 @@ public class PublishActivity extends BaseActivity {
 
     private void initDatas() {
         mDatas = new ArrayList<>();
-        mDatas.add(new Materials("用料：","用量："));
+        mDatas.add(new Materials("用料：", "用量："));
 
         mSteps = new ArrayList<>();
         mSteps.add(new Steps("步骤："));
@@ -131,12 +129,12 @@ public class PublishActivity extends BaseActivity {
         mDescribeEdit = (EditText) findViewById(R.id.describe_publish);
 
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
-        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
+        View view1 = View.inflate(this, R.layout.item_add_materials, null);
         ami_Food = (EditText) view1.findViewById(R.id.ami_materials);
         ami_Portion = (EditText) view1.findViewById(R.id.ami_dosages);
 
         mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addstep);
-        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps, null);
+        View view2 = View.inflate(this, R.layout.item_add_steps, null);
         asi_Steps = (EditText) view2.findViewById(R.id.asi_steps);
     }
 
@@ -164,8 +162,7 @@ public class PublishActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //拿到被选择项的值
-
-                 str = choices[i].toString();
+                str = choices[i];
                 //把该值传给 TextView
                 mDishesType.setText(str);
             }
@@ -336,7 +333,7 @@ public class PublishActivity extends BaseActivity {
     private void addItems() {
         if (layoutManager_addmaterial.hasFocus()) {
             position_m++;
-            mAdapter_m.addData(position_m,new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
+            mAdapter_m.addData(position_m, new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
         } else if (layoutManager_addSteps.hasFocus()) {
             position_s++;
             mAdapter_s.addData(position_s, new Steps(asi_Steps.getText().toString()));

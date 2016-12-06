@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import butterknife.BindView;
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.base.BaseFragment;
-import sihuan.com.mycookassistant.base.BasePresenter;
 import sihuan.com.mycookassistant.presenter.HomePagePresenter;
 import sihuan.com.mycookassistant.view.HomePageView;
 
@@ -14,7 +13,7 @@ import sihuan.com.mycookassistant.view.HomePageView;
  * Created by sihuan on 2016/10/25.
  */
 
-public class HomePageFragment<T extends BasePresenter> extends BaseFragment {
+public class HomePageFragment extends BaseFragment {
     HomePagePresenter mPresenter;
 
     @BindView(R.id.home_page_view)
@@ -35,8 +34,6 @@ public class HomePageFragment<T extends BasePresenter> extends BaseFragment {
     public void onResume() {
         super.onResume();
     }
-
-
 
 
 }

@@ -18,6 +18,7 @@
             android:layout_height="220dp"
             app:image_scale_type="fit_xy"/>
 
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_homepageview"
             android:layout_width="match_parent"

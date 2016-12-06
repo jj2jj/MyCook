@@ -160,12 +160,12 @@ public class RegisterView extends RootView<RegisterContract.Presenter> implement
     }
 
     @Override
-    public void requestFocus(String s) {
-        switch (s) {
-            case USERNAME:
+    public void requestViewFocus(String view) {
+        switch (view) {
+            case USERNAME_VIEW:
                 mUsername_Rgst.requestFocus();
                 break;
-            case PASSWORD:
+            case PASSWORD_VIEW:
                 mUsername_Rgst.requestFocus();
                 break;
         }

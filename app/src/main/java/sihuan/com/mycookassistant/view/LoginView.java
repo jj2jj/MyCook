@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -95,7 +96,10 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
     protected void initView() {
         mActivity = (LoginActivity) mContext;
         mActivity.setSupportActionBar(mToolbar);
-        mActivity.getSupportActionBar().setTitle(mContext.getString(R.string.login));
+        ActionBar actionBar = mActivity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(mContext.getString(R.string.login));
+        }
         setUserInfo();
     }
 
@@ -241,16 +245,17 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
     }
 
     @Override
-    public void requestFocus(String s) {
-        switch (s) {
-            case USERNAME:
+    public void requestViewFocus(String view) {
+        switch (view) {
+            case USERNAME_VIEW:
                 mUsername.requestFocus();
                 break;
-            case PASSWORD:
+            case PASSWORD_VIEW:
                 mPassword.requestFocus();
                 break;
         }
     }
+
 
     @Override
     public void showToast(String s) {

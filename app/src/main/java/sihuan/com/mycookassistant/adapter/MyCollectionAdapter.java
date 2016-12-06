@@ -68,15 +68,14 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     }
 
 
-
     //自定义的ViewHolder，持有每个Item的的所有界面元素
-    public class MyRecyclerHolder extends RecyclerView.ViewHolder {
+    static class MyRecyclerHolder extends RecyclerView.ViewHolder {
         private TextView mName;
         private TextView mTitle;
         private CardView mItem;
         private ImageView mPicture;
 
-        public MyRecyclerHolder(View itemView) {
+        MyRecyclerHolder(View itemView) {
             super(itemView);
             mName = (TextView) itemView.findViewById(R.id.name_item);
             mTitle = (TextView) itemView.findViewById(R.id.title_item);
