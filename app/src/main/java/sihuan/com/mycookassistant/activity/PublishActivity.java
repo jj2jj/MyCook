@@ -17,7 +17,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -87,6 +86,7 @@ public class PublishActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_publish_view);
+
         mToolbar_publish = (Toolbar) findViewById(R.id.toolbar_pub);
         setSupportActionBar(mToolbar_publish);
         actionBar = getSupportActionBar();
@@ -97,18 +97,19 @@ public class PublishActivity extends BaseActivity {
         initDatas();
         findViews();
         initEvent();
-
-        mAdapter_m = new AddMaterialsAdapter(mDatas, this);
-        mRv_addmaterial.setAdapter(mAdapter_m);
-
-        mAdapter_s = new AddStepsAdapter(mSteps, this);
-        mRv_addSteps.setAdapter(mAdapter_s);
         //recyclerview的布局管理
         layoutManager_addmaterial = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRv_addmaterial.setLayoutManager(layoutManager_addmaterial);
 
         layoutManager_addSteps = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRv_addSteps.setLayoutManager(layoutManager_addSteps);
+
+        mAdapter_m = new AddMaterialsAdapter(mDatas, this);
+        mRv_addmaterial.setAdapter(mAdapter_m);
+
+        mAdapter_s = new AddStepsAdapter(mSteps, this);
+        mRv_addSteps.setAdapter(mAdapter_s);
+
         //设置增删动画
         mRv_addmaterial.setItemAnimator(new DefaultItemAnimator());
         mRv_addSteps.setItemAnimator(new DefaultItemAnimator());
@@ -129,12 +130,12 @@ public class PublishActivity extends BaseActivity {
         mDescribeEdit = (EditText) findViewById(R.id.describe_publish);
 
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
-        View view1 = View.inflate(this, R.layout.item_add_materials, null);
+        View view1 = View.inflate(this,R.layout.item_add_materials, null);
         ami_Food = (EditText) view1.findViewById(R.id.ami_materials);
         ami_Portion = (EditText) view1.findViewById(R.id.ami_dosages);
 
         mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addstep);
-        View view2 = View.inflate(this, R.layout.item_add_steps, null);
+        View view2 =View.inflate(this,R.layout.item_add_steps, null);
         asi_Steps = (EditText) view2.findViewById(R.id.asi_steps);
     }
 
