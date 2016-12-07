@@ -42,17 +42,17 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(final MyRecyclerHolder holder, int position) {
+    public void onBindViewHolder(final MyRecyclerHolder holder, final int position) {
 
-        holder.mTitle.setText(mList.get(holder.getAdapterPosition()).getTitle());
+        holder.mTitle.setText(mList.get(position).getTitle());
         // holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
-        Glide.with(mContext).load(mList.get(holder.getAdapterPosition()).getImage() == null ? "www" : mList.get(position).getImage().getUrl()).into(holder.mPicture);
+        Glide.with(mContext).load(mList.get(position).getImage() == null ? "www" : mList.get(position).getImage().getUrl()).into(holder.mPicture);
         holder.mItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: 2016-11-09 跳转至item详情页
                 Intent intent = new Intent(mContext, DetailPageActivity.class);
-                intent.putExtra("itemObjectId", mList.get(holder.getAdapterPosition()).getObjectId());
+                intent.putExtra("itemObjectId", mList.get(position).getObjectId());
                 mContext.startActivity(intent);
             }
         });

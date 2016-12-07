@@ -61,8 +61,8 @@
         <item>懒人食谱</item>
         <item>面食小吃</item>
         <item>汤 品</item>
-
-
     </string-array>
+
+    <string name="test">测试</string>
 
 </resources>

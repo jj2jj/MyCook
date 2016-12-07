@@ -41,20 +41,20 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(final MyRecyclerHolder holder, int position) {
+    public void onBindViewHolder(final MyRecyclerHolder holder, final int position) {
 
-        holder.mTitle.setText(mList.get(holder.getAdapterPosition()).getTitle());
+        holder.mTitle.setText(mList.get(position).getTitle());
         // TODO: 2016-12-05 mName 没有显示出来 
-        holder.mName.setText(mList.get(holder.getAdapterPosition()).getUser() == null ? "" : mList.get(holder.getAdapterPosition()).getUser().getUsername());
+        holder.mName.setText(mList.get(position).getUser() == null ? "" : mList.get(position).getUser().getUsername());
 
-        Glide.with(mContext).load(mList.get(holder.getAdapterPosition()).getImage() == null ? "www" : mList.get(holder.getAdapterPosition()).getImage().getUrl()).into(holder.mPicture);
+        Glide.with(mContext).load(mList.get(position).getImage() == null ? "www" : mList.get(position).getImage().getUrl()).into(holder.mPicture);
 
         holder.mItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: 2016-11-09 跳转至item详情页
                 Intent intent = new Intent(mContext, DetailPageActivity.class);
-                intent.putExtra("itemObjectId", mList.get(holder.getAdapterPosition()).getObjectId());
+                intent.putExtra("itemObjectId", mList.get(position).getObjectId());
                 mContext.startActivity(intent);
             }
         });
@@ -66,7 +66,6 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
 
         return mList.size();
     }
-
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     static class MyRecyclerHolder extends RecyclerView.ViewHolder {
