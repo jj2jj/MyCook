@@ -129,13 +129,15 @@ public class PublishActivity extends BaseActivity {
         mTitleEdit = (EditText) findViewById(R.id.title_publish);
         mDescribeEdit = (EditText) findViewById(R.id.describe_publish);
 
-        mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addmaterial);
-        View view1 = View.inflate(this,R.layout.item_add_materials, null);
+        mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addM);
+//        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
+         View view1 = View.inflate(this,R.layout.item_add_materials, null);
         ami_Food = (EditText) view1.findViewById(R.id.ami_materials);
         ami_Portion = (EditText) view1.findViewById(R.id.ami_dosages);
 
-        mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addstep);
+        mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addS);
         View view2 =View.inflate(this,R.layout.item_add_steps, null);
+//        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps, null);
         asi_Steps = (EditText) view2.findViewById(R.id.asi_steps);
     }
 

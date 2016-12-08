@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.orhanobut.logger.Logger;
-
 import java.util.List;
 
 import sihuan.com.mycookassistant.R;
@@ -41,8 +39,8 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        holder.asi_steps.setText(mSteps.get(position).getSteps());
+    public void onBindViewHolder(final MyViewHolder holder,  int position) {
+        holder.asi_steps.setText(mSteps.get(holder.getAdapterPosition()).getSteps());
         holder.asi_steps.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -56,7 +54,7 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mSteps.get(position).setSteps(holder.asi_steps.getText().toString());
+                mSteps.get(holder.getAdapterPosition()).setSteps(holder.asi_steps.getText().toString());
 
             }
         });

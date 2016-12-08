@@ -39,10 +39,9 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
 
     //将数据与界面进行绑定的操作
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-//        holder.ami_Food.setTag(position);
-//        holder.ami_Portion.setTag(position);
-        holder.ami_Portion.setText(mDatas.get(position).getPortion());
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+
+        holder.ami_Portion.setText(mDatas.get(holder.getAdapterPosition()).getPortion());
 
         holder.ami_Portion.addTextChangedListener(new TextWatcher() {
             @Override
@@ -57,7 +56,7 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mDatas.get(position).setPortion(holder.ami_Portion.getText().toString());
+                mDatas.get(holder.getAdapterPosition()).setPortion(holder.ami_Portion.getText().toString());
             }
         });
 
@@ -75,7 +74,7 @@ public class AddMaterialsAdapter extends RecyclerView.Adapter<AddMaterialsAdapte
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mDatas.get(position).setFood(holder.ami_Food.getText().toString());
+                mDatas.get(holder.getAdapterPosition()).setFood(holder.ami_Food.getText().toString());
             }
         });
         holder.ami_Food.requestFocus();

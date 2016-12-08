@@ -13,7 +13,7 @@
           app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_submit"
           android:orderInCategory="100"
-          android:title="DELETE"
+          android:title="SUBMIT"
           android:icon="@drawable/submit"
           app:showAsAction="ifRoom"/>
 </menu>

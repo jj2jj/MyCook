@@ -48,7 +48,8 @@
 
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="0dp"
+    android:layout_weight="1">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +57,7 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_addmaterial"
+                android:id="@+id/rv_addM"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="#ffff0000"
@@ -64,10 +65,10 @@
             </android.support.v7.widget.RecyclerView>
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_addstep"
+                android:id="@+id/rv_addS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rv_addmaterial"
+                android:layout_below="@+id/rv_addM"
                 android:divider="#ffff0000"
                 android:dividerHeight="10dp">
             </android.support.v7.widget.RecyclerView>
