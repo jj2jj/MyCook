@@ -5,175 +5,181 @@
               android:orientation="vertical">
 
     <include layout="@layout/toolbar_login"/>
-<ScrollView
-    android:layout_weight="1"
-    android:layout_width="match_parent"
-    android:layout_height="0dp">
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/image_detail"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/text"/>
-
-        <TextView
-            android:id="@+id/title_detail"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="center"
-            android:hint="菜谱名"
-            android:textStyle="bold"
-            android:padding="8dp"
-            android:textSize="20sp"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:background="@null"
-            android:id="@+id/dish_type"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:padding="8dp"
-            android:hint="菜式"/>
+            <ImageView
+                android:id="@+id/image_detail"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/text"/>
 
-        <TextView
-            android:id="@+id/description_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="16sp"
-            android:background="@null"
-            android:hint="描述："/>
+            <TextView
+                android:id="@+id/title_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="@string/cai_pu_ming"
+                android:padding="8dp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_margin="6dp"
-            android:background="#e6e6e6"/>
+            <TextView
+                android:id="@+id/dish_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/cai_shi"
+                android:padding="8dp"
+                android:textAlignment="center"
+                android:textSize="16sp"/>
 
-        <TextView
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textSize="19sp"
-            android:background="@null"
-            android:text="Made By :"
-            android:id="@+id/textView"/>
+            <TextView
+                android:id="@+id/description_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@null"
+                android:hint="@string/describe"
+                android:textSize="16sp"/>
 
-        <TextView
-            android:textAlignment="textEnd"
-            android:layout_gravity="end"
-            android:id="@+id/author_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingRight="75dp"
-            android:textSize="17sp"
-            android:background="@null"
-            android:hint="作者："/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_margin="6dp"
+                android:background="#e6e6e6"/>
 
-        <TextView
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textSize="19sp"
-            android:background="@null"
-            android:text="材料："/>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@null"
+                android:text="@string/made_by"
+                android:textAlignment="center"
+                android:textSize="19sp"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/material_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:background="@null"
-            android:textSize="17sp"
-            android:hint="材料："/>
-        <!--用料list-->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_margin="6dp"
-            android:background="#e6e6e6"/>
+            <TextView
+                android:id="@+id/author_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:background="@null"
+                android:hint="@string/author"
+                android:paddingRight="75dp"
+                android:textAlignment="textEnd"
+                android:textSize="17sp"/>
 
-        <TextView
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:textSize="19sp"
-            android:background="@null"
-            android:text="做法："/>
-        <!--step list-->
-        <TextView
-            android:id="@+id/steps_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:textSize="17sp"
-            android:background="@null"
-            android:hint="步骤："/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_margin="6dp"
-            android:background="#e6e6e6"/>
-        <TextView
-            android:textAlignment="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:background="@null"
-            android:text="谢谢欣赏，如果喜欢可以收藏~"/>
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="8dp"
+                android:text="@string/cl"
+                android:textAlignment="center"
+                android:textSize="19sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/material_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/cl"
+                android:padding="5dp"
+                android:textSize="17sp"/>
+            <!--用料list-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_margin="6dp"
+                android:background="#e6e6e6"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="8dp"
+                android:text="@string/zf"
+                android:textAlignment="center"
+                android:textSize="19sp"
+                android:textStyle="bold"/>
+            <!--step list-->
+            <TextView
+                android:id="@+id/steps_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/bz"
+                android:padding="5dp"
+                android:textSize="17sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_margin="6dp"
+                android:background="#e6e6e6"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="8dp"
+                android:text="@string/thanks"
+                android:textAlignment="center"/>
+        </LinearLayout>
+    </ScrollView>
 
     <!--底层菜单-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
+        android:baselineAligned="false"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:gravity="center">
+        android:paddingTop="5dp">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
+
             <ImageView
-                android:checked="false"
+                android:id="@+id/star_detail"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/star_nor"
-                android:id="@+id/star_detail"
-                android:textOff=""
-                android:textOn=""
-                />
+                android:checked="false"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-        <ImageView
-           android:background="@drawable/play_nor"
-            android:id="@+id/play_detail"
-           android:layout_width="25dp"
-           android:layout_height="25dp"
-           android:textOff=""
-           android:textOn=""/>
+
+            <ImageView
+                android:id="@+id/play_detail"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/play_nor"
+                android:textOff=""
+                android:textOn=""/>
         </LinearLayout>
     </LinearLayout>
 

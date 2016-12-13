@@ -47,9 +47,6 @@ import sihuan.com.mycookassistant.bean.Materials;
 import sihuan.com.mycookassistant.bean.Steps;
 import sihuan.com.mycookassistant.bean.Works;
 
-// TODO: 2016-11-09  到27号之前完成此界面优化
-
-
 /**
  * MyCook
  * Created by Jessica0906zjj on 2016-11-01.

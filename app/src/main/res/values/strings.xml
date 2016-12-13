@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">基于Android的智能语音烹饪助手</string>
+    <string name="app_name">Smart CookAids</string>
     <string name="main_page">首页</string>
     <string name="works">作品</string>
     <string name="collect">收藏</string>
@@ -17,8 +17,6 @@
     <string name="drawer_item_contact">Contact</string>
 
     <string name="more">More</string>
-
-
 
     <string name="prompt_email">用户名：</string>
     <string name="prompt_password">密 码：</string>
@@ -45,10 +43,36 @@
     <string name="mianshi">面食小吃</string>
     <string name="tangpin">汤品</string>
 
+    <string name="cai_pu_ming">菜谱名</string>
+    <string name="cai_shi">菜式选择：</string>
+    <string name="describe">描述</string>
+    <string name="made_by">Made By :</string>
+    <string name="author">作者：</string>
+    <string name="cl">材料：</string>
+    <string name="zf">做法：</string>
+    <string name="bz">步骤：</string>
+    <string name="thanks">谢谢欣赏，如果喜欢可以收藏~</string>
+    <string name="example1">例：猪肉</string>
+    <string name="example2">500g</string>
+    <string name="step">Step:</string>
+    <string name="title">title</string>
+    <string name="username">username</string>
+    <string name="choice">请选择</string>
+    <string name="take_photo">拍照上传</string>
+    <string name="gallery">从本地图库选择</string>
+
+    <string name="remember_pw">记住密码</string>
+    <string name="auto_login">自动登录</string>
+    <string name="test">测试</string>
+
+    <string name="add">ADD</string>
+    <string name="delete">DELETE</string>
+
     <string-array name="photo_choice">
-    <item>拍照上传</item>
-    <item>从本地图库选择</item>
-</string-array>
+        <item>拍照上传</item>
+        <item>从本地图库选择</item>
+    </string-array>
+
     <string-array name="dishestype">
         <item>下饭菜</item>
         <item>便 当</item>
@@ -63,6 +87,6 @@
         <item>汤 品</item>
     </string-array>
 
-    <string name="test">测试</string>
+
 
 </resources>

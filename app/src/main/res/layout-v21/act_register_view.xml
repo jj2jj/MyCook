@@ -20,6 +20,7 @@
             android:id="@+id/t1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
             android:paddingBottom="5dp"
             android:textColorHint="@color/gray">
 
@@ -27,6 +28,7 @@
                 android:id="@+id/register_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
                 android:hint="@string/prompt_email"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
@@ -41,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/t1"
             android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorAccent"
             android:paddingBottom="5dp"
             android:textColorHint="@color/gray"
             app:passwordToggleTint="@color/colorAccent">
@@ -49,6 +52,7 @@
                 android:id="@+id/register_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
                 android:hint="@string/prompt_password"
                 android:imeActionId="@+id/register"
                 android:imeActionLabel="@string/register"

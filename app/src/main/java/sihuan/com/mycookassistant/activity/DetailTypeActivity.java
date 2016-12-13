@@ -1,17 +1,16 @@
-package sihuan.com.mycookassistant.fragment;
+package sihuan.com.mycookassistant.activity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
@@ -20,43 +19,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sihuan.com.mycookassistant.R;
-import sihuan.com.mycookassistant.adapter.MyProductAdapter;
+import sihuan.com.mycookassistant.adapter.DetailTypeAdapter;
+import sihuan.com.mycookassistant.base.BaseActivity;
 import sihuan.com.mycookassistant.bean.Works;
 
 /**
- * sihuan.com.mycookassistant.fragment
- * Created by sihuan on 2016/10/25.
+ * MyCook
+ * Created by Jessica0906zjj on 2016-11-28.
  */
-public class MyProductFragment extends Fragment {
-    private int skip = 0;
+
+public class DetailTypeActivity extends BaseActivity{
     private XRecyclerView mRecyclerView;
-    private MyProductAdapter myProductAdapter;
+    private int skip = 0;
+    private DetailTypeAdapter myAdapter;
     private List<Works> worksList = new ArrayList<>();
+    Toolbar mToolbar;
+    ActionBar actionBar;
+
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.activity_detail_type);
+//        String id = getIntent().getStringExtra("dishes_type");
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fmt_my_product_view, container, false);
-        mRecyclerView = (XRecyclerView) view.findViewById(R.id.recycler_list);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar_login);
+        setSupportActionBar(mToolbar);
+        actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(getIntent().getStringExtra("dishes_type"));
+
+        mRecyclerView = (XRecyclerView) findViewById(R.id.recycler_type);
         mRecyclerView.setHasFixedSize(true);
-        //setHasFixedSize()方法用来使RecyclerView保持固定的大小
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallBeat);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-        // mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
-
         LoadEvent();
-
-        myProductAdapter = new MyProductAdapter(worksList, getActivity());
-        mRecyclerView.setAdapter(myProductAdapter);
+        myAdapter = new DetailTypeAdapter(worksList,this);
+        mRecyclerView.setAdapter(myAdapter);
         mRecyclerView.setRefreshing(true);
-        //  mRecyclerView.setPullRefreshEnabled(true);
-        return view;
+
+
+
     }
 
     private void LoadEvent() {
@@ -78,7 +84,6 @@ public class MyProductFragment extends Fragment {
             @Override
             public void onLoadMore() {
                 // load more data here
-
                 skip++;
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -89,36 +94,37 @@ public class MyProductFragment extends Fragment {
                 }, 1500);
             }
         });
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     private void getData(int skip) {
-        AVQuery<Works> query = AVObject.getQuery(Works.class);
-        query.orderByDescending("createdAt");
-        String user = AVUser.getCurrentUser().getObjectId();
-        query.whereEqualTo("owner", AVObject.createWithoutData("_User", user));
-        int limit = 5;
-        query.limit(limit);
-        query.skip(limit * skip);
-
-        query.findInBackground(new FindCallback<Works>() {
+        //关联属性查询
+        String id = getIntent().getStringExtra("dishes_type");
+        Log.i("88888888",id);
+        AVQuery<Works> avQuery = AVObject.getQuery(Works.class);
+        avQuery.whereEqualTo("dishestype",id);
+        final int limit = 5;
+        avQuery.limit(limit);
+        avQuery.skip(limit * skip);
+        avQuery.include("owner");
+        avQuery.findInBackground(new FindCallback<Works>() {
             @Override
             public void done(List<Works> list, AVException e) {
                 if (e == null) {
                     worksList.addAll(list);
-                    myProductAdapter.notifyDataSetChanged();
+                    myAdapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
                 }
-
-
             }
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            onBackPressedSupport();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

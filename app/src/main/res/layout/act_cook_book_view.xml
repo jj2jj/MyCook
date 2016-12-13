@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@android:color/transparent"
-        />
+        android:background="@android:color/transparent"/>
 
 
     <!--底层菜单-->
@@ -68,17 +67,6 @@
             android:drawableTop="@drawable/bt_cook_book_selector"
             android:gravity="center"
             android:text="@string/classification"
-            android:textColor="@color/tab_selector"/>
-
-        <RadioButton
-            android:id="@+id/mine"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/bt_self_selector"
-            android:gravity="center"
-            android:text="@string/mine"
             android:textColor="@color/tab_selector"/>
     </RadioGroup>
 

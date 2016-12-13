@@ -35,7 +35,6 @@ import sihuan.com.mycookassistant.activity.LoginActivity;
 import sihuan.com.mycookassistant.adapter.ContentPagerAdapter;
 import sihuan.com.mycookassistant.base.RootView;
 import sihuan.com.mycookassistant.fragment.ClassificationFragment;
-import sihuan.com.mycookassistant.fragment.Fragment3;
 import sihuan.com.mycookassistant.fragment.HomePageFragment;
 import sihuan.com.mycookassistant.fragment.MyCollectionFragment;
 import sihuan.com.mycookassistant.fragment.MyProductFragment;
@@ -49,7 +48,6 @@ import sihuan.com.mycookassistant.widget.UnScrollViewPager;
  */
 
 public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View, RadioGroup.OnCheckedChangeListener {
-
 
 
     @BindView(R.id.toolbar)
@@ -69,9 +67,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
     @BindView(R.id.classification)
     RadioButton classification;
-
-    @BindView(R.id.mine)
-    RadioButton mine;
 
     @BindView(R.id.vp_content)
     UnScrollViewPager vpContent;
@@ -116,7 +111,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         fragments.add(new MyProductFragment());
         fragments.add(new MyCollectionFragment());
         fragments.add(new ClassificationFragment());
-        fragments.add(new Fragment3());
         return fragments;
     }
 
@@ -165,9 +159,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                 break;
             case R.id.classification:
                 vpContent.setCurrentItem(3, false);
-                break;
-            case R.id.mine:
-                vpContent.setCurrentItem(4, false);
                 break;
         }
     }
@@ -231,7 +222,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                                 break;
                             case 9:
                                 //注销当前账户，返回登录界面
-                                AVUser.getCurrentUser().logOut();
+                                AVUser.logOut();
                                 PreUtils.removeAll(mActivity);
                                 // startActivity(new Intent(CookBookActivity.this, LoginActivity.class));
                                 mActivity.startActivity(new Intent(mActivity, LoginActivity.class));
@@ -243,6 +234,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                         return false;
                     }
                 })
-                  .build();
+                .build();
     }
 }

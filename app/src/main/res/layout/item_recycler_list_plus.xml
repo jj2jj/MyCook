@@ -18,13 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingRight="10dp">
-
             <TextView
                 android:id="@+id/name_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:text="username"
+                android:text="@string/username"
                 android:textSize="16sp"/>
 
             <TextView
@@ -35,7 +34,7 @@
                 android:layout_below="@+id/name_item"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
-                android:text="title"
+                android:text="@string/title"
                 android:textColor="@android:color/holo_blue_light"
                 android:textSize="14sp"/>
         </RelativeLayout>

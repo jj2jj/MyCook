@@ -14,18 +14,18 @@
         android:layout_marginTop="5dp"
         android:background="@null"
         android:gravity="center"
-        android:hint="菜谱名"/>
+        android:hint="@string/cai_pu_ming"/>
 
-        <EditText
+    <EditText
 
-            android:id="@+id/dishestype"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:hint="菜式选择："/>
+        android:id="@+id/dishestype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:gravity="center"
+        android:hint="@string/cai_shi"
+        android:textSize="16sp"/>
 
     <EditText
 
@@ -35,7 +35,7 @@
         android:layout_marginTop="8dp"
         android:background="@null"
         android:gravity="center"
-        android:hint="描述"/>
+        android:hint="@string/describe"/>
 
     <ImageView
 
@@ -44,12 +44,13 @@
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/text"/>
+        android:src="@drawable/add_img"/>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

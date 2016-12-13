@@ -30,10 +30,12 @@ public class MyCollectionFragment extends Fragment {
     private int skip = 0;
     private XRecyclerView mRecyclerView;
     private List<Works> mlist = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fmt_my_collection_view, container, false);
@@ -44,13 +46,13 @@ public class MyCollectionFragment extends Fragment {
 
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-       // mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
+        // mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
 
         LoadEvent();
 
         mRecyclerView.setAdapter(new MyCollectionAdapter(mlist, getActivity()));
         mRecyclerView.setRefreshing(true);
-      //  mRecyclerView.setPullRefreshEnabled(true);
+        //  mRecyclerView.setPullRefreshEnabled(true);
         return view;
     }
 
@@ -66,20 +68,21 @@ public class MyCollectionFragment extends Fragment {
                         getData(0);
                         mRecyclerView.refreshComplete();//下拉刷新完成
                     }
-                },1500);
+                }, 1500);
                 skip = 0;
             }
+
             @Override
             public void onLoadMore() {
                 // load more data here
-                     skip++;
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            getData(skip);
-                            mRecyclerView.loadMoreComplete();//加载更多完成
-                        }
-                    },1500);
+                skip++;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getData(skip);
+                        mRecyclerView.loadMoreComplete();//加载更多完成
+                    }
+                }, 1500);
             }
         });
 
@@ -96,14 +99,14 @@ public class MyCollectionFragment extends Fragment {
         collectionQuery.whereEqualTo("collector", AVObject.createWithoutData("_User", AVUser.getCurrentUser().getObjectId()));
         final int limit = 5;
         collectionQuery.limit(limit);
-        collectionQuery.skip(limit*skip);
+        collectionQuery.skip(limit * skip);
         collectionQuery.include("worksObjectId");
         collectionQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 for (AVObject collections : list) {
                     AVObject works = collections.getAVObject("worksObjectId");
-                   mlist.add((Works) works);
+                    mlist.add((Works) works);
                 }
             }
         });

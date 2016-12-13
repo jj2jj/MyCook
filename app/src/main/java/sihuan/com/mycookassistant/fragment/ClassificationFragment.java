@@ -1,5 +1,6 @@
 package sihuan.com.mycookassistant.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import sihuan.com.mycookassistant.R;
+import sihuan.com.mycookassistant.activity.DetailTypeActivity;
 
 /**
  * sihuan.com.mycookassistant.fragment
@@ -25,6 +27,7 @@ import sihuan.com.mycookassistant.R;
 
 public class ClassificationFragment extends Fragment {
     private List<Map<String, Object>> dishtype_list;
+    String[] dishes_type;
 
     // 图片封装为一个数组
     private int[] icon = {R.drawable.xiafancai, R.drawable.biandang,
@@ -56,25 +59,45 @@ public class ClassificationFragment extends Fragment {
         gview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getActivity(), DetailTypeActivity.class);
                 switch (icon[i]){
                     case R.drawable.xiafancai:
-                        //// TODO: 2016-12-07 跳转到其他界面 
+                        // TODO: 2016-12-07 跳转到其他界面
+//                        Intent intent = new Intent(getActivity(), DetailTypeActivity.class);
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     case R.drawable.biandang:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
-                    case   R.drawable.jiacahngcai:
+                    case R.drawable.jiacahngcai:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     case R.drawable.sushi:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     case R.drawable.tianpin:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     case R.drawable.shala:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     case R.drawable.lanrenshipu:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     case R.drawable.tangpin:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     case R.drawable.mianshi:
+                        intent.putExtra("dishes_type", dishes_type[i]);
+                        startActivity(intent);
                         break;
                     default:
                         break;
@@ -82,14 +105,13 @@ public class ClassificationFragment extends Fragment {
             }
         });
     }
-
     public List<Map<String, Object>> getData() {
-        String[] dishestype = this.getResources().getStringArray(R.array.dishestype);
+         dishes_type = this.getResources().getStringArray(R.array.dishestype);
         //icon和dishestype的长度是相同的，这里任选其一都可以
         for (int i = 0; i < icon.length; i++) {
             Map<String, Object> map = new HashMap<>();
             map.put("image", icon[i]);
-            map.put("text", dishestype[i]);
+            map.put("text", dishes_type[i]);
             dishtype_list.add(map);
         }
         return dishtype_list;

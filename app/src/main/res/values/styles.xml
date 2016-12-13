@@ -35,12 +35,13 @@
     <style name="CustomCheckboxTheme_play" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/bt_play_selector</item>
     </style>
+
     <style name="CustomCheckboxTheme_star" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/bt_star_selector</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>
