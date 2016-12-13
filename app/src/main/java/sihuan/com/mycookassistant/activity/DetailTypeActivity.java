@@ -28,14 +28,13 @@ import sihuan.com.mycookassistant.bean.Works;
  * Created by Jessica0906zjj on 2016-11-28.
  */
 
-public class DetailTypeActivity extends BaseActivity{
+public class DetailTypeActivity extends BaseActivity {
     private XRecyclerView mRecyclerView;
     private int skip = 0;
     private DetailTypeAdapter myAdapter;
     private List<Works> worksList = new ArrayList<>();
     Toolbar mToolbar;
     ActionBar actionBar;
-
 
 
     @Override
@@ -57,10 +56,9 @@ public class DetailTypeActivity extends BaseActivity{
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallBeat);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
         LoadEvent();
-        myAdapter = new DetailTypeAdapter(worksList,this);
+        myAdapter = new DetailTypeAdapter(worksList, this);
         mRecyclerView.setAdapter(myAdapter);
         mRecyclerView.setRefreshing(true);
-
 
 
     }
@@ -99,9 +97,9 @@ public class DetailTypeActivity extends BaseActivity{
     private void getData(int skip) {
         //关联属性查询
         String id = getIntent().getStringExtra("dishes_type");
-        Log.i("88888888",id);
+        Log.i("88888888", id);
         AVQuery<Works> avQuery = AVObject.getQuery(Works.class);
-        avQuery.whereEqualTo("dishestype",id);
+        avQuery.whereEqualTo("dishestype", id);
         final int limit = 5;
         avQuery.limit(limit);
         avQuery.skip(limit * skip);
@@ -122,7 +120,7 @@ public class DetailTypeActivity extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             onBackPressedSupport();
         }
         return super.onOptionsItemSelected(item);

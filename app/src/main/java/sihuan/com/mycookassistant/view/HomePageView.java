@@ -9,7 +9,6 @@ import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.base.RootView;
@@ -20,7 +19,7 @@ import sihuan.com.mycookassistant.presenter.contract.HomePageContract;
 
 /**
  * sihuan.com.mycookassistant.view
- * Created by sihuan on 2016/10/25.
+ * Created by Jessica on 2016/10/25.
  */
 
 public class HomePageView extends RootView<HomePageContract.Presenter> implements HomePageContract.View {
@@ -51,6 +50,8 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
 
     @Override
     protected void initView() {
+//        RecyclerView chushihua
+
     }
 
     @Override
@@ -61,6 +62,7 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     @Override
     public void setPresenter(HomePageContract.Presenter presenter) {
         mPresenter = Preconditions.checkNotNull(presenter);
+        //getdata;
     }
 
     @Override

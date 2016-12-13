@@ -18,7 +18,7 @@ public interface HomePageContract {
 
     interface Presenter extends BasePresenter {
         void getBannerData();
-
+// list getdata();
 
     }
 }

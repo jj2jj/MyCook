@@ -29,7 +29,7 @@ import sihuan.com.mycookassistant.base.BaseActivity;
  * Created by Jessica0906zjj on 2016-11-28.
  */
 
-public class DetailPageActivity  extends BaseActivity{
+public class DetailPageActivity extends BaseActivity {
     Toolbar mToolbar;
     ActionBar actionBar;
 
@@ -76,17 +76,17 @@ public class DetailPageActivity  extends BaseActivity{
         star_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (flag == 0){
+                if (flag == 0) {
                     //添加收藏
                     createCollection(true);
                     star_btn.setBackgroundResource(R.drawable.star_sel);
 
-                }else if (flag == 1){
+                } else if (flag == 1) {
                     //取消收藏
                     deleteCollection();
                     star_btn.setBackgroundResource(R.drawable.star_nor);
                 }
-                flag=(flag+1)%2;//其余得到循环执行上面3个不同的功能
+                flag = (flag + 1) % 2;//其余得到循环执行上面3个不同的功能
             }
         });
     }
@@ -142,18 +142,18 @@ public class DetailPageActivity  extends BaseActivity{
      */
     private void deleteCollection() {
         AVQuery<AVObject> worksIdQuery = new AVQuery<>("Collections");
-        worksIdQuery.whereEqualTo("worksObjectId",AVObject.createWithoutData("Works",mObjectId));
+        worksIdQuery.whereEqualTo("worksObjectId", AVObject.createWithoutData("Works", mObjectId));
 
         AVQuery<AVObject> collectorQuery = new AVQuery<>("Collections");
-        collectorQuery.whereEqualTo("collector",AVUser.getCurrentUser());
+        collectorQuery.whereEqualTo("collector", AVUser.getCurrentUser());
 
-        AVQuery<AVObject> collectionQuery = AVQuery.and(Arrays.asList(worksIdQuery,collectorQuery));
+        AVQuery<AVObject> collectionQuery = AVQuery.and(Arrays.asList(worksIdQuery, collectorQuery));
         collectionQuery.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                if (null != list && list.size()>0){
-                    for (int i=0;i< list.size();i++){
-                            list.get(i).deleteInBackground();
+                if (null != list && list.size() > 0) {
+                    for (int i = 0; i < list.size(); i++) {
+                        list.get(i).deleteInBackground();
                     }
                 }
             }
@@ -162,12 +162,13 @@ public class DetailPageActivity  extends BaseActivity{
 
     /**
      * 添加收藏
+     *
      * @param isStared 是否被添加收藏
      */
     private void createCollection(final boolean isStared) {
         AVObject myCollections = new AVObject("Collections");
-        myCollections.put("isStared",isStared);
-        myCollections.put("worksObjectId",AVObject.createWithoutData("Works",mObjectId));
+        myCollections.put("isStared", isStared);
+        myCollections.put("worksObjectId", AVObject.createWithoutData("Works", mObjectId));
         myCollections.put("collector", AVUser.getCurrentUser());
         myCollections.saveInBackground(new SaveCallback() {
             @Override
@@ -178,21 +179,21 @@ public class DetailPageActivity  extends BaseActivity{
     }
 
     /**
-     *  cookBookPlayed(boolean isPlayed)
-     * @param isPlayed
-     * 是否点击播放按钮，控制语音播报处
+     * cookBookPlayed(boolean isPlayed)
+     *
+     * @param isPlayed 是否点击播放按钮，控制语音播报处
      */
     private void cookBookPlayed(boolean isPlayed) {
-        if (isPlayed){
+        if (isPlayed) {
             play_btn.setBackgroundResource(R.drawable.play_sel);
-        }else {
+        } else {
             play_btn.setBackgroundResource(R.drawable.play_nor);
         }
     }
 
 
     private void findViews() {
-        dish_type= (TextView) findViewById(R.id.dish_type);
+        dish_type = (TextView) findViewById(R.id.dish_type);
         image = (ImageView) findViewById(R.id.image_detail);
         title = (TextView) findViewById(R.id.title_detail);
         describe = (TextView) findViewById(R.id.description_detail);
@@ -206,7 +207,7 @@ public class DetailPageActivity  extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == android.R.id.home){
+        if (id == android.R.id.home) {
             onBackPressedSupport();
         }
         return super.onOptionsItemSelected(item);
