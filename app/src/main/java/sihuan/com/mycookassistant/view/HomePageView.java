@@ -1,18 +1,25 @@
 package sihuan.com.mycookassistant.view;
 
 import android.content.Context;
+import android.os.Handler;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 
 import com.google.common.base.Preconditions;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import sihuan.com.mycookassistant.R;
+import sihuan.com.mycookassistant.adapter.HomePageRvAdapter;
 import sihuan.com.mycookassistant.base.RootView;
 import sihuan.com.mycookassistant.bean.MyDomain;
+import sihuan.com.mycookassistant.bean.Works;
 import sihuan.com.mycookassistant.net.GlideImageLoader;
 import sihuan.com.mycookassistant.presenter.contract.HomePageContract;
 
@@ -23,9 +30,16 @@ import sihuan.com.mycookassistant.presenter.contract.HomePageContract;
  */
 
 public class HomePageView extends RootView<HomePageContract.Presenter> implements HomePageContract.View {
-
+    private List<Works> worksList = new ArrayList<>();
+    private int skip = 0;
     @BindView(R.id.banner)
     Banner mBanner;
+
+    @BindView(R.id.rv_home_page_view)
+    XRecyclerView hpRecyclerView;
+
+    HomePageRvAdapter homePageRvAdapter;
+
 
     public HomePageView(Context context) {
         super(context);
@@ -41,18 +55,64 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
 
     @Override
     protected void getLayout() {
-      inflate(mContext,R.layout.fmt_home_page_view, this);
+        inflate(mContext, R.layout.fmt_home_page_view, this);
 
 
     }
-
 
 
     @Override
     protected void initView() {
-//        RecyclerView chushihua
+//RecyclerView chushihua
+        hpRecyclerView.setHasFixedSize(true);
+        hpRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        hpRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
+        hpRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+
+        LoadEvent();
+
+        homePageRvAdapter = new HomePageRvAdapter(worksList, mContext);
+        hpRecyclerView.setAdapter(homePageRvAdapter);
+        hpRecyclerView.setRefreshing(true);
+
 
     }
+
+    private void LoadEvent() {
+        hpRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        worksList = mPresenter.getRvData(0);
+                        homePageRvAdapter.setData(worksList);
+                        hpRecyclerView.refreshComplete();//下拉刷新完成
+                    }
+                }, 1500);
+                skip = 0;
+            }
+
+            @Override
+            public void onLoadMore() {
+                // load more data here
+
+                skip++;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getRvData(skip);
+                        homePageRvAdapter.notifyDataSetChanged();
+                        hpRecyclerView.loadMoreComplete();//加载更多完成
+                    }
+                }, 1500);
+            }
+        });
+
+
+    }
+
 
     @Override
     protected void initEvent() {
@@ -62,13 +122,16 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     @Override
     public void setPresenter(HomePageContract.Presenter presenter) {
         mPresenter = Preconditions.checkNotNull(presenter);
+
         //getdata;
+
     }
 
     @Override
     public void showError(String msg) {
 
     }
+
     @Override
     public void setBanner(List list) {
         mBanner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
@@ -84,7 +147,6 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
                 .setBannerTitles(titles)
                 .setImageLoader(new GlideImageLoader())
                 .start();
-
     }
 
 

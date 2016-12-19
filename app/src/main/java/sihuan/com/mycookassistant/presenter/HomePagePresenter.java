@@ -1,12 +1,18 @@
 package sihuan.com.mycookassistant.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import sihuan.com.mycookassistant.base.RxPresenter;
 import sihuan.com.mycookassistant.bean.MyDomain;
+import sihuan.com.mycookassistant.bean.Works;
 import sihuan.com.mycookassistant.presenter.contract.HomePageContract;
 
 /**
@@ -15,7 +21,10 @@ import sihuan.com.mycookassistant.presenter.contract.HomePageContract;
  */
 
 public class HomePagePresenter extends RxPresenter implements HomePageContract.Presenter {
-    HomePageContract.View mView;
+    private HomePageContract.View mView;
+    private List<Works> rvList = new ArrayList<>();
+
+
 
     public HomePagePresenter(@NonNull HomePageContract.View view) {
         mView = view;
@@ -29,6 +38,30 @@ public class HomePagePresenter extends RxPresenter implements HomePageContract.P
         List<MyDomain> list = getBannerAd();
         mView.setBanner(list);
     }
+
+    @Override
+    public List<Works> getRvData(int skip) {
+
+        AVQuery<Works> avQuery = new AVQuery<>("Works");
+        avQuery.orderByDescending("createdAt");
+        avQuery.include("owner");//include是指AVObject中的内容
+        int limit = 5;
+        avQuery.limit(limit);
+        avQuery.skip(limit * skip);
+        avQuery.findInBackground(new FindCallback<Works>() {
+            @Override
+            public void done(List<Works> list, AVException e) {
+                if (e == null) {
+                    rvList.addAll(list);
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
+        Log.i("888888",rvList.toString());
+        return rvList;
+    }
+
 
 
 

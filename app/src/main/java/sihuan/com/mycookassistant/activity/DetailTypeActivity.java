@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.avos.avoscloud.AVException;
@@ -97,10 +96,9 @@ public class DetailTypeActivity extends BaseActivity {
     private void getData(int skip) {
         //关联属性查询
         String id = getIntent().getStringExtra("dishes_type");
-        Log.i("88888888", id);
         AVQuery<Works> avQuery = AVObject.getQuery(Works.class);
         avQuery.whereEqualTo("dishestype", id);
-        final int limit = 5;
+        int limit = 5;
         avQuery.limit(limit);
         avQuery.skip(limit * skip);
         avQuery.include("owner");

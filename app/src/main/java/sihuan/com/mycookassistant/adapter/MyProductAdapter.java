@@ -60,8 +60,7 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
     //获取数据的数量
     @Override
     public int getItemCount() {
-
-        return mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
@@ -73,9 +72,8 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyRe
 
         MyRecyclerHolder(View itemView) {
             super(itemView);
-            //mName = (TextView) itemView.findViewById(R.id.name_item_recycler);
             mTitle = (TextView) itemView.findViewById(R.id.title_item_recycler);
-            mPicture = (ImageView) itemView.findViewById(R.id.picture_item_main);
+            mPicture = (ImageView) itemView.findViewById(R.id.picture_item);
             mItem = (CardView) itemView.findViewById(R.id.item_recycler);
         }
     }

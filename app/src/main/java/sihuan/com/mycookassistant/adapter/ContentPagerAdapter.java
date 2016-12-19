@@ -22,7 +22,7 @@ public class ContentPagerAdapter extends FragmentPagerAdapter {
 
 	@Override
 	public int getCount() {
-		return fragments.size();
+		return fragments == null ? 0 :fragments.size();
 	}
 
 	@Override

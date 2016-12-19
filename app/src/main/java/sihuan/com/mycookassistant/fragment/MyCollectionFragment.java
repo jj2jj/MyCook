@@ -3,6 +3,7 @@ package sihuan.com.mycookassistant.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +43,10 @@ public class MyCollectionFragment extends Fragment {
         mRecyclerView = (XRecyclerView) view.findViewById(R.id.recycler_collect);
         mRecyclerView.setHasFixedSize(true);
         //setHasFixedSize()方法用来使RecyclerView保持固定的大小
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        设置网格布局管理器
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
+        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
 
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);

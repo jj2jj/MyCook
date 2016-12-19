@@ -35,7 +35,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     //创建新View，被LayoutManager所调用
     @Override
     public MyRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_recycler_list_plus, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_recycler_list_myproduct, parent, false);
         return new MyRecyclerHolder(view);
     }
 
@@ -45,7 +45,6 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     public void onBindViewHolder(final MyRecyclerHolder holder, final int position) {
 
         holder.mTitle.setText(mList.get(position).getTitle());
-        holder.mName.setText(mList.get(position).getAVUser("owner") == null ? "" : mList.get(position).getAVUser("owner").getUsername());
         Glide.with(mContext).load(mList.get(position).getImage() == null ? "www" : mList.get(position).getImage().getUrl()).into(holder.mPicture);
 
         holder.mItem.setOnClickListener(new View.OnClickListener() {
@@ -61,23 +60,20 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     //获取数据的数量
     @Override
     public int getItemCount() {
-
-        return mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     static class MyRecyclerHolder extends RecyclerView.ViewHolder {
-        private TextView mName;
         private TextView mTitle;
         private CardView mItem;
         private ImageView mPicture;
 
         MyRecyclerHolder(View itemView) {
             super(itemView);
-            mName = (TextView) itemView.findViewById(R.id.name_item);
-            mTitle = (TextView) itemView.findViewById(R.id.title_item);
+            mTitle = (TextView) itemView.findViewById(R.id.title_item_recycler);
             mPicture = (ImageView) itemView.findViewById(R.id.picture_item);
-            mItem = (CardView) itemView.findViewById(R.id.item_recycler_plus);
+            mItem = (CardView) itemView.findViewById(R.id.item_recycler_product);
         }
     }
 }

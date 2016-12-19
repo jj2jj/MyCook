@@ -39,7 +39,7 @@ public class Works extends AVObject{
 
     private List<Materials> materials;
 
-    public List<Materials> getMaterials() {
+    public List getMaterials() {
         return getList("materials");
     }
 
@@ -49,7 +49,7 @@ public class Works extends AVObject{
 
     private List<Steps> steps;
 
-    public List<Steps> getSteps() {
+    public List getSteps() {
         return getList("steps");
     }
     public void setSteps(List<Steps> steps) {

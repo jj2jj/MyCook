@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:background="#ecf0f1"
-        android:gravity="center_horizontal"
-        android:queryHint="More Delicious~">
+    android:gravity="center_horizontal"
+    android:queryHint="More Delicious~">
     </SearchView>
-</android.support.v7.widget.Toolbar>
+    </android.support.v7.widget.Toolbar>
+

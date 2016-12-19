@@ -14,14 +14,12 @@ public class Materials {
                 '}';
     }
 
-    private String food;//用料
-
     public Materials(String food, String portion) {
         this.food = food;
         this.portion = portion;
     }
 
-
+    private String food;//用料
 
     public String getFood() {
         return food;

@@ -119,7 +119,7 @@ public class DetailPageActivity extends BaseActivity {
                 m = m.replace("]", "");
                 m = m.replace("food=", "");
                 m = m.replace("portion=", "");
-                m = m.replace("{", "\t\t\t\t\t\t");
+                m = m.replace("{", "\t\t\t\t\t\t\t\t");
                 m = m.replace("},", "\n");
                 m = m.replace("}", "");
                 m = m.replace(",", "\t\t\t\t\t\t\t\t\t\t");

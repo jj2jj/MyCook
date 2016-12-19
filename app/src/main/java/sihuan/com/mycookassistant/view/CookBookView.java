@@ -2,6 +2,7 @@ package sihuan.com.mycookassistant.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.widget.RadioGroup;
 
 import com.avos.avoscloud.AVUser;
 import com.google.common.base.Preconditions;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -49,9 +51,12 @@ import sihuan.com.mycookassistant.widget.UnScrollViewPager;
 
 public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View, RadioGroup.OnCheckedChangeListener {
 
-
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
+
+    @BindView(R.id.search_view)
+    MaterialSearchView searchView;
+
 
     @BindView(R.id.radio_group)
     RadioGroup mRadioGroup;
@@ -95,6 +100,10 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
     @Override
     protected void initView() {
+        searchView.setCursorDrawable(R.drawable.custom_cursor);
+        searchView.setEllipsize(true);
+
+
         mActivity = (CookBookActivity) mContext;
         List<Fragment> fragments = initFragments();
         vpContent.setScrollable(true);
@@ -102,8 +111,12 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         vpContent.setAdapter(mPagerAdapter);
         vpContent.setOffscreenPageLimit(fragments.size());
         mActivity.setSupportActionBar(mToolbar);
+
     }
 
+    public MaterialSearchView getSearchView(){
+        return searchView;
+    }
 
     private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
@@ -117,6 +130,30 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
     @Override
     protected void initEvent() {
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
+                        .show();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+
+            }
+        });
         mRadioGroup.setOnCheckedChangeListener(this);
         vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -163,7 +200,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         }
     }
 
-    Drawer result = null;
+    Drawer drawer = null;
 
     @Override
     public void initNavigationDrawer() {
@@ -190,7 +227,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         SecondaryDrawerItem item5 = new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_question).withIdentifier(4);
         SecondaryDrawerItem item6 = new SecondaryDrawerItem().withName(R.string.drawer_item_logout).withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(9);
 
-        result = new DrawerBuilder()
+        drawer = new DrawerBuilder()
                 .withActivity(mActivity)
                 .withToolbar(mToolbar)
                 .withAccountHeader(headerResult)

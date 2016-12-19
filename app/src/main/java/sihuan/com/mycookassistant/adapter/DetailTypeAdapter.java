@@ -62,7 +62,7 @@ public class DetailTypeAdapter extends RecyclerView.Adapter<DetailTypeAdapter.My
     @Override
     public int getItemCount() {
 
-        return mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素

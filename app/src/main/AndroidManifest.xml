@@ -32,13 +32,13 @@
             android:value="f2a042e083b28d9a94086de50cca2c52"/>
 
         <activity
-            android:name=".activity.CookBookActivity">
+            android:name=".activity.CookBookActivity"
+            android:windowSoftInputMode="adjustPan">
         </activity>
 
         <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
