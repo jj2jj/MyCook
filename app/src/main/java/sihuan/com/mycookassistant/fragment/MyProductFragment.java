@@ -3,7 +3,7 @@ package sihuan.com.mycookassistant.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +32,7 @@ public class MyProductFragment extends Fragment {
     private XRecyclerView mRecyclerView;
     private MyProductAdapter myProductAdapter;
     private List<Works> worksList = new ArrayList<>();
+    private List<Integer> mHeights = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,9 @@ public class MyProductFragment extends Fragment {
         mRecyclerView = (XRecyclerView) view.findViewById(R.id.recycler_list);
         mRecyclerView.setHasFixedSize(true);
         //setHasFixedSize()方法用来使RecyclerView保持固定的大小
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager( layoutManager);
 
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
@@ -52,9 +55,10 @@ public class MyProductFragment extends Fragment {
 
         LoadEvent();
 
-        myProductAdapter = new MyProductAdapter(worksList, getActivity());
+        myProductAdapter = new MyProductAdapter(worksList,mHeights,getContext());
         mRecyclerView.setAdapter(myProductAdapter);
         mRecyclerView.setRefreshing(true);
+
         //  mRecyclerView.setPullRefreshEnabled(true);
         return view;
     }
@@ -111,6 +115,9 @@ public class MyProductFragment extends Fragment {
             public void done(List<Works> list, AVException e) {
                 if (e == null) {
                     worksList.addAll(list);
+                    for (int i = 0; i < worksList.size(); i++){
+                        mHeights.add(360+(int) (Math.random() * 100));
+                    }
                     myProductAdapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();

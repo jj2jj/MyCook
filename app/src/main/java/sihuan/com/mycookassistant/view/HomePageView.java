@@ -31,7 +31,9 @@ import sihuan.com.mycookassistant.presenter.contract.HomePageContract;
 
 public class HomePageView extends RootView<HomePageContract.Presenter> implements HomePageContract.View {
     private List<Works> worksList = new ArrayList<>();
+
     private int skip = 0;
+
     @BindView(R.id.banner)
     Banner mBanner;
 
@@ -56,9 +58,8 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     @Override
     protected void getLayout() {
         inflate(mContext, R.layout.fmt_home_page_view, this);
-
-
     }
+
 
 
     @Override
@@ -68,12 +69,11 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
         hpRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         hpRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
         hpRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-
         LoadEvent();
-
         homePageRvAdapter = new HomePageRvAdapter(worksList, mContext);
         hpRecyclerView.setAdapter(homePageRvAdapter);
         hpRecyclerView.setRefreshing(true);
+
 
 
     }
@@ -122,8 +122,6 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     @Override
     public void setPresenter(HomePageContract.Presenter presenter) {
         mPresenter = Preconditions.checkNotNull(presenter);
-
-        //getdata;
 
     }
 

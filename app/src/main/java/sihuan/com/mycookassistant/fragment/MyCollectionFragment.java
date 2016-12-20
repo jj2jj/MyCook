@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,13 +43,11 @@ public class MyCollectionFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         //setHasFixedSize()方法用来使RecyclerView保持固定的大小
 //        设置网格布局管理器
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),2);
-        gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
+
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
 
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-        // mRecyclerView.setArrowImageView(R.drawable.iconfont_downgrey);
 
         LoadEvent();
 
@@ -64,7 +61,6 @@ public class MyCollectionFragment extends Fragment {
         mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -75,7 +71,6 @@ public class MyCollectionFragment extends Fragment {
                 }, 1500);
                 skip = 0;
             }
-
             @Override
             public void onLoadMore() {
                 // load more data here

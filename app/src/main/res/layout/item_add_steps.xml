@@ -4,6 +4,7 @@
              android:layout_height="wrap_content">
 
     <LinearLayout
+        android:background="@color/theme_primary_light"
         android:id="@+id/add_steps_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#FFF0F5"
+            android:background="@null"
             android:hint="@string/step"/>
 
     </LinearLayout>

@@ -62,8 +62,7 @@ public class ClassificationFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DetailTypeActivity.class);
                 switch (icon[i]) {
                     case R.drawable.xiafancai:
-                        // TODO: 2016-12-07 跳转到其他界面
-//                        Intent intent = new Intent(getActivity(), DetailTypeActivity.class);
+//                       //跳转界面
                         intent.putExtra("dishes_type", dishes_type[i]);
                         startActivity(intent);
                         break;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
+    android:background="@color/colorPrimary"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -12,17 +13,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.youth.banner.Banner
-            android:id="@+id/banner"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            app:image_scale_type="fit_xy"/>
+        <include layout="@layout/head_banner_view"/>
 
         <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:id="@+id/rv_home_page_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-    </LinearLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

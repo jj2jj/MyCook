@@ -100,10 +100,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
     @Override
     protected void initView() {
-        searchView.setCursorDrawable(R.drawable.custom_cursor);
-        searchView.setEllipsize(true);
-
-
         mActivity = (CookBookActivity) mContext;
         List<Fragment> fragments = initFragments();
         vpContent.setScrollable(true);
@@ -112,9 +108,10 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         vpContent.setOffscreenPageLimit(fragments.size());
         mActivity.setSupportActionBar(mToolbar);
 
+
     }
 
-    public MaterialSearchView getSearchView(){
+    public MaterialSearchView getSearchView() {
         return searchView;
     }
 
@@ -133,7 +130,10 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG)
+                // TODO: 2016-12-20 搜索功能
+
+                Snackbar.make(findViewById(R.id.container), "Query: " + query,
+                        Snackbar.LENGTH_LONG)
                         .show();
                 return false;
             }
@@ -201,6 +201,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     }
 
     Drawer drawer = null;
+
 
     @Override
     public void initNavigationDrawer() {

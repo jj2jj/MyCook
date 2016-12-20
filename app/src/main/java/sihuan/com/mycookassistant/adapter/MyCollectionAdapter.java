@@ -35,7 +35,7 @@ public class MyCollectionAdapter extends RecyclerView.Adapter<MyCollectionAdapte
     //创建新View，被LayoutManager所调用
     @Override
     public MyRecyclerHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_recycler_list_myproduct, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_recycler_mycollection, parent, false);
         return new MyRecyclerHolder(view);
     }
 
