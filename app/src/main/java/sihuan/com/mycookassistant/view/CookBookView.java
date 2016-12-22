@@ -34,6 +34,7 @@ import butterknife.BindView;
 import sihuan.com.mycookassistant.R;
 import sihuan.com.mycookassistant.activity.CookBookActivity;
 import sihuan.com.mycookassistant.activity.LoginActivity;
+import sihuan.com.mycookassistant.activity.SearchActivity;
 import sihuan.com.mycookassistant.adapter.ContentPagerAdapter;
 import sihuan.com.mycookassistant.base.RootView;
 import sihuan.com.mycookassistant.fragment.ClassificationFragment;
@@ -79,6 +80,8 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     ContentPagerAdapter mPagerAdapter;
 
     CookBookActivity mActivity;
+//    private List<Works> worksList = new ArrayList<>();
+//    private int skip = 0;
 
 
     public CookBookView(Context context) {
@@ -131,6 +134,14 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // TODO: 2016-12-20 搜索功能
+                Intent intent = new Intent(mActivity, SearchActivity.class);
+                intent.putExtra("search_result",query);
+                mActivity.startActivity(intent);
+
+//
+
+
+
 
                 Snackbar.make(findViewById(R.id.container), "Query: " + query,
                         Snackbar.LENGTH_LONG)

@@ -95,9 +95,9 @@ public class DetailTypeActivity extends BaseActivity {
 
     private void getData(int skip) {
         //关联属性查询
-        String id = getIntent().getStringExtra("dishes_type");
+        String dishesType = getIntent().getStringExtra("dishes_type");
         AVQuery<Works> avQuery = AVObject.getQuery(Works.class);
-        avQuery.whereEqualTo("dishestype", id);
+        avQuery.whereEqualTo("dishestype", dishesType);
         int limit = 5;
         avQuery.limit(limit);
         avQuery.skip(limit * skip);
