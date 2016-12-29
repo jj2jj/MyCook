@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.google.common.base.Preconditions;
 import com.jcodecraeer.xrecyclerview.ProgressStyle;
@@ -64,8 +65,9 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     @Override
     protected void initView() {
 //RecyclerView chushihua
-        mBanner = (Banner) inflate(mContext, R.layout.head_banner_view, null);
-        hpRecyclerView.addHeaderView(mBanner);
+        View view = inflate(mContext, R.layout.head_banner_view, null);
+        mBanner = (Banner) view.findViewById(R.id.banner);
+        hpRecyclerView.addHeaderView(view);
         hpRecyclerView.setHasFixedSize(true);
         hpRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         hpRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
