@@ -30,8 +30,8 @@ import sihuan.com.mycookassistant.base.BaseActivity;
  */
 
 public class DetailPageActivity extends BaseActivity {
-    Toolbar mToolbar;
-    ActionBar actionBar;
+//    Toolbar mToolbar;
+//    ActionBar actionBar;
 
     private ImageView image;
     private TextView title;
@@ -42,17 +42,17 @@ public class DetailPageActivity extends BaseActivity {
     private TextView dish_type;
     private ImageView star_btn;
     private ImageView play_btn;
-    String mObjectId;
-    int flag;
+    private String mObjectId;
+    private int flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_page);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_login);
+        Toolbar  mToolbar = (Toolbar) findViewById(R.id.toolbar_login);
         setSupportActionBar(mToolbar);
-        actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("详情");
@@ -156,6 +156,7 @@ public class DetailPageActivity extends BaseActivity {
                         list.get(i).deleteInBackground();
                     }
                 }
+                Toast.makeText(DetailPageActivity.this, "取消收藏", Toast.LENGTH_SHORT).show();
             }
         });
     }

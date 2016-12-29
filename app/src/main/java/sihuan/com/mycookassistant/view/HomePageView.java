@@ -34,7 +34,7 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
 
     private int skip = 0;
 
-    @BindView(R.id.banner)
+    //    @BindView(R.id.banner)
     Banner mBanner;
 
     @BindView(R.id.rv_home_page_view)
@@ -61,10 +61,11 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     }
 
 
-
     @Override
     protected void initView() {
 //RecyclerView chushihua
+        mBanner = (Banner) inflate(mContext, R.layout.head_banner_view, null);
+        hpRecyclerView.addHeaderView(mBanner);
         hpRecyclerView.setHasFixedSize(true);
         hpRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         hpRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
@@ -73,7 +74,6 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
         homePageRvAdapter = new HomePageRvAdapter(worksList, mContext);
         hpRecyclerView.setAdapter(homePageRvAdapter);
         hpRecyclerView.setRefreshing(true);
-
 
 
     }

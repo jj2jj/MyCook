@@ -2,7 +2,6 @@ package sihuan.com.mycookassistant.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -58,7 +57,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     @BindView(R.id.search_view)
     MaterialSearchView searchView;
 
-
     @BindView(R.id.radio_group)
     RadioGroup mRadioGroup;
 
@@ -80,8 +78,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     ContentPagerAdapter mPagerAdapter;
 
     CookBookActivity mActivity;
-//    private List<Works> worksList = new ArrayList<>();
-//    private int skip = 0;
 
 
     public CookBookView(Context context) {
@@ -127,25 +123,18 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         return fragments;
     }
 
-
     @Override
     protected void initEvent() {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // TODO: 2016-12-20 搜索功能
+                // 搜索功能，点击跳转到SearchActivity
                 Intent intent = new Intent(mActivity, SearchActivity.class);
-                intent.putExtra("search_result",query);
+                intent.putExtra("search_result", query);
                 mActivity.startActivity(intent);
-
-//
-
-
-
-
-                Snackbar.make(findViewById(R.id.container), "Query: " + query,
-                        Snackbar.LENGTH_LONG)
-                        .show();
+//                Snackbar.make(findViewById(R.id.container), "Query: " + query,
+//                        Snackbar.LENGTH_LONG)
+//                        .show();
                 return false;
             }
 
@@ -157,12 +146,12 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-
+//
             }
 
             @Override
             public void onSearchViewClosed() {
-
+//
             }
         });
         mRadioGroup.setOnCheckedChangeListener(this);
@@ -231,13 +220,33 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                 })
                 .build();
 
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem()
+                .withName(R.string.drawer_item_home)
+                .withIcon(FontAwesome.Icon.faw_home)
+                .withIdentifier(1);
 
-        final PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName(R.string.drawer_item_home).withIcon(FontAwesome.Icon.faw_home).withIdentifier(1);
-        PrimaryDrawerItem item2 = new PrimaryDrawerItem().withName(R.string.drawer_item_free_play).withIcon(FontAwesome.Icon.faw_gamepad);
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem().withName(R.string.drawer_item_custom).withIcon(FontAwesome.Icon.faw_eye).withIdentifier(2);
-        SecondaryDrawerItem item4 = new SecondaryDrawerItem().withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog).withIdentifier(3);
-        SecondaryDrawerItem item5 = new SecondaryDrawerItem().withName(R.string.drawer_item_open_source).withIcon(FontAwesome.Icon.faw_question).withIdentifier(4);
-        SecondaryDrawerItem item6 = new SecondaryDrawerItem().withName(R.string.drawer_item_logout).withIcon(FontAwesome.Icon.faw_sign_out).withIdentifier(9);
+        PrimaryDrawerItem item2 = new PrimaryDrawerItem()
+                .withName(R.string.drawer_item_free_play)
+                .withIcon(FontAwesome.Icon.faw_gamepad);
+
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem()
+                .withName(R.string.drawer_item_custom)
+                .withIcon(FontAwesome.Icon.faw_eye)
+                .withIdentifier(2);
+
+        SecondaryDrawerItem item4 = new SecondaryDrawerItem()
+                .withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog)
+                .withIdentifier(3);
+
+        SecondaryDrawerItem item5 = new SecondaryDrawerItem()
+                .withName(R.string.drawer_item_open_source)
+                .withIcon(FontAwesome.Icon.faw_question)
+                .withIdentifier(4);
+
+        SecondaryDrawerItem item6 = new SecondaryDrawerItem()
+                .withName(R.string.drawer_item_logout)
+                .withIcon(FontAwesome.Icon.faw_sign_out)
+                .withIdentifier(9);
 
         drawer = new DrawerBuilder()
                 .withActivity(mActivity)

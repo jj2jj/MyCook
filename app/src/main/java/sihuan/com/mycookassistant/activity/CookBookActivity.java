@@ -26,7 +26,7 @@ public class CookBookActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cook_book);
-        mUnbinder = ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);//绑定view
         mPresenter = new CookBookPresenter(mView);
         searchView = mView.getSearchView();
     }
@@ -39,23 +39,21 @@ public class CookBookActivity extends BaseActivity {
         return true;
     }
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_add){
-                startActivity(new Intent(CookBookActivity.this, PublishActivity.class));
-        }else if ((item.getItemId() == R.id.action_search)){
-            //
+        if (item.getItemId() == R.id.action_add) {
+            startActivity(new Intent(CookBookActivity.this, PublishActivity.class));
         }
+//        else if ((item.getItemId() == R.id.action_search)){
+//            //
+//        }
 
         return super.onOptionsItemSelected(item);
     }
-//
+
+    /**
+     * 返回键作用于search view
+     */
     @Override
     public void onBackPressedSupport() {
         if (searchView.isSearchOpen()) {

@@ -5,6 +5,8 @@ import android.app.Application;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
@@ -35,6 +37,9 @@ public class App extends Application {
         instance = this;
         refWatcher = LeakCanary.install(this);
         AVObject.registerSubclass(Works.class);
+
+        // 将“12345678”替换成您申请的APPID，申请地址：http://open.voicecloud.cn
+        SpeechUtility.createUtility(this, SpeechConstant.APPID +"=5860dce8"+ SpeechConstant.FORCE_LOGIN +"=true");
 
         AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
         AVOSCloud.setDebugLogEnabled(true);

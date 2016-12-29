@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/head_banner_view"/>
+        <!--<include layout="@layout/head_banner_view"/>-->
 
         <com.jcodecraeer.xrecyclerview.XRecyclerView
             android:id="@+id/rv_home_page_view"
