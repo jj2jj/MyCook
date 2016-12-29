@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/container"
-              android:orientation="vertical"
-              android:background="@color/theme_primary">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_primary"
+    android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/toolbar_container"
+    <FrameLayout
+        android:id="@+id/toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/theme_primary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/theme_primary" />
+        <com.miguelcatalan.materialsearchview.MaterialSearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
 
-            <com.miguelcatalan.materialsearchview.MaterialSearchView
-                android:id="@+id/search_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </FrameLayout>
     <sihuan.com.mycookassistant.widget.UnScrollViewPager
         android:id="@+id/vp_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@android:color/transparent"/>
+        android:background="@android:color/transparent" />
 
 
     <!--底层菜单-->
@@ -51,7 +55,7 @@
             android:drawableTop="@drawable/bt_home_selector"
             android:gravity="center"
             android:text="@string/main_page"
-            android:textColor="@color/tab_selector"/>
+            android:textColor="@color/tab_selector" />
 
         <RadioButton
             android:id="@+id/works"
@@ -62,7 +66,7 @@
             android:drawableTop="@drawable/bt_product_selector"
             android:gravity="center"
             android:text="@string/works"
-            android:textColor="@color/tab_selector"/>
+            android:textColor="@color/tab_selector" />
 
         <RadioButton
             android:id="@+id/collect"
@@ -73,7 +77,7 @@
             android:drawableTop="@drawable/bt_heart_selector"
             android:gravity="center"
             android:text="@string/collect"
-            android:textColor="@color/tab_selector"/>
+            android:textColor="@color/tab_selector" />
 
         <RadioButton
             android:id="@+id/classification"
@@ -84,7 +88,7 @@
             android:drawableTop="@drawable/bt_cook_book_selector"
             android:gravity="center"
             android:text="@string/classification"
-            android:textColor="@color/tab_selector"/>
+            android:textColor="@color/tab_selector" />
     </RadioGroup>
 
 </LinearLayout>
