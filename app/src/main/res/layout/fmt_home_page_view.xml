@@ -16,7 +16,7 @@
         <!--<include layout="@layout/head_banner_view"/>-->
 
         <com.jcodecraeer.xrecyclerview.XRecyclerView
-            android:id="@+id/rv_home_page_view"
+            android:id="@+id/xrv_home_page_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
