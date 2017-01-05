@@ -5,10 +5,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_publish"/>
+    <include layout="@layout/toolbar_upload"/>
 
     <EditText
-        android:id="@+id/title_publish"
+        android:id="@+id/title_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -18,7 +18,7 @@
 
     <EditText
 
-        android:id="@+id/dishestype"
+        android:id="@+id/type_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -29,7 +29,7 @@
 
     <EditText
 
-        android:id="@+id/describe_publish"
+        android:id="@+id/describe_upload"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -39,7 +39,7 @@
 
     <ImageView
 
-        android:id="@+id/image_publish"
+        android:id="@+id/image_upload"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"

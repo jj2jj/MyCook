@@ -51,7 +51,7 @@ import zjj.com.mycookassistant.bean.Works;
  * MyCook
  * Created by Jessica0906zjj on 2016-11-01.
  */
-public class PublishActivity extends BaseActivity {
+public class UploadActivity extends BaseActivity {
     Toolbar mToolbar_publish;
     ActionBar actionBar;
     ProgressDialog progress;
@@ -82,7 +82,7 @@ public class PublishActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_publish_view);
+        setContentView(R.layout.act_upload_view);
 
         mToolbar_publish = (Toolbar) findViewById(R.id.toolbar_pub);
         setSupportActionBar(mToolbar_publish);
@@ -121,10 +121,10 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void findViews() {
-        mDishesType = (EditText) findViewById(R.id.dishestype);
-        mImage = (ImageView) findViewById(R.id.image_publish);
-        mTitleEdit = (EditText) findViewById(R.id.title_publish);
-        mDescribeEdit = (EditText) findViewById(R.id.describe_publish);
+        mDishesType = (EditText) findViewById(R.id.type_upload);
+        mImage = (ImageView) findViewById(R.id.image_upload);
+        mTitleEdit = (EditText) findViewById(R.id.title_upload);
+        mDescribeEdit = (EditText) findViewById(R.id.describe_upload);
 
         mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addM);
 //        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
@@ -157,7 +157,7 @@ public class PublishActivity extends BaseActivity {
     private void showDishType() {
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("请选择");
-        final String[] choices = getResources().getStringArray(R.array.dishestype);
+        final String[] choices = getResources().getStringArray(R.array.dishesType);
         builder2.setItems(choices, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -173,11 +173,11 @@ public class PublishActivity extends BaseActivity {
 
     private void uploadInfo() throws AVException {
         if (TextUtils.isEmpty(mTitleEdit.getText().toString())) {
-            Toast.makeText(PublishActivity.this, "请输入菜名", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UploadActivity.this, "请输入菜名", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(mDescribeEdit.getText().toString())) {
-            Toast.makeText(PublishActivity.this, "请描述此菜", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UploadActivity.this, "请描述此菜", Toast.LENGTH_SHORT).show();
             return;
         }
         showProgressDialog();
@@ -210,12 +210,12 @@ public class PublishActivity extends BaseActivity {
             public void done(AVException e) {
                 if (e == null) {
                     progress.dismiss();
-                    Toast.makeText(PublishActivity.this, "上传成功^_^", Toast.LENGTH_SHORT).show();
-                    PublishActivity.this.finish();
+                    Toast.makeText(UploadActivity.this, "上传成功^_^", Toast.LENGTH_SHORT).show();
+                    UploadActivity.this.finish();
                 } else {
                     progress.dismiss();
-                    Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(PublishActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UploadActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
                 }
             }
         });

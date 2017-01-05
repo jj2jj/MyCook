@@ -73,7 +73,7 @@
         <item>从本地图库选择</item>
     </string-array>
 
-    <string-array name="dishestype">
+    <string-array name="dishesType">
         <item>下饭菜</item>
         <item>便 当</item>
         <item>素 食</item>

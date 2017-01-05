@@ -92,7 +92,11 @@ public class DetailTypeActivity extends BaseActivity {
             }
         });
     }
-
+/**
+* 关联属性查询方式获取数据
+*@author ZJJ
+*created at 2016-12-13 11:30
+*/
     private void getData(int skip) {
         //关联属性查询
         String dishesType = getIntent().getStringExtra("dishes_type");

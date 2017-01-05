@@ -38,11 +38,10 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
     //    @BindView(R.id.banner)
     Banner mBanner;
 
-    @BindView(R.id.rv_home_page_view)
-    XRecyclerView hpRecyclerView;
+    @BindView(R.id.xrv_home_page_view)
+    XRecyclerView home_page_xrv;
 
-    HomePageRvAdapter homePageRvAdapter;
-
+    HomePageRvAdapter home_page_xrvAdapter;
 
     public HomePageView(Context context) {
         super(context);
@@ -64,24 +63,27 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
 
     @Override
     protected void initView() {
-//RecyclerView chushihua
-        View view = inflate(mContext, R.layout.head_banner_view, null);
+        View view = inflate(mContext, R.layout.banner_head_view, null);//加载banner视图
         mBanner = (Banner) view.findViewById(R.id.banner);
-        hpRecyclerView.addHeaderView(view);
-        hpRecyclerView.setHasFixedSize(true);
-        hpRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        hpRecyclerView.setRefreshProgressStyle(ProgressStyle.BallPulse);
-        hpRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
-        LoadEvent();
-        homePageRvAdapter = new HomePageRvAdapter(worksList, mContext);
-        hpRecyclerView.setAdapter(homePageRvAdapter);
-        hpRecyclerView.setRefreshing(true);
+        home_page_xrv.addHeaderView(view);//banner作为headview
+
+        home_page_xrv.setHasFixedSize(true);
+        home_page_xrv.setLayoutManager(new LinearLayoutManager(mContext));
+        home_page_xrv.setRefreshProgressStyle(ProgressStyle.BallPulse);
+        home_page_xrv.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+        LoadEvent();//上拉加载、下拉刷新
+        home_page_xrvAdapter = new HomePageRvAdapter(worksList, mContext);
+        home_page_xrv.setAdapter(home_page_xrvAdapter);
+        home_page_xrv.setRefreshing(true);
 
 
     }
 
+    /**
+     * 上拉加载、下拉刷新
+     */
     private void LoadEvent() {
-        hpRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        home_page_xrv.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
 
@@ -89,8 +91,8 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
                     @Override
                     public void run() {
                         worksList = mPresenter.getRvData(0);
-                        homePageRvAdapter.setData(worksList);
-                        hpRecyclerView.refreshComplete();//下拉刷新完成
+                        home_page_xrvAdapter.setData(worksList);
+                        home_page_xrv.refreshComplete();//下拉刷新完成
                     }
                 }, 1500);
                 skip = 0;
@@ -99,14 +101,13 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
             @Override
             public void onLoadMore() {
                 // load more data here
-
                 skip++;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mPresenter.getRvData(skip);
-                        homePageRvAdapter.notifyDataSetChanged();
-                        hpRecyclerView.loadMoreComplete();//加载更多完成
+                        home_page_xrvAdapter.notifyDataSetChanged();
+                        home_page_xrv.loadMoreComplete();//加载更多完成
                     }
                 }, 1500);
             }
