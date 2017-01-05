@@ -69,10 +69,10 @@ public class PublishActivity extends BaseActivity {
     LinearLayoutManager layoutManager_addmaterial, layoutManager_addSteps;
     EditText ami_Food, ami_Portion, asi_Steps;
     private RecyclerView mRv_addmaterial, mRv_addSteps;
-    private List<Materials> mDatas;
-    private AddMaterialsAdapter mAdapter_m;
-    private List<Steps> mSteps;
-    private AddStepsAdapter mAdapter_s;
+    private List<Materials> materialsList;
+    private AddMaterialsAdapter addMaterialsAdapter;
+    private List<Steps> stepsList;
+    private AddStepsAdapter addStepsAdapter;
     int position_m = 0, position_s = 0;
 
 
@@ -101,11 +101,11 @@ public class PublishActivity extends BaseActivity {
         layoutManager_addSteps = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRv_addSteps.setLayoutManager(layoutManager_addSteps);
 
-        mAdapter_m = new AddMaterialsAdapter(mDatas, this);
-        mRv_addmaterial.setAdapter(mAdapter_m);
+        addMaterialsAdapter = new AddMaterialsAdapter(materialsList, this);
+        mRv_addmaterial.setAdapter(addMaterialsAdapter);
 
-        mAdapter_s = new AddStepsAdapter(mSteps, this);
-        mRv_addSteps.setAdapter(mAdapter_s);
+        addStepsAdapter = new AddStepsAdapter(stepsList, this);
+        mRv_addSteps.setAdapter(addStepsAdapter);
 
         //设置增删动画
         mRv_addmaterial.setItemAnimator(new DefaultItemAnimator());
@@ -113,11 +113,11 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void initDatas() {
-        mDatas = new ArrayList<>();
-        mDatas.add(new Materials("用料：", "用量："));
+        materialsList = new ArrayList<>();
+        materialsList.add(new Materials("用料：", "用量："));
 
-        mSteps = new ArrayList<>();
-        mSteps.add(new Steps("步骤："));
+        stepsList = new ArrayList<>();
+        stepsList.add(new Steps("步骤："));
     }
 
     private void findViews() {
@@ -200,8 +200,8 @@ public class PublishActivity extends BaseActivity {
         final Works myWorks = new Works("Works");
         myWorks.setDishestype(mDishesType.getText().toString());
         myWorks.setTitle(mTitleEdit.getText().toString());
-        myWorks.setSteps(mSteps);
-        myWorks.setMaterials(mDatas);
+        myWorks.setSteps(stepsList);
+        myWorks.setMaterials(materialsList);
         myWorks.setDescribe(mDescribeEdit.getText().toString());
         myWorks.setUser(AVUser.getCurrentUser());
         myWorks.setImage(new AVFile("workPic", mImageBytes));
@@ -322,10 +322,10 @@ public class PublishActivity extends BaseActivity {
 
     private void deleteItems() {
         if (layoutManager_addSteps.hasFocus() && position_s > 0) {
-            mAdapter_s.deleteData(position_s);
+            addStepsAdapter.deleteData(position_s);
             position_s--;
         } else if (layoutManager_addmaterial.hasFocus() && position_m > 0) {
-            mAdapter_m.deleteData(position_m);
+            addMaterialsAdapter.deleteData(position_m);
             position_m--;
         }
     }
@@ -333,10 +333,10 @@ public class PublishActivity extends BaseActivity {
     private void addItems() {
         if (layoutManager_addmaterial.hasFocus()) {
             position_m++;
-            mAdapter_m.addData(position_m, new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
+            addMaterialsAdapter.addData(position_m, new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
         } else if (layoutManager_addSteps.hasFocus()) {
             position_s++;
-            mAdapter_s.addData(position_s, new Steps(asi_Steps.getText().toString()));
+            addStepsAdapter.addData(position_s, new Steps(asi_Steps.getText().toString()));
         }
 
     }
