@@ -48,44 +48,42 @@ import zjj.com.mycookassistant.bean.Steps;
 import zjj.com.mycookassistant.bean.Works;
 
 /**
- * MyCook
- * Created by Jessica0906zjj on 2016-11-01.
- */
-public class PublishActivity extends BaseActivity {
-    Toolbar mToolbar_publish;
+*MyCook
+*@author ZJJ
+*created at 2016-11-01
+*/
+public class UploadActivity extends BaseActivity {
+    Toolbar mToolbar_upload;
     ActionBar actionBar;
     ProgressDialog progress;
 
 
     private static final int CHOOSE_PICTURE = 3;
     public static final int TAKE_PHOTO = 1;
-    private ImageView mImage;
+    private ImageView imageView;
     private Uri imageUri;
     private byte[] mImageBytes = null;
-    EditText mTitleEdit;
-    EditText mDescribeEdit;
-    EditText mDishesType;
+    private EditText mTitleEdit;
+    private EditText mDescribeEdit;
+    private EditText mDishesTypeEdit;
 
-    LinearLayoutManager layoutManager_addmaterial, layoutManager_addSteps;
+    LinearLayoutManager layoutManagerAddM, layoutManagerAddS;
     EditText ami_Food, ami_Portion, asi_Steps;
-    private RecyclerView mRv_addmaterial, mRv_addSteps;
-    private List<Materials> mDatas;
-    private AddMaterialsAdapter mAdapter_m;
-    private List<Steps> mSteps;
-    private AddStepsAdapter mAdapter_s;
-    int position_m = 0, position_s = 0;
-
-
-    String str;
-
+    private RecyclerView addMRecyclerView, addSRecyclerView;
+    private List<Materials> materialsList;
+    private AddMaterialsAdapter addMaterialsAdapter;
+    private List<Steps> stepsList;
+    private AddStepsAdapter addStepsAdapter;
+    int positionM = 0, positionS = 0;
+    private String choiceStr;//用来放所选择的菜谱类别
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_publish_view);
+        setContentView(R.layout.act_upload_view);
 
-        mToolbar_publish = (Toolbar) findViewById(R.id.toolbar_pub);
-        setSupportActionBar(mToolbar_publish);
+        mToolbar_upload = (Toolbar) findViewById(R.id.toolbar_pub);
+        setSupportActionBar(mToolbar_upload);
         actionBar = getSupportActionBar();
         assert actionBar != null;
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -95,57 +93,57 @@ public class PublishActivity extends BaseActivity {
         findViews();
         initEvent();
         //recyclerview的布局管理
-        layoutManager_addmaterial = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRv_addmaterial.setLayoutManager(layoutManager_addmaterial);
+        layoutManagerAddM = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        addMRecyclerView.setLayoutManager(layoutManagerAddM);
 
-        layoutManager_addSteps = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRv_addSteps.setLayoutManager(layoutManager_addSteps);
+        layoutManagerAddS = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        addSRecyclerView.setLayoutManager(layoutManagerAddS);
 
-        mAdapter_m = new AddMaterialsAdapter(mDatas, this);
-        mRv_addmaterial.setAdapter(mAdapter_m);
+        addMaterialsAdapter = new AddMaterialsAdapter(materialsList, this);
+        addMRecyclerView.setAdapter(addMaterialsAdapter);
 
-        mAdapter_s = new AddStepsAdapter(mSteps, this);
-        mRv_addSteps.setAdapter(mAdapter_s);
+        addStepsAdapter = new AddStepsAdapter(stepsList, this);
+        addSRecyclerView.setAdapter(addStepsAdapter);
 
         //设置增删动画
-        mRv_addmaterial.setItemAnimator(new DefaultItemAnimator());
-        mRv_addSteps.setItemAnimator(new DefaultItemAnimator());
+        addMRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        addSRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void initDatas() {
-        mDatas = new ArrayList<>();
-        mDatas.add(new Materials("用料：", "用量："));
+        materialsList = new ArrayList<>();
+        materialsList.add(new Materials("用料：", "用量："));
 
-        mSteps = new ArrayList<>();
-        mSteps.add(new Steps("步骤："));
+        stepsList = new ArrayList<>();
+        stepsList.add(new Steps("步骤："));
     }
 
     private void findViews() {
-        mDishesType = (EditText) findViewById(R.id.dishestype);
-        mImage = (ImageView) findViewById(R.id.image_publish);
-        mTitleEdit = (EditText) findViewById(R.id.title_publish);
-        mDescribeEdit = (EditText) findViewById(R.id.describe_publish);
+        mDishesTypeEdit = (EditText) findViewById(R.id.type_upload);
+        imageView = (ImageView) findViewById(R.id.image_upload);
+        mTitleEdit = (EditText) findViewById(R.id.title_upload);
+        mDescribeEdit = (EditText) findViewById(R.id.describe_upload);
 
-        mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addM);
+        addMRecyclerView = (RecyclerView) findViewById(R.id.rv_addM);
 //        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
          View view1 = View.inflate(this,R.layout.item_add_materials, null);
         ami_Food = (EditText) view1.findViewById(R.id.ami_materials);
         ami_Portion = (EditText) view1.findViewById(R.id.ami_dosages);
 
-        mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addS);
+        addSRecyclerView = (RecyclerView) findViewById(R.id.rv_addS);
         View view2 =View.inflate(this,R.layout.item_add_steps, null);
 //        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps, null);
         asi_Steps = (EditText) view2.findViewById(R.id.asi_steps);
     }
 
     private void initEvent() {
-        mImage.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDialog();
             }
         });
-        mDishesType.setOnClickListener(new View.OnClickListener() {
+        mDishesTypeEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDishType();
@@ -157,14 +155,14 @@ public class PublishActivity extends BaseActivity {
     private void showDishType() {
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
         builder2.setTitle("请选择");
-        final String[] choices = getResources().getStringArray(R.array.dishestype);
+        final String[] choices = getResources().getStringArray(R.array.dishesType);
         builder2.setItems(choices, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //拿到被选择项的值
-                str = choices[i];
-                //把该值传给 TextView
-                mDishesType.setText(str);
+                choiceStr = choices[i];
+                //把该值传给 EditText
+                mDishesTypeEdit.setText(choiceStr);
             }
         });
         AlertDialog dialog2 = builder2.create();
@@ -173,11 +171,11 @@ public class PublishActivity extends BaseActivity {
 
     private void uploadInfo() throws AVException {
         if (TextUtils.isEmpty(mTitleEdit.getText().toString())) {
-            Toast.makeText(PublishActivity.this, "请输入菜名", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UploadActivity.this, "请输入菜名", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(mDescribeEdit.getText().toString())) {
-            Toast.makeText(PublishActivity.this, "请描述此菜", Toast.LENGTH_SHORT).show();
+            Toast.makeText(UploadActivity.this, "请描述此菜", Toast.LENGTH_SHORT).show();
             return;
         }
         showProgressDialog();
@@ -198,10 +196,10 @@ public class PublishActivity extends BaseActivity {
 
     private void uploadData() {
         final Works myWorks = new Works("Works");
-        myWorks.setDishestype(mDishesType.getText().toString());
+        myWorks.setDishestype(mDishesTypeEdit.getText().toString());
         myWorks.setTitle(mTitleEdit.getText().toString());
-        myWorks.setSteps(mSteps);
-        myWorks.setMaterials(mDatas);
+        myWorks.setSteps(stepsList);
+        myWorks.setMaterials(materialsList);
         myWorks.setDescribe(mDescribeEdit.getText().toString());
         myWorks.setUser(AVUser.getCurrentUser());
         myWorks.setImage(new AVFile("workPic", mImageBytes));
@@ -210,12 +208,12 @@ public class PublishActivity extends BaseActivity {
             public void done(AVException e) {
                 if (e == null) {
                     progress.dismiss();
-                    Toast.makeText(PublishActivity.this, "上传成功^_^", Toast.LENGTH_SHORT).show();
-                    PublishActivity.this.finish();
+                    Toast.makeText(UploadActivity.this, "上传成功^_^", Toast.LENGTH_SHORT).show();
+                    UploadActivity.this.finish();
                 } else {
                     progress.dismiss();
-                    Toast.makeText(PublishActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(PublishActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(UploadActivity.this, "上传失败(′⌒`)", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -274,7 +272,7 @@ public class PublishActivity extends BaseActivity {
                 @Override
                 public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                     //上传操作
-                    mImage.setImageBitmap(resource);
+                    imageView.setImageBitmap(resource);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     resource.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     mImageBytes = stream.toByteArray();
@@ -290,7 +288,7 @@ public class PublishActivity extends BaseActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            mImage.setImageBitmap(bitmap);
+            imageView.setImageBitmap(bitmap);
         }
     }
 
@@ -321,22 +319,22 @@ public class PublishActivity extends BaseActivity {
     }
 
     private void deleteItems() {
-        if (layoutManager_addSteps.hasFocus() && position_s > 0) {
-            mAdapter_s.deleteData(position_s);
-            position_s--;
-        } else if (layoutManager_addmaterial.hasFocus() && position_m > 0) {
-            mAdapter_m.deleteData(position_m);
-            position_m--;
+        if (layoutManagerAddS.hasFocus() && positionS > 0) {
+            addStepsAdapter.deleteData(positionS);
+            positionS--;
+        } else if (layoutManagerAddM.hasFocus() && positionM > 0) {
+            addMaterialsAdapter.deleteData(positionM);
+            positionM--;
         }
     }
 
     private void addItems() {
-        if (layoutManager_addmaterial.hasFocus()) {
-            position_m++;
-            mAdapter_m.addData(position_m, new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
-        } else if (layoutManager_addSteps.hasFocus()) {
-            position_s++;
-            mAdapter_s.addData(position_s, new Steps(asi_Steps.getText().toString()));
+        if (layoutManagerAddM.hasFocus()) {
+            positionM++;
+            addMaterialsAdapter.addData(positionM, new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
+        } else if (layoutManagerAddS.hasFocus()) {
+            positionS++;
+            addStepsAdapter.addData(positionS, new Steps(asi_Steps.getText().toString()));
         }
 
     }

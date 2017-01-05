@@ -106,7 +106,7 @@ public class ClassificationFragment extends Fragment {
     }
 
     public List<Map<String, Object>> getData() {
-        dishes_type = this.getResources().getStringArray(R.array.dishestype);
+        dishes_type = this.getResources().getStringArray(R.array.dishesType);
         //icon和dishestype的长度是相同的，这里任选其一都可以
         for (int i = 0; i < icon.length; i++) {
             Map<String, Object> map = new HashMap<>();

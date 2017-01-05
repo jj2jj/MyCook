@@ -42,7 +42,7 @@ public class CookBookActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_add) {
-            startActivity(new Intent(CookBookActivity.this, PublishActivity.class));
+            startActivity(new Intent(CookBookActivity.this, UploadActivity.class));
         }
 //        else if ((item.getItemId() == R.id.action_search)){
 //            //

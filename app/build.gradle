@@ -1,27 +1,28 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.application'//表示这是一个应用程序模块
 apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 24//用于指定项目的编译版本  24→android 7.0
+    buildToolsVersion "24.0.3"//用于指定项目构建工具的版本
+    //defaultConfig 对项目的更多细节进行配置
     defaultConfig {
-        applicationId "zjj.com.mycookassistant"
-        minSdkVersion 15
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        applicationId "zjj.com.mycookassistant"//用于指定项目的包名
+        minSdkVersion 15//指定项目最低兼容的android系统版本  15→android 4.0
+        targetSdkVersion 24//表示在该目标版本上已经做过了充分的测试
+        versionCode 1//项目的版本号
+        versionName "1.0"//项目的版本名称
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled false//用于指定是否对项目的代码进行混淆
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'//用于指定混淆时使用的规则文件
         }
     }
 }
-
+//指定当前项目的所有的依赖关系
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar'], dir: 'libs')//本地依赖声明
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -64,7 +65,7 @@ dependencies {
 
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'//内存泄漏检测
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'//声明测试用的例库
 
     compile 'com.miguelcatalan:materialsearchview:1.4.0'//search  view
 
