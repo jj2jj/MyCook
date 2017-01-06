@@ -67,16 +67,15 @@ public class UploadActivity extends BaseActivity {
     EditText mDishesType;
 
     LinearLayoutManager layoutManager_addmaterial, layoutManager_addSteps;
-    EditText ami_Food, ami_Portion, asi_Steps;
-    private RecyclerView mRv_addmaterial, mRv_addSteps;
+    EditText itemFoodEdit, itemPortionEdit, itemStepsEdit;
+    private RecyclerView addMaterialRecyclerView, addStepsRecyclerView;
     private List<Materials> materialsList;
     private AddMaterialsAdapter addMaterialsAdapter;
     private List<Steps> stepsList;
     private AddStepsAdapter addStepsAdapter;
-    int position_m = 0, position_s = 0;
+    int positionM = 0, positionS = 0;
 
-
-    String str;
+    String str;//存放所选择的菜谱类别
 
 
     @Override
@@ -96,20 +95,20 @@ public class UploadActivity extends BaseActivity {
         initEvent();
         //recyclerview的布局管理
         layoutManager_addmaterial = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRv_addmaterial.setLayoutManager(layoutManager_addmaterial);
+        addMaterialRecyclerView.setLayoutManager(layoutManager_addmaterial);
 
         layoutManager_addSteps = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRv_addSteps.setLayoutManager(layoutManager_addSteps);
+        addStepsRecyclerView.setLayoutManager(layoutManager_addSteps);
 
         addMaterialsAdapter = new AddMaterialsAdapter(materialsList, this);
-        mRv_addmaterial.setAdapter(addMaterialsAdapter);
+        addMaterialRecyclerView.setAdapter(addMaterialsAdapter);
 
         addStepsAdapter = new AddStepsAdapter(stepsList, this);
-        mRv_addSteps.setAdapter(addStepsAdapter);
+        addStepsRecyclerView.setAdapter(addStepsAdapter);
 
         //设置增删动画
-        mRv_addmaterial.setItemAnimator(new DefaultItemAnimator());
-        mRv_addSteps.setItemAnimator(new DefaultItemAnimator());
+        addMaterialRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        addStepsRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void initDatas() {
@@ -126,16 +125,16 @@ public class UploadActivity extends BaseActivity {
         mTitleEdit = (EditText) findViewById(R.id.title_upload);
         mDescribeEdit = (EditText) findViewById(R.id.describe_upload);
 
-        mRv_addmaterial = (RecyclerView) findViewById(R.id.rv_addM);
+        addMaterialRecyclerView = (RecyclerView) findViewById(R.id.rv_addM);
 //        View view1 = LayoutInflater.from(this).inflate(R.layout.item_add_materials, null);
-         View view1 = View.inflate(this,R.layout.item_add_materials, null);
-        ami_Food = (EditText) view1.findViewById(R.id.ami_materials);
-        ami_Portion = (EditText) view1.findViewById(R.id.ami_dosages);
+        View view1 = View.inflate(this, R.layout.item_add_materials, null);
+        itemFoodEdit = (EditText) view1.findViewById(R.id.ami_materials);
+        itemPortionEdit = (EditText) view1.findViewById(R.id.ami_dosages);
 
-        mRv_addSteps = (RecyclerView) findViewById(R.id.rv_addS);
-        View view2 =View.inflate(this,R.layout.item_add_steps, null);
+        addStepsRecyclerView = (RecyclerView) findViewById(R.id.rv_addS);
+        View view2 = View.inflate(this, R.layout.item_add_steps, null);
 //        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps, null);
-        asi_Steps = (EditText) view2.findViewById(R.id.asi_steps);
+        itemStepsEdit = (EditText) view2.findViewById(R.id.asi_steps);
     }
 
     private void initEvent() {
@@ -247,6 +246,7 @@ public class UploadActivity extends BaseActivity {
     }
 
     private void takePhoto() {
+        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // 创建File对象，用于存储拍照后的图片,
         // 存放在手机SD卡的根目录下，调用Environment的getExternalStorageDirectory()方法获取到的就是手机 SD 卡的根目录。
         File outputImage = new File(Environment.getExternalStorageDirectory(), "workPic");
@@ -258,28 +258,32 @@ public class UploadActivity extends BaseActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         imageUri = Uri.fromFile(outputImage);//再调用 Uri.fromFile()方法将 File 对象转换成 Uri对象
         //这个 Uri对象标识着 output_image.jpg 这张图片 的唯一地址
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        //imageUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(intent, TAKE_PHOTO); // 启动相机程序
+        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(takePhotoIntent, TAKE_PHOTO); // 启动相机程序
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //选择从相册中获取图片
         if (requestCode == CHOOSE_PICTURE && resultCode == RESULT_OK) {
-            Glide.with(this).load(data.getData()).asBitmap().into(new SimpleTarget<Bitmap>() {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    //上传操作
-                    mImage.setImageBitmap(resource);
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    resource.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    mImageBytes = stream.toByteArray();
-                }
-            });
+            Glide
+                    .with(this)
+                    .load(data.getData())
+                    .asBitmap()
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                            mImage.setImageBitmap(resource);
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            resource.compress(Bitmap.CompressFormat.JPEG, 100, stream);//comprsss 图片压缩，30 是压缩率，表示压缩70%; 如果不压缩是100，表示压缩率为0
+                            mImageBytes = stream.toByteArray();
+                        }
+                    });
+            //选择拍照获取图片
         } else if (requestCode == TAKE_PHOTO && resultCode == RESULT_OK) {
             Bitmap bitmap = null;
             try {
@@ -321,22 +325,22 @@ public class UploadActivity extends BaseActivity {
     }
 
     private void deleteItems() {
-        if (layoutManager_addSteps.hasFocus() && position_s > 0) {
-            addStepsAdapter.deleteData(position_s);
-            position_s--;
-        } else if (layoutManager_addmaterial.hasFocus() && position_m > 0) {
-            addMaterialsAdapter.deleteData(position_m);
-            position_m--;
+        if (layoutManager_addSteps.hasFocus() && positionS > 0) {
+            addStepsAdapter.deleteData(positionS);
+            positionS--;
+        } else if (layoutManager_addmaterial.hasFocus() && positionM > 0) {
+            addMaterialsAdapter.deleteData(positionM);
+            positionM--;
         }
     }
 
     private void addItems() {
         if (layoutManager_addmaterial.hasFocus()) {
-            position_m++;
-            addMaterialsAdapter.addData(position_m, new Materials(ami_Food.getText().toString(), ami_Portion.getText().toString()));
+            positionM++;
+            addMaterialsAdapter.addData(positionM, new Materials(itemFoodEdit.getText().toString(), itemPortionEdit.getText().toString()));
         } else if (layoutManager_addSteps.hasFocus()) {
-            position_s++;
-            addStepsAdapter.addData(position_s, new Steps(asi_Steps.getText().toString()));
+            positionS++;
+            addStepsAdapter.addData(positionS, new Steps(itemStepsEdit.getText().toString()));
         }
 
     }
