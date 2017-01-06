@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.List;
@@ -40,8 +41,8 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
     //将数据与界面进行绑定的操作
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        holder.asi_steps.setText(mSteps.get(position).getSteps());
-        holder.asi_steps.addTextChangedListener(new TextWatcher() {
+        holder.itemStepsEdit.setText(mSteps.get(position).getSteps());
+        holder.itemStepsEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -54,12 +55,20 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
 
             @Override
             public void afterTextChanged(Editable editable) {
-                mSteps.get(position).setSteps(holder.asi_steps.getText().toString());
+                mSteps.get(position).setSteps(holder.itemStepsEdit.getText().toString());
 
             }
         });
-        holder.asi_steps.requestFocus();
+        holder.itemStepsEdit.requestFocus();
+
+
+
     }
+
+
+
+
+
 
     public void addData(int position, Steps s) {
         mSteps.add(position, s);
@@ -78,12 +87,14 @@ public class AddStepsAdapter extends RecyclerView.Adapter<AddStepsAdapter.MyView
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        EditText asi_steps;
+        EditText itemStepsEdit;
+        ImageView itemStepsImage;
         LinearLayout mItem;
 
         MyViewHolder(View itemView) {
             super(itemView);
-            asi_steps = (EditText) itemView.findViewById(R.id.asi_steps);
+            itemStepsEdit = (EditText) itemView.findViewById(R.id.item_steps);
+//            itemStepsImage = (ImageView) itemView.findViewById(R.id.item_steps_image);
             mItem = (LinearLayout) itemView.findViewById(R.id.add_steps_item);
         }
     }

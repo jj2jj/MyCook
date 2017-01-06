@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -28,15 +29,16 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SaveCallback;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import zjj.com.mycookassistant.R;
@@ -51,15 +53,16 @@ import zjj.com.mycookassistant.bean.Works;
  * MyCook
  * Created by Jessica0906zjj on 2016-11-01.
  */
-public class UploadActivity extends BaseActivity {
+public class UploadActivity extends BaseActivity{
     Toolbar mToolbar_publish;
     ActionBar actionBar;
     ProgressDialog progress;
 
-
-    private static final int CHOOSE_PICTURE = 3;
-    public static final int TAKE_PHOTO = 1;
     private ImageView mImage;
+    private static final String iconPath = Environment.getExternalStorageDirectory() + "/Image";//图片的存储目录
+    private static final int CHOOSE_PICTURE = 22;
+    public static final int TAKE_PHOTO = 11;
+
     private Uri imageUri;
     private byte[] mImageBytes = null;
     EditText mTitleEdit;
@@ -68,6 +71,7 @@ public class UploadActivity extends BaseActivity {
 
     LinearLayoutManager layoutManager_addmaterial, layoutManager_addSteps;
     EditText itemFoodEdit, itemPortionEdit, itemStepsEdit;
+    private ImageView itemStepsImag;
     private RecyclerView addMaterialRecyclerView, addStepsRecyclerView;
     private List<Materials> materialsList;
     private AddMaterialsAdapter addMaterialsAdapter;
@@ -134,7 +138,9 @@ public class UploadActivity extends BaseActivity {
         addStepsRecyclerView = (RecyclerView) findViewById(R.id.rv_addS);
         View view2 = View.inflate(this, R.layout.item_add_steps, null);
 //        View view2 = LayoutInflater.from(this).inflate(R.layout.item_add_steps, null);
-        itemStepsEdit = (EditText) view2.findViewById(R.id.asi_steps);
+        itemStepsEdit = (EditText) view2.findViewById(R.id.item_steps);
+//        itemStepsImag = (ImageView) view2.findViewById(R.id.item_steps_image);
+
     }
 
     private void initEvent() {
@@ -220,7 +226,7 @@ public class UploadActivity extends BaseActivity {
         });
     }
 
-    private void showDialog() {
+    public void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("请选择");
         String[] choices = getResources().getStringArray(R.array.photo_choice);
@@ -229,14 +235,10 @@ public class UploadActivity extends BaseActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (i) {
                     case 0:
-                        takePhoto();
+                        fromCamera();
                         break;
                     case 1:
-                        //该常量让用户选择特定类型的数据，并返回该数据的URI.我们利用该常量，
-                        // 然后设置类型为“image/*”，就可获得Android手机内的所有image。
-                        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("image/*");
-                        startActivityForResult(intent, CHOOSE_PICTURE);
+                        formGallery();
                         break;
                 }
             }
@@ -245,57 +247,105 @@ public class UploadActivity extends BaseActivity {
         dialog.show();
     }
 
-    private void takePhoto() {
-        Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // 创建File对象，用于存储拍照后的图片,
-        // 存放在手机SD卡的根目录下，调用Environment的getExternalStorageDirectory()方法获取到的就是手机 SD 卡的根目录。
-        File outputImage = new File(Environment.getExternalStorageDirectory(), "workPic");
-        try {
-            if (outputImage.exists()) {
-                outputImage.delete();
-            }
-            outputImage.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void formGallery() {
+        Intent intent;
+        if (Build.VERSION.SDK_INT < 19) {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
 
-        imageUri = Uri.fromFile(outputImage);//再调用 Uri.fromFile()方法将 File 对象转换成 Uri对象
-        //这个 Uri对象标识着 output_image.jpg 这张图片 的唯一地址
-        takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(takePhotoIntent, TAKE_PHOTO); // 启动相机程序
+        } else {
+            intent = new Intent(
+                    Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    "image/*");
+        }
+        startActivityForResult(intent, CHOOSE_PICTURE);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //选择从相册中获取图片
-        if (requestCode == CHOOSE_PICTURE && resultCode == RESULT_OK) {
-            Glide
-                    .with(this)
-                    .load(data.getData())
-                    .asBitmap()
-                    .into(new SimpleTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                            mImage.setImageBitmap(resource);
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            resource.compress(Bitmap.CompressFormat.JPEG, 100, stream);//comprsss 图片压缩，30 是压缩率，表示压缩70%; 如果不压缩是100，表示压缩率为0
-                            mImageBytes = stream.toByteArray();
-                        }
-                    });
-            //选择拍照获取图片
-        } else if (requestCode == TAKE_PHOTO && resultCode == RESULT_OK) {
-            Bitmap bitmap = null;
+    private void fromCamera() {
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(intent, TAKE_PHOTO); // 启动相机程序
+    }
+
+    /**
+     * 给拍的照片命名
+     */
+    public String createPhotoName() {
+        //以系统的当前时间给图片命名
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
+        String fileName = format.format(date) + ".jpg";
+        return fileName;
+    }
+
+    /**
+     * 把拍的照片保存到SD卡
+     */
+    public void saveToSDCard(Bitmap bitmap) {
+        //先要判断SD卡是否存在并且挂载
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File file = new File(iconPath);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            FileOutputStream outputStream = null;
             try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                mImageBytes = stream.toByteArray();
+                outputStream = new FileOutputStream(createPhotoName());
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);//把图片数据写入文件
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            } finally {
+                if (outputStream != null) {
+                    try {
+                        outputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            mImage.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(this, "SD卡不存在", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void getImageBytes(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        mImageBytes = stream.toByteArray();
+    }
+
+
+    /**
+     * 获取选择的图片
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null) {
+            return;//当data为空的时候，不做任何处理
+        }
+        Bitmap bitmap = null;
+        if (requestCode == CHOOSE_PICTURE && resultCode == RESULT_OK) {
+            //获取从相册界面返回的缩略图
+            bitmap = data.getParcelableExtra("data");
+            if (bitmap == null) {//如果返回的图片不够大，就不会执行缩略图的代码，因此需要判断是否为null,如果是小图，直接显示原图即可
+                try {
+                    //通过URI得到输入流
+                    InputStream inputStream = getContentResolver().openInputStream(data.getData());
+                    //通过输入流得到bitmap对象
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                    getImageBytes(bitmap);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if (requestCode == TAKE_PHOTO && resultCode == RESULT_OK) {
+            bitmap = (Bitmap) data.getExtras().get("data");
+            getImageBytes(bitmap);
+            saveToSDCard(bitmap);
+        }
+        //将选择的图片设置到控件上
+        mImage.setImageBitmap(bitmap);
     }
 
     @Override

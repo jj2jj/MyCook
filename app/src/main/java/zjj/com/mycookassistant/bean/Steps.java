@@ -5,7 +5,7 @@ package zjj.com.mycookassistant.bean;
  * Created by Jessica0906zjj on 2016-11-28.
  */
 
-public class Steps {
+public class Steps{
     private String steps;
 
     public Steps(String steps){
@@ -19,6 +19,7 @@ public class Steps {
     public void setSteps(String steps) {
         this.steps = steps;
     }
+
 
     @Override
     public String toString() {
