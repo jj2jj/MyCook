@@ -10,12 +10,14 @@ import zjj.com.mycookassistant.base.BaseView;
 public interface CookBookContract {
     interface View extends BaseView<Presenter> {
         void initNavigationDrawer();
+//        List<Fragment> getFragments();
 
     }
 
 
     interface Presenter extends BasePresenter {
         //        void getTabData();
+
 
     }
 }

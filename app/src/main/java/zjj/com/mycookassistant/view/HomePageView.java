@@ -75,8 +75,6 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
         home_page_xrvAdapter = new HomePageRvAdapter(worksList, mContext);
         home_page_xrv.setAdapter(home_page_xrvAdapter);
         home_page_xrv.setRefreshing(true);
-
-
     }
 
     /**

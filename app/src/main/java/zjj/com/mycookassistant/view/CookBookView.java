@@ -34,6 +34,7 @@ import zjj.com.mycookassistant.R;
 import zjj.com.mycookassistant.activity.CookBookActivity;
 import zjj.com.mycookassistant.activity.LoginActivity;
 import zjj.com.mycookassistant.activity.SearchActivity;
+import zjj.com.mycookassistant.activity.UploadActivity;
 import zjj.com.mycookassistant.adapter.ContentPagerAdapter;
 import zjj.com.mycookassistant.base.RootView;
 import zjj.com.mycookassistant.fragment.ClassificationFragment;
@@ -49,13 +50,14 @@ import zjj.com.mycookassistant.widget.UnScrollViewPager;
  * Created by sihuan on 2016/10/25.
  */
 
-public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View, RadioGroup.OnCheckedChangeListener {
+public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View,RadioGroup.OnCheckedChangeListener{
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
     @BindView(R.id.search_view)
     MaterialSearchView searchView;
+
 
     @BindView(R.id.radio_group)
     RadioGroup mRadioGroup;
@@ -74,6 +76,13 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
     @BindView(R.id.vp_content)
     UnScrollViewPager vpContent;
+//
+//    @BindView(R.id.spaceTabLayout)
+//    SpaceTabLayout tabLayout;
+//
+//
+//    @BindView(R.id.viewPager)
+//    ViewPager viewPager;
 
     ContentPagerAdapter mPagerAdapter;
 
@@ -101,6 +110,8 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     protected void initView() {
         mActivity = (CookBookActivity) mContext;
         List<Fragment> fragments = initFragments();
+//        savedInstanceState = mActivity.getSavedInstanceState();
+//        tabLayout.initialize(viewPager, mActivity.getSupportFragmentManager(), fragments,savedInstanceState );
         vpContent.setScrollable(true);
         mPagerAdapter = new ContentPagerAdapter(mActivity.getSupportFragmentManager(), fragments);
         vpContent.setAdapter(mPagerAdapter);
@@ -109,11 +120,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
 
     }
-
-    public MaterialSearchView getSearchView() {
-        return searchView;
-    }
-
     private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomePageFragment());
@@ -122,6 +128,23 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         fragments.add(new ClassificationFragment());
         return fragments;
     }
+
+    public MaterialSearchView getSearchView() {
+        return searchView;
+    }
+//
+//    public SpaceTabLayout getTabLayout() {
+//        return tabLayout;
+//    }
+//
+//    public ViewPager getViewPager() {
+//        return viewPager;
+//    }
+
+
+
+
+
 
     @Override
     protected void initEvent() {
@@ -155,6 +178,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
             }
         });
         mRadioGroup.setOnCheckedChangeListener(this);
+
         vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -181,7 +205,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 
     }
 
-
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
@@ -203,6 +226,10 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     Drawer drawer = null;
 
 
+    public Drawer getDrawer() {
+        return drawer;
+    }
+
     @Override
     public void initNavigationDrawer() {
         AccountHeader headerResult = new AccountHeaderBuilder()
@@ -220,33 +247,38 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                 })
                 .build();
 
+        //首页
         PrimaryDrawerItem item1 = new PrimaryDrawerItem()
                 .withName(R.string.drawer_item_home)
                 .withIcon(FontAwesome.Icon.faw_home)
                 .withIdentifier(1);
 
+        //我的信息
         PrimaryDrawerItem item2 = new PrimaryDrawerItem()
-                .withName(R.string.drawer_item_free_play)
-                .withIcon(FontAwesome.Icon.faw_gamepad);
-
-        PrimaryDrawerItem item3 = new PrimaryDrawerItem()
-                .withName(R.string.drawer_item_custom)
-                .withIcon(FontAwesome.Icon.faw_eye)
+                .withName(R.string.drawer_item_self)
+                .withIcon(FontAwesome.Icon.faw_user)
                 .withIdentifier(2);
+
+        //添加菜谱
+        PrimaryDrawerItem item3 = new PrimaryDrawerItem()
+                .withName(R.string.drawer_item_add_product)
+                .withIcon(FontAwesome.Icon.faw_plus_circle)
+                .withIdentifier(3);
 
         SecondaryDrawerItem item4 = new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_help).withIcon(FontAwesome.Icon.faw_cog)
-                .withIdentifier(3);
+                .withIdentifier(4);
 
         SecondaryDrawerItem item5 = new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_open_source)
                 .withIcon(FontAwesome.Icon.faw_question)
-                .withIdentifier(4);
+                .withIdentifier(5);
 
+        //退出当前账户
         SecondaryDrawerItem item6 = new SecondaryDrawerItem()
                 .withName(R.string.drawer_item_logout)
                 .withIcon(FontAwesome.Icon.faw_sign_out)
-                .withIdentifier(9);
+                .withIdentifier(6);
 
         drawer = new DrawerBuilder()
                 .withActivity(mActivity)
@@ -275,10 +307,13 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                             case 2:
                                 break;
                             case 3:
+                                mActivity.startActivity(new Intent(mContext, UploadActivity.class));
                                 break;
                             case 4:
                                 break;
-                            case 9:
+                            case 5:
+                                break;
+                            case 6:
                                 //注销当前账户，返回登录界面
                                 AVUser.logOut();
                                 PreUtils.removeAll(mActivity);
@@ -294,4 +329,15 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                 })
                 .build();
     }
+
+//    @Override
+//    public List<Fragment> getFragments() {
+//        List<Fragment> fragmentList = new ArrayList<>();
+//        fragmentList.add(new HomePageFragment());
+//        fragmentList.add(new MyProductFragment());
+//        fragmentList.add(new MyCollectionFragment());
+//        fragmentList.add(new ClassificationFragment());
+////        fragmentList.add(new FragmentE());
+//        return fragmentList;
+//    }
 }

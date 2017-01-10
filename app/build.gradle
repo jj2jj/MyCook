@@ -74,5 +74,6 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'//声明测试用的例库
 
     compile 'com.miguelcatalan:materialsearchview:1.4.0'//search  view
+    compile 'eu.long1:spacetablayout:1.0.4'
 
 }
