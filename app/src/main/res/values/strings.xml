@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Smart CookAids</string>
+    <string name="app_name">CookS</string>
     <string name="main_page">首页</string>
     <string name="works">作品</string>
     <string name="collect">收藏</string>
@@ -7,6 +7,7 @@
     <string name="mine">我</string>
     <string name="star">收藏</string>
     <string name="play">播放</string>
+    <string name="logo">基于ndroid的智能语音烹饪助手</string>
 
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_self">我的信息</string>

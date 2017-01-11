@@ -13,10 +13,26 @@
         android:layout_height="match_parent"
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp">
+        android:paddingRight="16dp">
+        <ImageView
+            android:layout_centerHorizontal="true"
+            android:id="@+id/image_login"
+            android:src="@drawable/burger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/logo"
+            android:layout_below="@id/image_login"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/logo"
+            android:textSize="20sp"/>
+
 
         <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="12dp"
+            android:layout_below="@id/logo"
             android:id="@+id/username_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -52,6 +68,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
+            android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/password_layout"
@@ -60,50 +77,59 @@
 
             <CheckBox
                 android:id="@+id/remember_password"
-                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/remember_pw"
                 android:textColor="@color/gray"/>
 
             <CheckBox
                 android:id="@+id/auto_login"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
-                android:layout_marginStart="120dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/auto_login"
                 android:textColor="@color/gray"
                 />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/login"
-            style="?android:textAppearanceSmall"
+        <LinearLayout
+            android:layout_below="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/register"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/background_button_div2"
-            android:text="@string/login"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/login"
+                style="?android:textAppearanceSmall"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/background_button_div2"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
-        <Button
-            android:id="@+id/register"
-            style="?android:textAppearanceSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/background_button_div2"
-            android:text="@string/register"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            <Button
+                android:id="@+id/register"
+                style="?android:textAppearanceSmall"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@drawable/background_button_div2"
+                android:text="@string/register"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>
