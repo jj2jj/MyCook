@@ -54,8 +54,8 @@ public class ClassificationFragment extends Fragment {
         return view;
     }
 
-    private void intentEvents(GridView gview) {
-        gview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private void intentEvents(GridView gridView) {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), DetailTypeActivity.class);
