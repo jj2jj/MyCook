@@ -69,7 +69,6 @@ public class DetailPageActivity extends BaseActivity {
 
     /**
      * onClickEvents()
-     * ToggleButton 点击事件监听
      */
     private void onClickEvents() {
         flag = 0;

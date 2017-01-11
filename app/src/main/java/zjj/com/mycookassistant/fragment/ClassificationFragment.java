@@ -2,7 +2,6 @@ package zjj.com.mycookassistant.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +34,11 @@ public class ClassificationFragment extends Fragment {
             R.drawable.shala, R.drawable.lanrenshipu, R.drawable.tangpin,
             R.drawable.mianshi};
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fmt_classification_view, container, false);
-        GridView gview = (GridView) view.findViewById(R.id.gridview);
+        GridView gridView = (GridView) view.findViewById(R.id.gridView);
         //新建List
         dishtype_list = new ArrayList<>();
         //获取数据
@@ -49,9 +48,9 @@ public class ClassificationFragment extends Fragment {
         int[] to = {R.id.image_class, R.id.text_class};
         SimpleAdapter sim_adapter = new SimpleAdapter(getContext(), dishtype_list, R.layout.item_classification, from, to);
         //配置适配器
-        gview.setAdapter(sim_adapter);
+        gridView.setAdapter(sim_adapter);
 
-        intentEvents(gview);
+        intentEvents(gridView);
         return view;
     }
 
