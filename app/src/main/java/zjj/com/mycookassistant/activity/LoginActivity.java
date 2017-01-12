@@ -10,8 +10,8 @@ import zjj.com.mycookassistant.presenter.LoginPresenter;
 import zjj.com.mycookassistant.view.LoginView;
 
 /**
- * sihuan.com.mycookassistant.activity
- * Created by sihuan on 2016/10/27.
+ * zjj.com.mycookassistant.activity
+ * Created by zjj on 2016/10/27.
  */
 
 public class LoginActivity extends BaseActivity {
@@ -23,7 +23,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mUnbinder = ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);//绑定视图
         mPresenter = new LoginPresenter(mLoginView);
     }
 

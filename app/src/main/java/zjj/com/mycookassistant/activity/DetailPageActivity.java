@@ -30,9 +30,8 @@ import zjj.com.mycookassistant.base.BaseActivity;
  */
 
 public class DetailPageActivity extends BaseActivity {
-//    Toolbar mToolbar;
-//    ActionBar actionBar;
-
+    //    Toolbar mToolbar;
+    //    ActionBar actionBar;
     private ImageView image;
     private TextView title;
     private TextView describe;
@@ -50,7 +49,7 @@ public class DetailPageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_page);
 
-        Toolbar  mToolbar = (Toolbar) findViewById(R.id.toolbar_login);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_login);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         assert actionBar != null;
@@ -58,11 +57,9 @@ public class DetailPageActivity extends BaseActivity {
         actionBar.setTitle("详情");
 
         mObjectId = getIntent().getStringExtra("itemObjectId");
+
         findViews();
-
-
         onClickEvents();
-
         initItemData();
 
     }
