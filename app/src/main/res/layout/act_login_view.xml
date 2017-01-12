@@ -14,21 +14,22 @@
         android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
+
         <ImageView
-            android:layout_centerHorizontal="true"
             android:id="@+id/image_login"
-            android:src="@drawable/burger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
-
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/burger"/>
 
         <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="12dp"
-            android:layout_below="@id/image_login"
             android:id="@+id/username_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_login"
+            android:layout_marginTop="12dp">
 
             <AutoCompleteTextView
                 android:id="@+id/login_username"
@@ -36,8 +37,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true"/>
+                android:maxLines="1"/>
 
         </android.support.design.widget.TextInputLayout>
 
@@ -56,8 +56,7 @@
                 android:imeActionLabel="@string/login"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"/>
+                android:maxLines="1"/>
         </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
@@ -70,38 +69,38 @@
 
             <CheckBox
                 android:id="@+id/remember_password"
-                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_weight="1"
                 android:text="@string/remember_pw"
                 android:textColor="@color/gray"/>
 
             <CheckBox
                 android:id="@+id/auto_login"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_weight="1"
                 android:text="@string/auto_login"
-                android:textColor="@color/gray"
-                />
+                android:textColor="@color/gray"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_below="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/login"
                 style="?android:textAppearanceSmall"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:layout_weight="1"
                 android:background="@drawable/background_button_div2"
                 android:text="@string/login"
                 android:textColor="@color/white"
@@ -112,15 +111,14 @@
                 android:id="@+id/register"
                 style="?android:textAppearanceSmall"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:layout_weight="1"
                 android:background="@drawable/background_button_div2"
                 android:text="@string/register"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
-
         </LinearLayout>
 
     </RelativeLayout>

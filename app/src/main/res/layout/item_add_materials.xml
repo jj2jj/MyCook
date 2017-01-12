@@ -18,7 +18,7 @@
             android:gravity="center"
             android:background="@null"
             android:hint="@string/example1"
-            android:singleLine="true"/>
+            android:maxLines="1"/>
 
         <EditText
             android:id="@+id/ami_dosages"
@@ -28,6 +28,6 @@
             android:gravity="center"
             android:background="@null"
             android:hint="@string/example2"
-            android:singleLine="true"/>
+            android:maxLines="1"/>
     </LinearLayout>
 </FrameLayout>

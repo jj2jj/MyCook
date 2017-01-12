@@ -38,6 +38,7 @@
         android:hint="@string/describe"/>
 
     <ImageView
+        android:contentDescription="@string/app_name"
         android:id="@+id/image_upload"
         android:layout_width="match_parent"
         android:layout_height="200dp"
