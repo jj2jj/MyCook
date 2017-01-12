@@ -117,6 +117,8 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         vpContent.setAdapter(mPagerAdapter);
         vpContent.setOffscreenPageLimit(fragments.size());
         mActivity.setSupportActionBar(mToolbar);
+        mToolbar.setTitle(R.string.homePage);
+
 
 
     }
@@ -209,15 +211,19 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.main_page:
+                mToolbar.setTitle(R.string.homePage);
                 vpContent.setCurrentItem(0, false);
                 break;
             case R.id.works:
+                mToolbar.setTitle(R.string.worksPage);
                 vpContent.setCurrentItem(1, false);
                 break;
             case R.id.collect:
+                mToolbar.setTitle(R.string.collectionPage);
                 vpContent.setCurrentItem(2, false);
                 break;
             case R.id.classification:
+                mToolbar.setTitle(R.string.classificationPage);
                 vpContent.setCurrentItem(3, false);
                 break;
         }
@@ -302,6 +308,7 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                         // do something with the clicked item_add_materials :D
                         switch ((int) drawerItem.getIdentifier()) {
                             case 1:
+                                mToolbar.setTitle(R.string.homePage);
                                 vpContent.setCurrentItem(0, false);
                                 break;
                             case 2:

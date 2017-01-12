@@ -98,7 +98,7 @@ public class LoginView extends RootView<LoginContract.Presenter> implements Logi
         mActivity.setSupportActionBar(mToolbar);
         ActionBar actionBar = mActivity.getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(mContext.getString(R.string.login));
+            actionBar.setTitle(mContext.getString(R.string.logo));
         }
         setUserInfo();
     }

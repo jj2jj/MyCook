@@ -35,11 +35,14 @@
             android:value="f2a042e083b28d9a94086de50cca2c52"/>
 
         <activity
+            android:label="@string/homePage"
             android:name="zjj.com.mycookassistant.activity.CookBookActivity"
             android:windowSoftInputMode="adjustPan">
         </activity>
 
-        <activity android:name="zjj.com.mycookassistant.activity.LoginActivity">
+        <activity
+            android:label="@string/logo"
+            android:name="zjj.com.mycookassistant.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

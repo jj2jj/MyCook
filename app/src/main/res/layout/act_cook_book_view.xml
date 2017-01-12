@@ -73,7 +73,7 @@
             android:checked="true"
             android:drawableTop="@drawable/bt_home_selector"
             android:gravity="center"
-            android:text="@string/main_page"
+            android:text="@string/homePage"
             android:textColor="@color/tab_selector" />
 
         <RadioButton
@@ -84,7 +84,7 @@
             android:button="@null"
             android:drawableTop="@drawable/bt_product_selector"
             android:gravity="center"
-            android:text="@string/works"
+            android:text="@string/worksPage"
             android:textColor="@color/tab_selector" />
 
         <RadioButton
@@ -95,7 +95,7 @@
             android:button="@null"
             android:drawableTop="@drawable/bt_heart_selector"
             android:gravity="center"
-            android:text="@string/collect"
+            android:text="@string/collectionPage"
             android:textColor="@color/tab_selector" />
 
         <RadioButton
@@ -106,7 +106,7 @@
             android:button="@null"
             android:drawableTop="@drawable/bt_cook_book_selector"
             android:gravity="center"
-            android:text="@string/classification"
+            android:text="@string/classificationPage"
             android:textColor="@color/tab_selector" />
     </RadioGroup>
 
