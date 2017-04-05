@@ -7,35 +7,34 @@
 
     <include layout="@layout/toolbar_upload"/>
 
-    <EditText
-        android:id="@+id/title_upload"
+    <LinearLayout
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="@string/cai_pu_ming"/>
+        android:orientation="vertical">
 
-    <EditText
+        <EditText
+            android:id="@+id/title_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="@string/cai_pu_ming"/>
 
-        android:id="@+id/type_upload"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="@string/cai_shi"
-        android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/type_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="@string/cai_shi"/>
 
-    <EditText
+        <EditText
+            android:id="@+id/describe_upload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="@string/describe"/>
 
-        android:id="@+id/describe_upload"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@null"
-        android:gravity="center"
-        android:hint="@string/describe"/>
+    </LinearLayout>
 
     <ImageView
         android:contentDescription="@string/app_name"

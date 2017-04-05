@@ -46,12 +46,12 @@
     <string name="tangpin">汤品</string>
 
     <string name="cai_pu_ming">菜谱名</string>
-    <string name="cai_shi">菜式选择：</string>
+    <string name="cai_shi">菜式选择</string>
     <string name="describe">描述</string>
     <string name="made_by">Made By :</string>
     <string name="author">作者：</string>
-    <string name="cl">材料：</string>
-    <string name="zf">做法：</string>
+    <string name="cl">材料</string>
+    <string name="zf">做法</string>
     <string name="bz">步骤：</string>
     <string name="thanks">谢谢欣赏，如果喜欢可以收藏~</string>
     <string name="example1">例：猪肉</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/toolbar_login"/>
+    <include layout="@layout/toolbar_login" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,63 +17,62 @@
             android:orientation="vertical">
 
             <ImageView
-                android:contentDescription="@string/app_name"
                 android:id="@+id/image_detail"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/text"/>
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop" />
 
-            <TextView
-                android:id="@+id/title_detail"
+            <!--<RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:gravity="center"
-                android:hint="@string/cai_pu_ming"
-                android:padding="8dp"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/dish_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/cai_shi"
-                android:padding="8dp"
-                android:textAlignment="center"
-                android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/title_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:hint="@string/cai_pu_ming"
+                    android:padding="4dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dish_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:hint="@string/cai_shi"
+                    android:padding="4dp"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>-->
+
 
             <TextView
                 android:id="@+id/description_detail"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="@null"
-                android:hint="@string/describe"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_margin="6dp"
-                android:background="#e6e6e6"/>
-
-            <TextView
+            <!--<TextView
                 android:id="@+id/textView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:background="@null"
-                android:text="@string/made_by"
+                android:text="@string/author"
                 android:textAlignment="center"
                 android:textSize="19sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/author_detail"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="8dp"
@@ -81,65 +80,48 @@
                 android:hint="@string/author"
                 android:paddingRight="75dp"
                 android:textAlignment="textEnd"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />-->
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:padding="8dp"
+                android:padding="5dp"
                 android:text="@string/cl"
                 android:textAlignment="center"
-                android:textSize="19sp"
-                android:textStyle="bold"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/material_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/cl"
                 android:padding="5dp"
-                android:textSize="17sp"/>
+                android:textSize="16sp" />
             <!--用料list-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_margin="6dp"
-                android:background="#e6e6e6"/>
+                android:background="#e6e6e6" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:padding="8dp"
+                android:padding="5dp"
                 android:text="@string/zf"
                 android:textAlignment="center"
-                android:textSize="19sp"
-                android:textStyle="bold"/>
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
             <!--step list-->
             <TextView
                 android:id="@+id/steps_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/bz"
                 android:padding="5dp"
-                android:textSize="17sp"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_margin="6dp"
-                android:background="#e6e6e6"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:padding="8dp"
-                android:text="@string/thanks"
-                android:textAlignment="center"/>
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
@@ -161,12 +143,12 @@
             android:gravity="center">
 
             <ImageView
-                android:contentDescription="@string/app_name"
                 android:id="@+id/star_detail"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/star_nor"
-                android:checked="false"/>
+                android:checked="false"
+                android:contentDescription="@string/app_name" />
         </LinearLayout>
 
         <LinearLayout
@@ -176,14 +158,13 @@
             android:gravity="center">
 
             <ImageView
-                android:contentDescription="@string/app_name"
                 android:id="@+id/play_detail"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@drawable/play_nor"
+                android:contentDescription="@string/app_name"
                 android:textOff=""
-                android:textOn=""/>
+                android:textOn="" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

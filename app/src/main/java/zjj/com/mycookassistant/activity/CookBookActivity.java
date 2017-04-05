@@ -1,8 +1,11 @@
 package zjj.com.mycookassistant.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.mikepenz.materialdrawer.Drawer;
@@ -58,6 +61,23 @@ public class CookBookActivity extends BaseActivity {
             searchView.closeSearch();
         }
         drawer.closeDrawer();//返回键 close drawer
+    }
 
+    private long exitTime;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                Toast.makeText(this, "再点一次退出", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+//                finish();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

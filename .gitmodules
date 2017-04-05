@@ -1,3 +1,6 @@
 [submodule "speech"]
 	path = speech
 	url = https://git.coding.net/Jack_cyber/voice.git
+[submodule "voice"]
+	path = voice
+	url = git@git.coding.net:nick_jiding/voice.git

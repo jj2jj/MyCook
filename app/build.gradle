@@ -3,18 +3,13 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24//用于指定项目的编译版本  24→android 7.0
-    buildToolsVersion "24.0.3"//用于指定项目构建工具的版本
+    buildToolsVersion "24.0.2"//用于指定项目构建工具的版本
     //defaultConfig 对项目的更多细节进行配置
     defaultConfig {
-
-        applicationId "zjj.com.mycookassistant"
-        minSdkVersion 15
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
         applicationId "zjj.com.mycookassistant"//用于指定项目的包名
         minSdkVersion 15//指定项目最低兼容的android系统版本  15→android 4.0
         targetSdkVersion 24//表示在该目标版本上已经做过了充分的测试
+        multiDexEnabled true
         versionCode 1//项目的版本号
         versionName "1.0"//项目的版本名称
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -28,52 +23,48 @@ android {
 }
 //指定当前项目的所有的依赖关系
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')//本地依赖声明
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    //本地依赖声明
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.youth.banner:banner:1.4.4'//banner
-
-    compile 'com.jakewharton:butterknife:8.4.0'//findviews
+    compile 'com.youth.banner:banner:1.4.4'
+    //banner
+    compile 'com.jakewharton:butterknife:8.4.0'
+    //findviews
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-
-    compile 'me.yokeyword:fragmentation:0.7.13'//fragment
-
-    compile 'com.orhanobut:logger:1.15'//log
-
-
+    compile 'me.yokeyword:fragmentation:0.7.13'
+    //fragment
+    compile 'com.orhanobut:logger:1.15'
+    //log
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
-
-    compile 'com.google.guava:guava:19.0'//Google Core Libraries for Java
-
-    compile 'com.github.bumptech.glide:glide:3.7.0'//picture loading
-
-    compile 'io.reactivex:rxandroid:1.2.1'//Android specific bindings for RxJava.
+    compile 'com.google.guava:guava:19.0'
+    //Google Core Libraries for Java
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //picture loading
+    compile 'io.reactivex:rxandroid:1.2.1'
+    //Android specific bindings for RxJava.
     // Because RxAndroid releases are few and far between, it is recommended you also
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'io.reactivex:rxjava:1.1.6'
-
     testCompile 'junit:junit:4.12'
-
-    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'//db
-
+    compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
+    //db
     compile('com.mikepenz:materialdrawer:5.7.0@aar') {//material design drawer
         transitive = true
     }
     compile 'com.mikepenz:fontawesome-typeface:4.5.0.1@aar'
-
     compile 'im.fir:fir-sdk:latest.integration@aar'
-
     compile 'com.jcodecraeer:xrecyclerview:1.2.7'
-
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'//内存泄漏检测
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //内存泄漏检测
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'//声明测试用的例库
-
-    compile 'com.miguelcatalan:materialsearchview:1.4.0'//search  view
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    //声明测试用的例库
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    //search  view
     compile 'eu.long1:spacetablayout:1.0.4'
-
 }

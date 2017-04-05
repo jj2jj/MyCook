@@ -3,6 +3,7 @@ package zjj.com.mycookassistant.activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,12 +38,13 @@ public class DetailPageActivity extends BaseActivity {
     private TextView describe;
     private TextView author;
     private TextView material;
-    private TextView steps;
+    private TextView tvSteps;
     private TextView dish_type;
     private ImageView star_btn;
     private ImageView play_btn;
     private String mObjectId;
     private int flag;
+    private String steps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +53,6 @@ public class DetailPageActivity extends BaseActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_login);
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("详情");
 
         mObjectId = getIntent().getStringExtra("itemObjectId");
 
@@ -85,6 +83,17 @@ public class DetailPageActivity extends BaseActivity {
                 flag = (flag + 1) % 2;//其余得到循环执行上面3个不同的功能
             }
         });
+
+        play_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String steps = tvSteps.getText().toString();
+                if (!TextUtils.isEmpty(steps)) {
+//                    RobotManager.getInstance().startSpeaking(steps);
+                    // TODO: 2017/4/5 加入语音库直接播放语音
+                }
+            }
+        });
     }
 
     /**
@@ -102,13 +111,17 @@ public class DetailPageActivity extends BaseActivity {
                                 .getUrl())
                         .into(image);
 
-                title.setText(avObject.getString("title"));//菜名
+                ActionBar actionBar = getSupportActionBar();
+                assert actionBar != null;
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setTitle(avObject == null ? "详情" : avObject.getString("title"));
+//                title.setText(avObject.getString("title"));//菜名
                 describe.setText(avObject.getString("describe"));//菜品描述
-                dish_type.setText(avObject.getString("dishestype"));
-                author.setText(avObject
-                        .getAVUser("owner") == null ? "" : avObject
-                        .getAVUser("owner")
-                        .getUsername());//作者名
+//                dish_type.setText(avObject.getString("dishestype"));
+//                author.setText(avObject
+//                        .getAVUser("owner") == null ? "" : avObject
+//                        .getAVUser("owner")
+//                        .getUsername());//作者名
 
                 String m = avObject.getList("materials").toString();
                 m = m.replace("[", "");
@@ -121,14 +134,14 @@ public class DetailPageActivity extends BaseActivity {
                 m = m.replace(",", "\t\t\t\t\t\t\t\t\t\t");
                 material.setText(m);
 
-                String s = avObject.getList("steps").toString();
-                s = s.replace("steps=", "");
-                s = s.replace("[", "");
-                s = s.replace("]", "");
-                s = s.replace("{", "");
-                s = s.replace("}", "");
-                s = s.replace(",", "\n");
-                steps.setText(s);
+                steps = avObject.getList("steps").toString();
+                steps = steps.replace("steps=", "");
+                steps = steps.replace("[", "");
+                steps = steps.replace("]", "");
+                steps = steps.replace("{", "");
+                steps = steps.replace("}", "");
+                steps = steps.replace(",", "\n");
+                tvSteps.setText(steps);
             }
         });
     }
@@ -190,13 +203,13 @@ public class DetailPageActivity extends BaseActivity {
 
 
     private void findViews() {
-        dish_type = (TextView) findViewById(R.id.dish_type);
+//        dish_type = (TextView) findViewById(R.id.dish_type);
         image = (ImageView) findViewById(R.id.image_detail);
-        title = (TextView) findViewById(R.id.title_detail);
+//        title = (TextView) findViewById(R.id.title_detail);
         describe = (TextView) findViewById(R.id.description_detail);
-        author = (TextView) findViewById(R.id.author_detail);
+//        author = (TextView) findViewById(R.id.author_detail);
         material = (TextView) findViewById(R.id.material_detail);
-        steps = (TextView) findViewById(R.id.steps_detail);
+        tvSteps = (TextView) findViewById(R.id.steps_detail);
         star_btn = (ImageView) findViewById(R.id.star_detail);
         play_btn = (ImageView) findViewById(R.id.play_detail);
     }
