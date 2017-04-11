@@ -1,9 +1,12 @@
 package zjj.com.mycookassistant.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
@@ -36,6 +39,7 @@ import zjj.com.mycookassistant.activity.LoginActivity;
 import zjj.com.mycookassistant.activity.SearchActivity;
 import zjj.com.mycookassistant.activity.UploadActivity;
 import zjj.com.mycookassistant.adapter.ContentPagerAdapter;
+import zjj.com.mycookassistant.app.Config;
 import zjj.com.mycookassistant.base.RootView;
 import zjj.com.mycookassistant.fragment.ClassificationFragment;
 import zjj.com.mycookassistant.fragment.HomePageFragment;
@@ -50,7 +54,7 @@ import zjj.com.mycookassistant.widget.UnScrollViewPager;
  * Created by sihuan on 2016/10/25.
  */
 
-public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View,RadioGroup.OnCheckedChangeListener{
+public class CookBookView extends RootView<CookBookContract.Presenter> implements CookBookContract.View, RadioGroup.OnCheckedChangeListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -120,8 +124,8 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
         mToolbar.setTitle(R.string.homePage);
 
 
-
     }
+
     private List<Fragment> initFragments() {
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomePageFragment());
@@ -142,10 +146,6 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
 //    public ViewPager getViewPager() {
 //        return viewPager;
 //    }
-
-
-
-
 
 
     @Override
@@ -312,11 +312,14 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                                 vpContent.setCurrentItem(0, false);
                                 break;
                             case 2:
+                                showUserDialog();
                                 break;
                             case 3:
                                 mActivity.startActivity(new Intent(mContext, UploadActivity.class));
                                 break;
                             case 4:
+                                Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                                mActivity.startActivity(intent);
                                 break;
                             case 5:
                                 break;
@@ -335,6 +338,22 @@ public class CookBookView extends RootView<CookBookContract.Presenter> implement
                     }
                 })
                 .build();
+    }
+
+    private void showUserDialog() {
+        String username = PreUtils.getString(mActivity, Config.USERNAME, null);
+        new AlertDialog.Builder(mContext).setTitle(R.string.drawer_item_self)
+                .setMessage("姓名：" + username + "\n"
+                        + "性别：女" + "\n"
+                        + "邮箱：jjzjj@163.com"
+                )
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .create().show();
     }
 
 //    @Override

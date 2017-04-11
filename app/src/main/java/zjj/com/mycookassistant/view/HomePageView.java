@@ -11,6 +11,7 @@ import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
+import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,6 +147,15 @@ public class HomePageView extends RootView<HomePageContract.Presenter> implement
                 .setBannerTitles(titles)
                 .setImageLoader(new GlideImageLoader())
                 .start();
+
+        mBanner.setOnBannerClickListener(new OnBannerClickListener() {
+            @Override
+            public void OnBannerClick(int position) {
+//                Intent intent = new Intent(mContext, DetailPageActivity.class);
+//                intent.putExtra("itemObjectId", worksList.get(position).getObjectId());
+//                mContext.startActivity(intent);
+            }
+        });
     }
 
 

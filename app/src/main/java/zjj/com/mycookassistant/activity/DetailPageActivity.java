@@ -44,8 +44,9 @@ public class DetailPageActivity extends BaseActivity {
     private ImageView star_btn;
     private ImageView play_btn;
     private String mObjectId;
-    private int flag;
+    private int flag, flag2;
     private String steps;
+    boolean isStart = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,6 @@ public class DetailPageActivity extends BaseActivity {
      * onClickEvents()
      */
     private void onClickEvents() {
-        flag = 0;
         star_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,11 +88,23 @@ public class DetailPageActivity extends BaseActivity {
         play_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String steps = tvSteps.getText().toString();
-                if (!TextUtils.isEmpty(steps)) {
+                if (flag2 == 0) {
                     cookBookPlayed(true);
-                    RobotManager.getInstance().startSpeaking(steps);
+
+                    if (isStart) {
+                        String steps = tvSteps.getText().toString();
+                        if (!TextUtils.isEmpty(steps)) {
+                            RobotManager.getInstance().startSpeaking(steps);
+                        }
+                        isStart = false;
+                    } else {
+                        RobotManager.getInstance().resumeSpeaking();
+                    }
+                } else if (flag2 == 1) {
+                    cookBookPlayed(false);
+                    RobotManager.getInstance().pauseSpeaking();
                 }
+                flag2 = (flag2 + 1) % 2;
             }
         });
     }
