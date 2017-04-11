@@ -23,7 +23,7 @@ android {
 }
 //指定当前项目的所有的依赖关系
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
     //本地依赖声明
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -65,6 +65,8 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     //声明测试用的例库
     compile 'com.miguelcatalan:materialsearchview:1.4.0'
+    compile 'com.android.support:multidex:1.0.0'
     //search  view
     compile 'eu.long1:spacetablayout:1.0.4'
+    compile project(path: ':voice')
 }

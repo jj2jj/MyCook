@@ -12,8 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import im.fir.sdk.FIR;
-//import tw.chainsea.com.voice.iflytek.RobotManager;
+import tw.chainsea.com.voice.iflytek.RobotManager;
 import zjj.com.mycookassistant.bean.Works;
+
+//import tw.chainsea.com.voice.iflytek.RobotManager;
 
 /**
  * sihuan.com.mycookassistant.App
@@ -43,7 +45,7 @@ public class App extends Application {
         AVOSCloud.initialize(this, "OPby9zNsW96iR4YbCHVRLl4g-gzGzoHsz", "vsSTWVYCXsGub6Pnkd0goGTN");
         AVOSCloud.setDebugLogEnabled(true);
 
-//        RobotManager.getInstance().initTTSEngine(getApplicationContext());
+        RobotManager.getInstance().initTTSEngine(getApplicationContext());
     }
 
     public void registerActivity(Activity act) {

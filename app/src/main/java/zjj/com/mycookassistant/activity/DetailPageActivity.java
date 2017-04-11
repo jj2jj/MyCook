@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import java.util.Arrays;
 import java.util.List;
 
+import tw.chainsea.com.voice.iflytek.RobotManager;
 import zjj.com.mycookassistant.R;
 import zjj.com.mycookassistant.base.BaseActivity;
 
@@ -89,8 +90,8 @@ public class DetailPageActivity extends BaseActivity {
             public void onClick(View v) {
                 String steps = tvSteps.getText().toString();
                 if (!TextUtils.isEmpty(steps)) {
-//                    RobotManager.getInstance().startSpeaking(steps);
-                    // TODO: 2017/4/5 加入语音库直接播放语音
+                    cookBookPlayed(true);
+                    RobotManager.getInstance().startSpeaking(steps);
                 }
             }
         });
@@ -221,5 +222,11 @@ public class DetailPageActivity extends BaseActivity {
             onBackPressedSupport();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RobotManager.getInstance().stopSpeaking();
     }
 }
